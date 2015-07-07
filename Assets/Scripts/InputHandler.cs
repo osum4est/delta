@@ -23,10 +23,13 @@ public class InputHandler : MonoBehaviour
 
             Globals.player.GetComponentInChildren<ParticleSystem>().enableEmission = true;
 
-            switch (Input.touches[0].phase)
+            Touch t = Input.touches[0];
+            
+            switch (t.phase)
             {
                 case TouchPhase.Moved:
-                    torque = Input.touches[0].deltaPosition.x * -turnSpeed;
+                    if (t.deltaTime != 0)
+                        torque = (t.deltaPosition * Time.deltaTime / t.deltaTime).x * -turnSpeed;
                     break;
             }
             force = thrust;

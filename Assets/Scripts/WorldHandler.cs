@@ -48,7 +48,7 @@ public class WorldHandler : MonoBehaviour
 		
         if (playerCell != newPlayerCell)
         {
-            playerCell = new Vector2(Mathf.Round(Globals.player.transform.position.x / gridSize), Mathf.Round(Globals.player.transform.position.y / gridSize));
+            playerCell = newPlayerCell;
 
             for (int y = 0; y < 3; y++)
             {
@@ -117,9 +117,10 @@ class Cell
                 {
                     Vector2 objPosition = new Vector2(Random.Range(worldPosition.x - Globals.worldHandler.gridSize / 2, worldPosition.x + Globals.worldHandler.gridSize / 2), 
 					                                  Random.Range(worldPosition.y - Globals.worldHandler.gridSize / 2, worldPosition.y + Globals.worldHandler.gridSize / 2));
-                    GameObject objToSpawn = WorldHandler.InstantiateAt(Globals.worldHandler.objectsToSpawn[i].gameObject, objPosition);
+                    //GameObject objToSpawn = WorldHandler.InstantiateAt(Globals.worldHandler.objectsToSpawn[i].gameObject, objPosition);
+                    GameObject.Instantiate(obj.gameObject, objPosition, Quaternion.identity);
 
-                    objToSpawn.GetComponent<SpriteRenderer>().color = new Color(Random.value, Random.value, Random.value);
+                    //objToSpawn.GetComponent<SpriteRenderer>().color = new Color(Random.value, Random.value, Random.value);
                 }
             }
         }

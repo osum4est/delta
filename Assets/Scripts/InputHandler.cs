@@ -37,14 +37,17 @@ public class InputHandler : MonoBehaviour
         else
         {
             Globals.player.GetComponentInChildren<ParticleSystem>().enableEmission = false;
-            force = 0;
+            //force /= 1.15f;
+			force = 0;
             torque = 0;
         }
+
+
     }
 
     void FixedUpdate()
     {           
-        Globals.player.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(0f, force));
+        Globals.player.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(0, force));
         Globals.player.GetComponent<Rigidbody2D>().AddTorque(torque);
     }
 }

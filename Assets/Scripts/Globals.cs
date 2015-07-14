@@ -8,6 +8,7 @@ public class Globals : MonoBehaviour
 	public static GameObject mainCamera;
 	public static GameObject background;
 	public static GameObject scripts;
+	public static GameObject world;
 	public static WorldHandler worldHandler;
 	public static ParticleSystem backgroudParticles;
 	public static float screenWidth;
@@ -19,6 +20,7 @@ public class Globals : MonoBehaviour
 		mainCamera = GameObject.FindGameObjectWithTag ("MainCamera");
 		background = GameObject.FindGameObjectWithTag ("Background");
 		scripts = GameObject.FindGameObjectWithTag ("Scripts");
+		world = GameObject.FindGameObjectWithTag("World");
 		worldHandler = scripts.GetComponent<WorldHandler> ();
 		backgroudParticles = background.GetComponent<ParticleSystem> ();
 		screenWidth = Camera.main.ScreenToWorldPoint (new Vector2 (Screen.width, Screen.height)).x * 2;

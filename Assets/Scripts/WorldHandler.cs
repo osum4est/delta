@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public class WorldHandler : MonoBehaviour
 {
@@ -9,11 +10,13 @@ public class WorldHandler : MonoBehaviour
     public float gridSize = 100f;
 	
     public static List<Cell> cells;
+    public static List<GameObject> objs;
    
 	
     void Start()
     {
         cells = new List<Cell>();
+        objs = new List<GameObject>();
         CheckForSpawning(true);
     }
 	
@@ -36,7 +39,7 @@ public class WorldHandler : MonoBehaviour
         {
             if (Mathf.Abs(cells[i].Position.x) > 1 || Mathf.Abs(cells[i].Position.y) > 1)
             {
-                Debug.Log("removing cell at: " + cells[i].Position.x + ", " + cells[i].Position.y);
+                //UnityEngine.Debug.Log("removing cell at: " + cells[i].Position.x + ", " + cells[i].Position.y);
                 cells[i].Remove();
             }
         }
@@ -48,8 +51,6 @@ public class WorldHandler : MonoBehaviour
 		
         if (Vector2.zero != newPlayerCell || forceSpawn)
         {
-            Debug.Log("You moved to cell: " + newPlayerCell.x + ", " + newPlayerCell.y);
-            //playerCell = newPlayerCell;
 
 			/* player changed cells */
 			ResetWorld(newPlayerCell);
@@ -85,6 +86,9 @@ public class WorldHandler : MonoBehaviour
 
 	void ResetWorld(Vector2 playerCell)
 	{
+
+        Stopwatch watch = Stopwatch.StartNew();
+
 		float translateX = 0;
 		float translateY = 0;
 
@@ -107,30 +111,31 @@ public class WorldHandler : MonoBehaviour
             break;
         }
 
-        Debug.Log("resetting world by: " + translateX + ", " + translateY);
+        //UnityEngine.Debug.Log("resetting world by: " + translateX + ", " + translateY);
 
         Vector3 translation = new Vector2(translateX, translateY);
 
-		foreach (Cell cell in cells)
-        {
-            //Debug.Log("Translating cell " + cell.Position.x + ", " + cell.Position.y);
-            cell.Position += playerCell * -1;
-           // Debug.Log("Translated cell to " + cell.Position.x + ", " + cell.Position.y);
-			foreach(GameObject obj in cell.objs)
-            {
-                Debug.Log("Translating object " + obj.transform.position.x + ", " + obj.transform.position.y);
-                obj.transform.position += translation;
-                Debug.Log("Translated object to" + obj.transform.position.x + ", " + obj.transform.position.y);
-            }
-        }
-
         Globals.player.transform.position += translation;
-
+        
         Globals.mainCamera.transform.position += translation;
         Globals.background.transform.position += translation;
 
         ExtraUtils.MoveParticleSystem(Globals.background, translation);
         ExtraUtils.MoveParticleSystem(Globals.player, translation);
+
+        for (int i = 0; i < cells.Count; i++)
+        {
+            cells[i].Position += playerCell * -1;
+        }
+        for (int i = 0; i < objs.Count; i++)
+        {
+            //Debug.Log("Translating object " + objs[i].transform.position.x + ", " + objs[i].transform.position.y);
+            objs[i].transform.position += translation;
+            //Debug.Log("Translated object to" + objs[i].transform.position.x + ", " + objs[i].transform.position.y);
+        }
+
+        watch.Stop();
+        UnityEngine.Debug.Log("Took " + watch.ElapsedMilliseconds + " ms to reset world.");
 	}
 }
 
@@ -157,14 +162,9 @@ public class Cell
     }
     public Vector2 worldPosition { get; protected set; }
 	
-
-    public List<GameObject> objs;
-	
     public Cell(Vector2 position)
     {
         this.Position = position;
-		
-		objs = new List<GameObject>();
 
         SpawnObjects();
     }
@@ -174,11 +174,6 @@ public class Cell
         for (int i = 0; i < Globals.worldHandler.objectsToSpawn.Length; i++)
         {
             SpawnableObject obj = Globals.worldHandler.objectsToSpawn[i];
-
-            //GameObject spawnedObj = (GameObject)GameObject.Instantiate(obj.gameObject, worldPosition, Quaternion.identity);
-            //objs.Add(spawnedObj);
-            //spawnedObj.GetComponent<SpriteRenderer>().color = new Color(Random.value, Random.value, Random.value);
-
             for (int j = 0; j < obj.spawnAmount; j++)
             {
                 if (Random.value < obj.spawnChance)
@@ -186,8 +181,7 @@ public class Cell
                     Vector2 objPosition = new Vector2(Random.Range(worldPosition.x - Globals.worldHandler.gridSize / 2, worldPosition.x + Globals.worldHandler.gridSize / 2), 
 					                                  Random.Range(worldPosition.y - Globals.worldHandler.gridSize / 2, worldPosition.y + Globals.worldHandler.gridSize / 2));
 
-					GameObject spawnedObj = (GameObject)GameObject.Instantiate(obj.gameObject, objPosition, Quaternion.identity);
-                    objs.Add(spawnedObj);
+					ExtraUtils.SpawnGameObject(obj.gameObject, objPosition);
                 }
             }
         }
@@ -195,8 +189,6 @@ public class Cell
 
     public void Remove()
     {
-        foreach (GameObject obj in objs)
-            GameObject.Destroy(obj);
         WorldHandler.cells.Remove(this);
     }
 

@@ -6,6 +6,6 @@ public class RemoveObjects : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        Destroy(other.gameObject);
+        ExtraUtils.RemoveGameObject(other.gameObject);
     }
 }

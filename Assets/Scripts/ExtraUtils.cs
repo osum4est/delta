@@ -15,4 +15,46 @@ public class ExtraUtils  {
             parts[i].position += translation;
         ps.SetParticles(parts, iParts);
     }
+
+    public static GameObject AddToWorld(GameObject go)
+    {
+        go.transform.SetParent(Globals.world.transform);
+        return go;
+    }
+
+    public static GameObject SpawnGameObject(GameObject go)
+    {
+        GameObject spawnedObj = (GameObject)GameObject.Instantiate(go, Vector3.zero, Quaternion.identity);
+        WorldHandler.objs.Add(spawnedObj);
+
+        return AddToWorld(spawnedObj);
+    }
+    public static GameObject SpawnGameObject(GameObject go, Vector3 position)
+    {
+        GameObject spawnedObj = (GameObject)GameObject.Instantiate(go, position, Quaternion.identity);
+        WorldHandler.objs.Add(spawnedObj);
+        
+        return AddToWorld(spawnedObj);
+    }
+    public static GameObject SpawnGameObject(GameObject go, Vector3 position, Quaternion rotation)
+    {
+        GameObject spawnedObj = (GameObject)GameObject.Instantiate(go, position, rotation);
+        WorldHandler.objs.Add(spawnedObj);
+        
+        return AddToWorld(spawnedObj);
+    }
+    public static GameObject SpawnGameObject(GameObject go, Vector3 position, Quaternion rotation, Color color)
+    {
+        GameObject spawnedObj = (GameObject)GameObject.Instantiate(go, position, rotation);
+        WorldHandler.objs.Add(spawnedObj);
+
+        spawnedObj.GetComponent<SpriteRenderer>().color = color;
+        return AddToWorld(spawnedObj);
+    }
+
+    public static void RemoveGameObject(GameObject go)
+    {
+        WorldHandler.objs.Remove(go);
+        GameObject.Destroy(go);
+    }
 }

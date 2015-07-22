@@ -9,7 +9,7 @@ public class CameraHandler : MonoBehaviour {
 
     void Start()
     {
-        target = Globals.player;
+        target = Globals.i.player;
         targetPos = transform.position;
     }
 

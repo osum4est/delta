@@ -16,9 +16,9 @@ public class ExtraUtils  {
         ps.SetParticles(parts, iParts);
     }
 
-    public static GameObject AddToWorld(GameObject go)
+    static GameObject AddToWorld(GameObject go)
     {
-        go.transform.SetParent(Globals.world.transform);
+        go.transform.SetParent(Globals.i.world.transform);
         return go;
     }
 

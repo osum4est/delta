@@ -6,6 +6,26 @@ public class ShipPart : MonoBehaviour
     private float rotationLock = 60f;
     private bool connected = false;
 
+    private Color color;
+    private SpriteRenderer sprite;
+
+    void Start()
+    {
+        sprite = GetComponent<SpriteRenderer>();
+        color = sprite.color;
+        sprite.color = Color.clear;
+    }
+
+    void Update()
+    {
+        sprite.color = Color.Lerp(sprite.color, color, 0.05f);
+
+//        if (!GetComponent<ParticleSystem>().IsAlive())
+//        {
+//            GetComponent<SpriteRenderer>().enabled = true;
+//        }
+    }
+
     void FixedUpdate()
     {
         if (!connected)
@@ -17,7 +37,7 @@ public class ShipPart : MonoBehaviour
             {
 
                 if (i == allParts.Length)
-                    parent = Globals.player;
+                    parent = Globals.i.player;
                 else if (allParts[i].GetComponent<ShipPart>().connected && allParts[i] != this)
                     parent = allParts[i];
 
@@ -73,6 +93,8 @@ public class ShipPart : MonoBehaviour
 
                     transform.localPosition = newPosition;
                     //transform.localPosition = new Vector2(Mathf.Round(newPosition.x / positionLockX) * positionLockX, Mathf.Round(newPosition.y / positionLockY) * positionLockY);
+                
+                    Globals.i.playerStats.AddShipPart(this);
                 }
             }
         }

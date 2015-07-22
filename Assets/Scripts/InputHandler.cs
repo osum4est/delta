@@ -21,7 +21,7 @@ public class InputHandler : MonoBehaviour
             {
             }
 
-            Globals.player.GetComponentInChildren<ParticleSystem>().enableEmission = true;
+            Globals.i.player.GetComponentInChildren<ParticleSystem>().enableEmission = true;
 
             Touch t = Input.touches[0];
             
@@ -36,7 +36,7 @@ public class InputHandler : MonoBehaviour
         }
         else
         {
-            Globals.player.GetComponentInChildren<ParticleSystem>().enableEmission = false;
+            Globals.i.player.GetComponentInChildren<ParticleSystem>().enableEmission = false;
             //force /= 1.15f;
 			force = 0;
             torque = 0;
@@ -47,7 +47,7 @@ public class InputHandler : MonoBehaviour
 
     void FixedUpdate()
     {           
-        Globals.player.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(0, force));
-        Globals.player.GetComponent<Rigidbody2D>().AddTorque(torque);
+        Globals.i.player.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(0, force));
+        Globals.i.player.GetComponent<Rigidbody2D>().AddTorque(torque);
     }
 }

@@ -12,9 +12,9 @@ public class BlackHole : MonoBehaviour
     {
         transform.Rotate(new Vector3(0, 0, spinSpeed));
 		
-        float distance = Vector3.Distance(Globals.player.transform.position, transform.position);
+        float distance = Vector3.Distance(Globals.i.player.transform.position, transform.position);
 		
         if (distance < affectRadius)
-            Globals.player.GetComponent<Rigidbody2D>().AddForce((transform.position - Globals.player.transform.position) * force);
+            Globals.i.player.GetComponent<Rigidbody2D>().AddForce((transform.position - Globals.i.player.transform.position) * force);
     }
 }

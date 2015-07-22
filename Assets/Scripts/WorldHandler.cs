@@ -28,9 +28,9 @@ public class WorldHandler : MonoBehaviour
 	
     void LateUpdate()
     {
-        Vector3 player = Globals.player.transform.localPosition;
-        Vector3 newPos = Vector3.MoveTowards(Globals.mainCamera.transform.position, player, cameraMoveSpeed * Vector3.Distance(Globals.mainCamera.transform.position, player));
-        Globals.background.transform.position = new Vector3(newPos.x, newPos.y, Globals.background.transform.position.z);
+        Vector3 player = Globals.i.player.transform.localPosition;
+        Vector3 newPos = Vector3.MoveTowards(Globals.i.mainCamera.transform.position, player, cameraMoveSpeed * Vector3.Distance(Globals.i.mainCamera.transform.position, player));
+        Globals.i.background.transform.position = new Vector3(newPos.x, newPos.y, Globals.i.background.transform.position.z);
     }
 
     void CheckForDespawning()
@@ -47,7 +47,7 @@ public class WorldHandler : MonoBehaviour
 	
     void CheckForSpawning(bool forceSpawn = false)
     {
-        Vector2 newPlayerCell = new Vector2(Mathf.Round(Globals.player.transform.position.x / gridSize), Mathf.Round(Globals.player.transform.position.y / gridSize));
+        Vector2 newPlayerCell = new Vector2(Mathf.Round(Globals.i.player.transform.position.x / gridSize), Mathf.Round(Globals.i.player.transform.position.y / gridSize));
 		
         if (Vector2.zero != newPlayerCell || forceSpawn)
         {
@@ -115,13 +115,13 @@ public class WorldHandler : MonoBehaviour
 
         Vector3 translation = new Vector2(translateX, translateY);
 
-        Globals.player.transform.position += translation;
+        Globals.i.player.transform.position += translation;
         
-        Globals.mainCamera.transform.position += translation;
-        Globals.background.transform.position += translation;
+        Globals.i.mainCamera.transform.position += translation;
+        Globals.i.background.transform.position += translation;
 
-        ExtraUtils.MoveParticleSystem(Globals.background, translation);
-        ExtraUtils.MoveParticleSystem(Globals.player, translation);
+        ExtraUtils.MoveParticleSystem(Globals.i.background, translation);
+        ExtraUtils.MoveParticleSystem(Globals.i.player, translation);
 
         for (int i = 0; i < cells.Count; i++)
         {
@@ -157,7 +157,7 @@ public class Cell
         }
         set { 
             _position = value; 
-            worldPosition = new Vector2(value.x * Globals.worldHandler.gridSize, value.y * Globals.worldHandler.gridSize);
+            worldPosition = new Vector2(value.x * Globals.i.worldHandler.gridSize, value.y * Globals.i.worldHandler.gridSize);
         }
     }
     public Vector2 worldPosition { get; protected set; }
@@ -171,15 +171,15 @@ public class Cell
 	
     public void SpawnObjects()
     {
-        for (int i = 0; i < Globals.worldHandler.objectsToSpawn.Length; i++)
+        for (int i = 0; i < Globals.i.worldHandler.objectsToSpawn.Length; i++)
         {
-            SpawnableObject obj = Globals.worldHandler.objectsToSpawn[i];
+            SpawnableObject obj = Globals.i.worldHandler.objectsToSpawn[i];
             for (int j = 0; j < obj.spawnAmount; j++)
             {
                 if (Random.value < obj.spawnChance)
                 {
-                    Vector2 objPosition = new Vector2(Random.Range(worldPosition.x - Globals.worldHandler.gridSize / 2, worldPosition.x + Globals.worldHandler.gridSize / 2), 
-					                                  Random.Range(worldPosition.y - Globals.worldHandler.gridSize / 2, worldPosition.y + Globals.worldHandler.gridSize / 2));
+                    Vector2 objPosition = new Vector2(Random.Range(worldPosition.x - Globals.i.worldHandler.gridSize / 2, worldPosition.x + Globals.i.worldHandler.gridSize / 2), 
+                                                      Random.Range(worldPosition.y - Globals.i.worldHandler.gridSize / 2, worldPosition.y + Globals.i.worldHandler.gridSize / 2));
 
 					ExtraUtils.SpawnGameObject(obj.gameObject, objPosition);
                 }

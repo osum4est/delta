@@ -19,6 +19,8 @@ public class Globals : MonoBehaviour
 	public WorldHandler worldHandler;
 	public ParticleSystem backgroudParticles;
 
+    public GameObject[] shipParts;
+
     [HideInInspector]
 	public float screenWidth;
     [HideInInspector]

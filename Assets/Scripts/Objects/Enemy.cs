@@ -3,8 +3,6 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
-    public GameObject shipPart;
-
     public float health = 3;
     float currentHealth;
 
@@ -48,7 +46,7 @@ public class Enemy : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject == Globals.i.player || other.gameObject.GetComponent<ShipPart>() != null)
+        if (other.gameObject == Globals.i.player || other.gameObject.GetComponent<ShipPart>().connected == true)
         {
             Globals.i.playerStats.TakeDamage(damage);
         }
@@ -75,7 +73,7 @@ public class Enemy : MonoBehaviour {
         {
             GetComponent<ParticleSystem>().Play();
             dead = true;
-            ExtraUtils.SpawnGameObject(shipPart, transform.position, transform.rotation);
+            ExtraUtils.SpawnGameObject(Globals.i.shipParts[Random.Range(0, 2)], transform.position, transform.rotation);
             Destroy(GetComponent<Rigidbody2D>());
             Destroy(GetComponent<PolygonCollider2D>());
 

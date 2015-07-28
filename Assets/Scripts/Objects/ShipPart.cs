@@ -1,10 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum ShipPartType {
+    health,
+    weapon
+}
+
 public class ShipPart : MonoBehaviour
 {
+    public ShipPartType type;
+
     private float rotationLock = 60f;
-    private bool connected = false;
+    public bool connected = false;
 
     private Color color;
     private SpriteRenderer sprite;

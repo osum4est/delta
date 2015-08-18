@@ -1,10 +1,10 @@
-package com.eightbitforest.com.objects;
+package com.eightbitforest.delta.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.eightbitforest.com.utils.Globals;
+import com.eightbitforest.delta.utils.Globals;
 
 /**
  * Created by osumf on 8/17/2015.

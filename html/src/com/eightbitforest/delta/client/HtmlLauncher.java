@@ -1,9 +1,9 @@
-package com.eightbitforest.com.client;
+package com.eightbitforest.delta.client;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.eightbitforest.com.DeltaMain;
+import com.eightbitforest.delta.DeltaMain;
 
 public class HtmlLauncher extends GwtApplication {
 

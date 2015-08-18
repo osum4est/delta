@@ -1,4 +1,4 @@
-package com.eightbitforest.com.utils;
+package com.eightbitforest.delta.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -32,7 +32,6 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        Globals.i.player.torque = 0;
         Globals.i.player.force = 0;
 
         return true;

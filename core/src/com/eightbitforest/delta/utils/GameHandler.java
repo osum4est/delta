@@ -1,4 +1,4 @@
-package com.eightbitforest.com.utils;
+package com.eightbitforest.delta.utils;
 
 /**
  * Created by osumf on 8/17/2015.
@@ -21,6 +21,8 @@ public class GameHandler {
 
     public void render()
     {
+        Globals.i.camera.cameraRender(Globals.i.batch);
+
         for (int i = 0; i < Globals.i.gameObjects.size; i++)
         {
             Globals.i.batch.begin();

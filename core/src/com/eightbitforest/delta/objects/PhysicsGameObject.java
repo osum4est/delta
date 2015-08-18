@@ -1,4 +1,4 @@
-package com.eightbitforest.com.objects;
+package com.eightbitforest.delta.objects;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;

@@ -1,4 +1,4 @@
-package com.eightbitforest.com.utils;
+package com.eightbitforest.delta.utils;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
@@ -11,9 +11,9 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.eightbitforest.com.DeltaCamera;
-import com.eightbitforest.com.objects.GameObject;
-import com.eightbitforest.com.objects.Player;
+import com.eightbitforest.delta.DeltaCamera;
+import com.eightbitforest.delta.objects.GameObject;
+import com.eightbitforest.delta.objects.Player;
 
 
 /**

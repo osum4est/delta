@@ -1,19 +1,11 @@
-package com.eightbitforest.com;
+package com.eightbitforest.delta;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.*;
-import com.eightbitforest.com.utils.GameHandler;
-import com.eightbitforest.com.utils.Globals;
-import com.eightbitforest.com.utils.InputHandler;
+import com.eightbitforest.delta.utils.GameHandler;
+import com.eightbitforest.delta.utils.Globals;
+import com.eightbitforest.delta.utils.InputHandler;
 
 public class DeltaMain extends ApplicationAdapter {
 	
@@ -21,7 +13,7 @@ public class DeltaMain extends ApplicationAdapter {
 	public void create () {
 
 		// DEBUG MODE
-		GameHandler.debugMode = true;
+		GameHandler.debugMode = false;
 
 		Globals.i.init();
 		Gdx.input.setInputProcessor(new InputHandler());

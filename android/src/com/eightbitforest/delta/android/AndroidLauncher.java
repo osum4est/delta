@@ -1,10 +1,10 @@
-package com.eightbitforest.com.android;
+package com.eightbitforest.delta.android;
 
 import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.eightbitforest.com.DeltaMain;
+import com.eightbitforest.delta.DeltaMain;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override

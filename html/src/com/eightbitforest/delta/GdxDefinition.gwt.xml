@@ -6,7 +6,7 @@
 	<inherits name='Box2DLights' />
 
 	<inherits name='DeltaMain' />
-	<entry-point class='com.eightbitforest.com.client.HtmlLauncher' />
+	<entry-point class='com.eightbitforest.delta.client.HtmlLauncher' />
 	
 	<set-configuration-property name="gdx.assetpath" value="../android/assets" />
 </module>

@@ -13,9 +13,9 @@ public class GameHandler {
 
         Globals.i.camera.cameraUpdate();
 
-        for (int i = 0; i < Globals.i.gameObjects.size; i++)
+        for (int i = 0; i < Globals.i.updateThese.size; i++)
         {
-            Globals.i.gameObjects.get(i).update(deltaTime);
+            Globals.i.updateThese.get(i).update(deltaTime);
         }
     }
 
@@ -23,11 +23,13 @@ public class GameHandler {
     {
         Globals.i.camera.cameraRender(Globals.i.batch);
 
-        for (int i = 0; i < Globals.i.gameObjects.size; i++)
+        System.out.println("rendeerer");
+        for (int i = 0; i < Globals.i.updateThese.size; i++)
         {
+            System.out.println("render");
             Globals.i.batch.begin();
             Globals.i.batch.setProjectionMatrix(Globals.i.camera.combined);
-            Globals.i.gameObjects.get(i).render(Globals.i.batch);
+            Globals.i.updateThese.get(i).render(Globals.i.batch);
             Globals.i.batch.end();
         }
 
@@ -37,9 +39,9 @@ public class GameHandler {
 
     public void dispose()
     {
-        for (int i = 0; i < Globals.i.gameObjects.size; i++)
+        for (int i = 0; i < Globals.i.updateThese.size; i++)
         {
-            Globals.i.gameObjects.get(i).dispose();
+            Globals.i.updateThese.get(i).dispose();
         }
 
         Globals.i.world.dispose();

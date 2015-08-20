@@ -1,6 +1,7 @@
 package com.eightbitforest.delta.objects;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,28 +10,21 @@ import com.eightbitforest.delta.utils.Globals;
 /**
  * Created by osumf on 8/17/2015.
  */
-public abstract class GameObject {
+public abstract class GameObject extends Updates {
 
     public Sprite sprite;
     public Texture getTexture() { return sprite.getTexture(); }
 
-    public GameObject()
-    {
-        this("images/triangle.png");
-    }
-
     public GameObject(String image)
     {
-        create();
-        sprite = new Sprite(new Texture(Gdx.files.internal(image)));
-        Globals.i.gameObjects.add(this);
+        super();
+        if (image != null)
+            sprite = new Sprite(new Texture(Gdx.files.internal(image)));
     }
 
-    public void create() {}
-    public void update(float deltaTime) {}
-    public void render(SpriteBatch batch) {}
-
+    @Override
     public void dispose() {
-        getTexture().dispose();
+        if (sprite != null)
+            getTexture().dispose();
     }
 }

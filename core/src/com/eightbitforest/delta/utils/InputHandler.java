@@ -26,13 +26,13 @@ public class InputHandler implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-        Globals.i.player.force = Globals.i.player.thrust;
+        G.i.player.force = Globals.i.player.thrust;
         return true;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        Globals.i.player.force = 0;
+        G.i.player.force = 0;
 
         return true;
     }
@@ -40,7 +40,7 @@ public class InputHandler implements InputProcessor {
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
 
-        Globals.i.player.torque = Gdx.input.getDeltaX() * -Globals.i.player.turnSpeed;
+        G.i.player.torque = Gdx.input.getDeltaX() * -Globals.i.player.turnSpeed;
         return true;
     }
 

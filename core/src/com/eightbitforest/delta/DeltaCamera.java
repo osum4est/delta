@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.async.ThreadUtils;
+import com.eightbitforest.delta.utils.G;
 import com.eightbitforest.delta.utils.Globals;
 
 /**
@@ -20,12 +21,12 @@ public class DeltaCamera extends OrthographicCamera {
 
     public DeltaCamera()
     {
-        super(Gdx.graphics.getWidth() / Globals.CAMERA_SIZE, Gdx.graphics.getHeight() / Globals.CAMERA_SIZE);
+        super(Gdx.graphics.getWidth() / G.i.CAMERA_SIZE, Gdx.graphics.getHeight() / G.i.CAMERA_SIZE);
 
         starsEffect = new ParticleEffect();
         starsEffect.load(Gdx.files.internal("effects/stars.p"), Gdx.files.internal("images"));
         starsEffect.setPosition(0, 0);
-        starsEffect.scaleEffect(1 / (float) Globals.CAMERA_SIZE);
+        starsEffect.scaleEffect(1 / (float) G.i.CAMERA_SIZE);
         starsEffect.start();
     }
 

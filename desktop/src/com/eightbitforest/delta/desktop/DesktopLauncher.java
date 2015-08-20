@@ -7,6 +7,9 @@ import com.eightbitforest.delta.DeltaMain;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+
+		config.samples = 8;
+
 		new LwjglApplication(new DeltaMain(), config);
 	}
 }

@@ -5,11 +5,13 @@ buildscript {
         jcenter()
     }
     dependencies {
+
         classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
         classpath 'com.android.tools.build:gradle:1.2.3'
         classpath 'org.robovm:robovm-gradle-plugin:1.5.0'
     }
 }
+
 
 allprojects {
     apply plugin: "eclipse"
@@ -42,6 +44,7 @@ project(":desktop") {
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
         compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+        compile 'org.reflections:reflections:0.9.10'
     }
 }
 
@@ -103,6 +106,7 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
+        compile 'org.reflections:reflections:0.9.10'
     }
 }
 

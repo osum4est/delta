@@ -24,8 +24,9 @@ public class Player extends GameObjectDynamicTriangle {
     ParticleEmitter thrusterEmitter;
     ParticleEffect thrusterEffect;
 
-    public Player(Color color) {
-        super(color);
+    @Override
+    public Color getColor() {
+        return Color.valueOf("2EDCE8");
     }
 
     @Override
@@ -63,7 +64,7 @@ public class Player extends GameObjectDynamicTriangle {
         body.applyTorque(torque, true);
         torque = 0;
 
-        thrusterEffect.update(deltaTime);
+        //thrusterEffect.update(deltaTime);
     }
 
 

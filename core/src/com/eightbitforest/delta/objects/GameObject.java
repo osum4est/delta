@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.eightbitforest.delta.utils.G;
 import com.eightbitforest.delta.utils.Globals;
 
 /**
@@ -24,6 +25,8 @@ public abstract class GameObject extends Updates {
 
     @Override
     public void dispose() {
+        System.out.println("Disposing");
+        G.i.updateThese.removeValue(this, false);
         if (sprite != null)
             getTexture().dispose();
     }

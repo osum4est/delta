@@ -19,7 +19,7 @@ import com.eightbitforest.delta.objects.Updates;
 public class Globals {
     public static Globals i = new Globals();
 
-    public final int CAMERA_SIZE = 10;
+    public final int CAMERA_SIZE = 2;
     public final float TRIANGLE_HEIGHT = 1f;
     public final int SPAWN_SQUARE_SIZE = 100;
 
@@ -31,7 +31,7 @@ public class Globals {
     public Array<Updates> updateThese;
     public World world;
     public Box2DDebugRenderer debugRenderer;
-
+    public Array<Class<? extends ISpawnable>> spawnables;
 
     public Player player;
 
@@ -45,8 +45,10 @@ public class Globals {
         updateThese = new Array<Updates>();
         world = new World(Vector2.Zero, false);
         debugRenderer = new Box2DDebugRenderer();
+        spawnables = new Array<Class<? extends ISpawnable>>();
 
-        player = new Player(Color.valueOf("2EDCE8"));
-        new ObjectAsteroid(Color.valueOf("FFFFFF"));
+        player = new Player();
+        new ObjectAsteroid();
+        new ObjectSpawner();
     }
 }

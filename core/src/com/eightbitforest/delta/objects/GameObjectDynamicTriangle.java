@@ -15,21 +15,17 @@ import com.eightbitforest.delta.utils.Globals;
 /**
  * Created by osumf on 8/18/2015.
  */
-public class GameObjectDynamicTriangle extends GameObjectDynamic {
-
-    public Color color;
+public abstract class GameObjectDynamicTriangle extends GameObjectDynamic {
 
     private float _linearDamping, _angularDamping, _density, _friction, _restitution;
 
-    public GameObjectDynamicTriangle(Color color)
+    public GameObjectDynamicTriangle()
     {
-        this(color, 2.0f, 2.0f, 1.0f, 1.0f, 0.0f);
+        this(2.0f, 2.0f, 1.0f, 1.0f, 0.0f);
     }
 
-    public GameObjectDynamicTriangle(Color color, float linearDamping, float angularDamping, float density, float friction, float restitution) {
+    public GameObjectDynamicTriangle(float linearDamping, float angularDamping, float density, float friction, float restitution) {
         super(null, false);
-
-        this.color = color;
         _linearDamping = linearDamping;
         _angularDamping = angularDamping;
         _density = density;
@@ -38,6 +34,8 @@ public class GameObjectDynamicTriangle extends GameObjectDynamic {
 
         body = getBody(new BodyDef(), new FixtureDef());
     }
+
+    public abstract Color getColor();
 
     @Override
     Body getBody(BodyDef bdef, FixtureDef fdef) {
@@ -66,7 +64,7 @@ public class GameObjectDynamicTriangle extends GameObjectDynamic {
     @Override
     public void render(SpriteBatch batch) {
         batch.end();
-        drawTriangle(Globals.i.shapeRenderer, G.i.TRIANGLE_HEIGHT, color);
+        drawTriangle(Globals.i.shapeRenderer, G.i.TRIANGLE_HEIGHT, getColor());
         batch.begin();
 
     }

@@ -23,10 +23,8 @@ public class GameHandler {
     {
         Globals.i.camera.cameraRender(Globals.i.batch);
 
-        System.out.println("rendeerer");
         for (int i = 0; i < Globals.i.updateThese.size; i++)
         {
-            System.out.println("render");
             Globals.i.batch.begin();
             Globals.i.batch.setProjectionMatrix(Globals.i.camera.combined);
             Globals.i.updateThese.get(i).render(Globals.i.batch);

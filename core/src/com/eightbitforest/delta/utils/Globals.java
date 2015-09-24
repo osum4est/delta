@@ -1,6 +1,5 @@
 package com.eightbitforest.delta.utils;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -13,13 +12,10 @@ import com.eightbitforest.delta.objects.Player;
 import com.eightbitforest.delta.objects.Updates;
 
 
-/**
- * Created by osumf on 8/16/2015.
- */
 public class Globals {
     public static Globals i = new Globals();
 
-    public final int CAMERA_SIZE = 2;
+    public final int CAMERA_SIZE = 5;
     public final float TRIANGLE_HEIGHT = 1f;
     public final int SPAWN_SQUARE_SIZE = 100;
 

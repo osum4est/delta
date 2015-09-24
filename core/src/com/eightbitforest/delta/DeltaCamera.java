@@ -6,13 +6,9 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.async.ThreadUtils;
 import com.eightbitforest.delta.utils.G;
 import com.eightbitforest.delta.utils.Globals;
 
-/**
- * Created by osumf on 8/17/2015.
- */
 public class DeltaCamera extends OrthographicCamera {
 
     public float moveSpeed = .05f;
@@ -27,7 +23,7 @@ public class DeltaCamera extends OrthographicCamera {
         starsEffect.load(Gdx.files.internal("effects/stars.p"), Gdx.files.internal("images"));
         starsEffect.setPosition(0, 0);
         starsEffect.scaleEffect(1 / (float) G.i.CAMERA_SIZE);
-        starsEffect.start();
+        //starsEffect.start();
     }
 
     public void cameraUpdate()
@@ -38,8 +34,8 @@ public class DeltaCamera extends OrthographicCamera {
         position.set(new Vector3(v.x, v.y, pos.z));
         update();
 
-        starsEffect.setPosition(this.position.x, this.position.y);
-        starsEffect.update(Gdx.graphics.getDeltaTime());
+        //starsEffect.setPosition(this.position.x, this.position.y);
+        //starsEffect.update(Gdx.graphics.getDeltaTime());
     }
 
     public void cameraRender(SpriteBatch batch)

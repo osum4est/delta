@@ -9,9 +9,6 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 
-/**
- * Created by osumf on 8/18/2015.
- */
 public class ObjectSpawner extends Updates {
 
     public Player player;
@@ -62,20 +59,17 @@ public class ObjectSpawner extends Updates {
     @Override
     public void update(float deltaTime) {
 
-
-        //System.out.println("LPP: " + lastPlayerPos.y);
-        //System.out.println("PP: " + playerPos.y);
-
         move.x = 0;
         move.y = 0;
 
-        if (Math.abs(playerPos.x) > Math.abs(lastPlayerPos.x) + G.i.SPAWN_SQUARE_SIZE * 1 / 4) {
+        if (playerPos.x > lastPlayerPos.x + G.i.SPAWN_SQUARE_SIZE / 4 ||
+                playerPos.x < lastPlayerPos.x - G.i.SPAWN_SQUARE_SIZE / 4) {
+            move.x = Math.signum(playerPos.x - lastPlayerPos.x);
             lastPlayerPos.x = playerPos.x;
-            move.x = Math.signum(lastPlayerPos.x);
-        }
-        else if (Math.abs(playerPos.y) > Math.abs(lastPlayerPos.y) + G.i.SPAWN_SQUARE_SIZE * 1 / 4) {
+        } else if (playerPos.y > lastPlayerPos.y + G.i.SPAWN_SQUARE_SIZE / 4 ||
+                playerPos.y < lastPlayerPos.y - G.i.SPAWN_SQUARE_SIZE / 4) {
+            move.y = Math.signum(playerPos.y - lastPlayerPos.y);
             lastPlayerPos.y = playerPos.y;
-            move.y = Math.signum(lastPlayerPos.y);
         }
         else
             return;
@@ -95,6 +89,7 @@ public class ObjectSpawner extends Updates {
                         if (chance <= iSpawnable.getSpawnChance())
                         {
                             System.out.println("X: " + lastPlayerPos.x + ", Y: " + lastPlayerPos.y);
+                            System.out.println("X MOVE: " + move.x + ", Y MOVE: " + move.y);
                             ISpawnable spawnTemp = spawnable.newInstance();
                             Vector2 pos = new Vector2(0, 0);
                             pos.x = DeltaUtils.randomRange(quarterSize, halfSize) * move.x + DeltaUtils.randomRange(-halfSize, halfSize) * move.y + lastPlayerPos.x;
@@ -106,12 +101,9 @@ public class ObjectSpawner extends Updates {
                 }
 
                 iSpawnable.dispose();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-
     }
 }

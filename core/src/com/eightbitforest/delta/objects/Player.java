@@ -64,7 +64,7 @@ public class Player extends GameObjectDynamicTriangle {
         body.applyTorque(torque, true);
         torque = 0;
 
-        //thrusterEffect.update(deltaTime);
+        thrusterEffect.update(deltaTime);
     }
 
 

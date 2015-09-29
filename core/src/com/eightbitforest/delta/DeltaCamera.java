@@ -23,7 +23,7 @@ public class DeltaCamera extends OrthographicCamera {
         starsEffect.load(Gdx.files.internal("effects/stars.p"), Gdx.files.internal("images"));
         starsEffect.setPosition(0, 0);
         starsEffect.scaleEffect(1 / (float) G.i.CAMERA_SIZE);
-        //starsEffect.start();
+        starsEffect.start();
     }
 
     public void cameraUpdate()
@@ -34,8 +34,8 @@ public class DeltaCamera extends OrthographicCamera {
         position.set(new Vector3(v.x, v.y, pos.z));
         update();
 
-        //starsEffect.setPosition(this.position.x, this.position.y);
-        //starsEffect.update(Gdx.graphics.getDeltaTime());
+        starsEffect.setPosition(this.position.x, this.position.y);
+        starsEffect.update(Gdx.graphics.getDeltaTime());
     }
 
     public void cameraRender(SpriteBatch batch)

@@ -15,7 +15,7 @@ import com.eightbitforest.delta.objects.Updates;
 public class Globals {
     public static Globals i = new Globals();
 
-    public final int CAMERA_SIZE = 20;
+    public final int CAMERA_SIZE = 30;
     public final float TRIANGLE_HEIGHT = 1f;
     public final int SPAWN_SQUARE_SIZE = 100;
 

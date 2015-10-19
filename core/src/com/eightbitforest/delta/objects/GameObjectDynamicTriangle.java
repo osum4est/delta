@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.eightbitforest.delta.utils.BodyData;
 import com.eightbitforest.delta.utils.G;
 import com.eightbitforest.delta.utils.Globals;
 
@@ -57,6 +58,8 @@ public abstract class GameObjectDynamicTriangle extends GameObjectDynamic {
 
         body.setLinearDamping(_linearDamping);
         body.setAngularDamping(_angularDamping);
+
+        body.setUserData(new BodyData(this));
 
         return body;
     }

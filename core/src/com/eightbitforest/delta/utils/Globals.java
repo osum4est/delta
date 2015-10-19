@@ -43,8 +43,16 @@ public class Globals {
         debugRenderer = new Box2DDebugRenderer();
         spawnables = new Array<Class<? extends ISpawnable>>();
 
+        world.setContactListener(new CollisionHandler());
+
         player = new Player();
         new ObjectAsteroid();
         new ObjectSpawner();
+    }
+
+    public class Objects {
+        public int PLAYER = 0;
+        public int ASTEROID = 1;
+        public int ENEMY = 2;
     }
 }

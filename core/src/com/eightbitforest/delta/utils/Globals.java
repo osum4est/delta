@@ -49,10 +49,4 @@ public class Globals {
         new ObjectAsteroid();
         new ObjectSpawner();
     }
-
-    public class Objects {
-        public int PLAYER = 0;
-        public int ASTEROID = 1;
-        public int ENEMY = 2;
-    }
 }

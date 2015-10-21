@@ -3,11 +3,17 @@ package com.eightbitforest.delta.objects;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.eightbitforest.delta.utils.ISpawnable;
+import com.eightbitforest.delta.utils.ObjectType;
 
 /**
  * Created by osumf on 8/18/2015.
  */
 public class ObjectAsteroid extends GameObjectDynamicTriangle implements ISpawnable {
+
+    @Override
+    int getId() {
+        return ObjectType.ASTEROID;
+    }
 
     @Override
     public Color getColor() {

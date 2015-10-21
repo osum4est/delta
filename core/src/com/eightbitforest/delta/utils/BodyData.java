@@ -8,9 +8,11 @@ import com.eightbitforest.delta.objects.GameObjectDynamicTriangle;
 public class BodyData {
 
     public GameObjectDynamicTriangle gameObject;
+    public int id;
 
-    public BodyData(GameObjectDynamicTriangle gameObject) {
+    public BodyData(GameObjectDynamicTriangle gameObject, int id) {
         this.gameObject = gameObject;
+        this.id = id;
     }
 
 }

@@ -5,9 +5,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.eightbitforest.delta.utils.G;
 import com.eightbitforest.delta.utils.ISpawnable;
+import com.eightbitforest.delta.utils.ObjectType;
 
 public class ObjectEnemy extends GameObjectDynamicTriangle implements ISpawnable {
 
+
+    @Override
+    int getId() {
+        return ObjectType.ENEMY;
+    }
 
     @Override
     public void update(float deltaTime) {

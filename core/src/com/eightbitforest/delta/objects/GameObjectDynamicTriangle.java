@@ -59,7 +59,7 @@ public abstract class GameObjectDynamicTriangle extends GameObjectDynamic {
         body.setLinearDamping(_linearDamping);
         body.setAngularDamping(_angularDamping);
 
-        body.setUserData(new BodyData(this));
+        body.setUserData(new BodyData(this, getId()));
 
         return body;
     }

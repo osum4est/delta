@@ -11,8 +11,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 public class CollisionHandler implements ContactListener {
     @Override
     public void beginContact(Contact contact) {
-
-        System.out.println(contact.getFixtureA().getBody());
+        DeltaContact deltaContact = new DeltaContact(contact);
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.eightbitforest.delta.utils.G;
+import com.eightbitforest.delta.utils.ObjectType;
 
 /**
  * Created by osumf on 8/17/2015.
@@ -23,6 +24,11 @@ public class Player extends GameObjectDynamicTriangle {
     private boolean emitting = true;
     ParticleEmitter thrusterEmitter;
     ParticleEffect thrusterEffect;
+
+    @Override
+    int getId() {
+        return ObjectType.PLAYER;
+    }
 
     @Override
     public Color getColor() {

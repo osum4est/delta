@@ -9,40 +9,47 @@ public class GameHandler {
 
     public void update(float deltaTime)
     {
-        Globals.i.world.step(1 / 60f, 8, 3);
+        G.i.world.step(1 / 60f, 8, 3);
 
-        Globals.i.camera.cameraUpdate();
+        G.i.camera.cameraUpdate();
 
-        for (int i = 0; i < Globals.i.updateThese.size; i++)
+        for (int i = 0; i < G.i.updateThese.size; i++)
         {
-            Globals.i.updateThese.get(i).update(deltaTime);
+            IUpdates updates = G.i.updateThese.get(i);
+            updates.update(deltaTime);
+        }
+
+        for (int i = 0; i < G.i.removeThese.size; i++) {
+            G.i.world.destroyBody(G.i.removeThese.get(i).body);
+            G.i.removeThese.get(i).dispose();
+            G.i.removeThese.removeIndex(i);
         }
     }
 
     public void render()
     {
-        Globals.i.camera.cameraRender(Globals.i.batch);
+        G.i.camera.cameraRender(G.i.batch);
 
-        for (int i = 0; i < Globals.i.updateThese.size; i++)
+        for (int i = 0; i < G.i.updateThese.size; i++)
         {
-            Globals.i.batch.begin();
-            Globals.i.batch.setProjectionMatrix(Globals.i.camera.combined);
-            Globals.i.updateThese.get(i).render(Globals.i.batch);
-            Globals.i.batch.end();
+            G.i.batch.begin();
+            G.i.batch.setProjectionMatrix(G.i.camera.combined);
+            G.i.updateThese.get(i).render(G.i.batch);
+            G.i.batch.end();
         }
 
         if (debugMode)
-            Globals.i.debugRenderer.render(Globals.i.world, Globals.i.camera.combined);
+            G.i.debugRenderer.render(G.i.world, G.i.camera.combined);
     }
 
     public void dispose()
     {
-        for (int i = 0; i < Globals.i.updateThese.size; i++)
+        for (int i = 0; i < G.i.updateThese.size; i++)
         {
-            Globals.i.updateThese.get(i).dispose();
+            G.i.updateThese.get(i).dispose();
         }
 
-        Globals.i.world.dispose();
-        Globals.i.debugRenderer.dispose();
+        G.i.world.dispose();
+        G.i.debugRenderer.dispose();
     }
 }

@@ -23,9 +23,10 @@ public class DeltaContact {
     }
 
     public boolean testCollision(int idA, int idB) {
-//        if (gameObjectA.id == idA ||
-//                gameObjectA.id == idB &&
+        return (gameObjectA.id == idA ||
+                gameObjectA.id == idB) &&
+                (gameObjectB.id == idA ||
+                        gameObjectB.id == idB);
 
-        return false;
     }
 }

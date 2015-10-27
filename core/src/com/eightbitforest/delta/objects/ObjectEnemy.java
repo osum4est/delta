@@ -40,4 +40,12 @@ public class ObjectEnemy extends GameObjectDynamicTriangle implements ISpawnable
     public Body getBody() {
         return body;
     }
+
+    @Override
+    public void onCollide(GameObjectDynamic other) {
+        if (other.id == ObjectType.PLAYER) {
+            dispose();
+        }
+    }
+
 }

@@ -27,13 +27,13 @@ public abstract class GameObjectDynamic extends GameObject {
         body = getBody(new BodyDef(), new FixtureDef());
     }
 
+    public void onCollide(GameObjectDynamic other) {
+    }
+
     @Override
     public void dispose() {
-        if (body != null) {
-            G.i.world.step(0, 0, 0);
-            G.i.world.destroyBody(body);
-        }
-
+        if (!G.i.removeThese.contains(this, true))
+            G.i.removeThese.add(this);
         super.dispose();
     }
 }

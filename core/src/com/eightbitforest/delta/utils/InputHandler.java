@@ -1,6 +1,5 @@
 package com.eightbitforest.delta.utils;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 
 /**
@@ -26,21 +25,22 @@ public class InputHandler implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-        G.i.player.force = Globals.i.player.thrust;
+        for (ITouchInput touch : G.i.inputThese)
+            touch.touchDown(screenX, screenY, pointer, button);
         return true;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        G.i.player.force = 0;
-
+        for (ITouchInput touch : G.i.inputThese)
+            touch.touchUp(screenX, screenY, pointer, button);
         return true;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-
-        G.i.player.torque = Gdx.input.getDeltaX() * -Globals.i.player.turnSpeed;
+        for (ITouchInput touch : G.i.inputThese)
+            touch.touchDragged(screenX, screenY, pointer);
         return true;
     }
 

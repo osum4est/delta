@@ -8,12 +8,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.eightbitforest.delta.utils.G;
+import com.eightbitforest.delta.utils.ITouchInput;
 import com.eightbitforest.delta.utils.ObjectType;
 
 /**
  * Created by osumf on 8/17/2015.
  */
-public class Player extends GameObjectDynamicTriangle {
+public class Player extends GameObjectDynamicTriangle implements ITouchInput {
 
     public float thrust = 15f;
     public float turnSpeed = .25f;
@@ -25,6 +26,33 @@ public class Player extends GameObjectDynamicTriangle {
     ParticleEmitter thrusterEmitter;
     ParticleEffect thrusterEffect;
 
+    public Player() {
+        thrusterEffect = new ParticleEffect();
+        thrusterEffect.load(Gdx.files.internal("effects/thruster.p"), Gdx.files.internal("images"));
+        thrusterEffect.setPosition(0, 0);
+        thrusterEffect.scaleEffect(1 / (float) G.i.CAMERA_SIZE);
+        thrusterEffect.start();
+
+        thrusterEmitter = thrusterEffect.findEmitter("thruster");
+
+        G.i.inputThese.add(this);
+    }
+
+    @Override
+    public void touchDown(int screenX, int screenY, int pointer, int button) {
+        force = thrust;
+    }
+
+    @Override
+    public void touchUp(int screenX, int screenY, int pointer, int button) {
+        force = 0;
+    }
+
+    @Override
+    public void touchDragged(int screenX, int screenY, int pointer) {
+        torque = Gdx.input.getDeltaX() * -turnSpeed;
+    }
+
     @Override
     int getId() {
         return ObjectType.PLAYER;
@@ -33,17 +61,6 @@ public class Player extends GameObjectDynamicTriangle {
     @Override
     public Color getColor() {
         return Color.valueOf("2EDCE8");
-    }
-
-    @Override
-    public void create() {
-        thrusterEffect = new ParticleEffect();
-        thrusterEffect.load(Gdx.files.internal("effects/thruster.p"), Gdx.files.internal("images"));
-        thrusterEffect.setPosition(0, 0);
-        thrusterEffect.scaleEffect(1 / (float) G.i.CAMERA_SIZE);
-        thrusterEffect.start();
-
-        thrusterEmitter = thrusterEffect.findEmitter("thruster");
     }
 
     @Override

@@ -1,15 +1,12 @@
 package com.eightbitforest.delta.utils;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.eightbitforest.delta.objects.Player;
-import com.eightbitforest.delta.objects.Updates;
-import org.reflections.Reflections;
 
-import java.util.Iterator;
 import java.util.Random;
-import java.util.Set;
 
-public class ObjectSpawner extends Updates {
+public class ObjectSpawner implements IUpdates {
 
     public Player player;
     public Vector2 lastPlayerPos;
@@ -25,40 +22,12 @@ public class ObjectSpawner extends Updates {
         lastPlayerPos = new Vector2(0, 0);
         playerPos = player.body.getPosition();
 
-        Reflections reflections = new Reflections("com.eightbitforest.delta");
-        Set<Class<? extends ISpawnable>> spawnables = reflections.getSubTypesOf(ISpawnable.class);
-
-        System.out.println(spawnables.size());
-        for (int i = 0; i < spawnables.size(); i++)
-        {
-            //ISpawnable s = spawnables.i
-            Iterator itr = spawnables.iterator();
-            while (itr.hasNext())
-            {
-                G.i.spawnables.add((Class<? extends ISpawnable>) itr.next());
-//                ISpawnable spawnable = null;
-//                try {
-//                    spawnable = sp.getDeclaredConstructor(Color.class).newInstance(Color.valueOf("FFFFFF"));
-//                } catch (InstantiationException e) {
-//                    e.printStackTrace();
-//                } catch (IllegalAccessException e) {
-//                    e.printStackTrace();
-//                } catch (NoSuchMethodException e) {
-//                    e.printStackTrace();
-//                } catch (InvocationTargetException e) {
-//                    e.printStackTrace();
-//                }
-//                System.out.println(spawnable.getSpawnAmount());
-//                spawnable.dispose();
-            }
-            //System.out.println("Spawn amount: " + ((ISpawnable) spawnables.toArray()[i]).getSpawnAmount());
-        }
+        G.i.updateThese.add(this);
     }
 
     Vector2 move = new Vector2(0, 0);
     @Override
     public void update(float deltaTime) {
-
         move.x = 0;
         move.y = 0;
 
@@ -76,6 +45,8 @@ public class ObjectSpawner extends Updates {
 
         int quarterSize = G.i.SPAWN_SQUARE_SIZE / 4;
         int halfSize = G.i.SPAWN_SQUARE_SIZE / 2;
+
+        System.out.println(G.i.spawnables.size);
 
         for (Class<? extends ISpawnable> spawnable : G.i.spawnables)
         {
@@ -105,5 +76,15 @@ public class ObjectSpawner extends Updates {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void render(SpriteBatch batch) {
+
+    }
+
+    @Override
+    public void dispose() {
+
     }
 }

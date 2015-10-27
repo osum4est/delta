@@ -13,7 +13,7 @@ public class DeltaMain extends ApplicationAdapter {
 	public void create () {
 
 		// DEBUG MODE
-		GameHandler.debugMode = false;
+		GameHandler.debugMode = true;
 
 		Globals.i.init();
 		Gdx.input.setInputProcessor(new InputHandler());

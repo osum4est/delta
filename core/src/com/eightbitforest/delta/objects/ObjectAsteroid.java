@@ -34,4 +34,16 @@ public class ObjectAsteroid extends GameObjectDynamicTriangle implements ISpawna
     public Body getBody() {
         return body;
     }
+
+    @Override
+    public void onCollide(GameObjectDynamic other) {
+        if (other.id == ObjectType.PLAYER) {
+            dispose();
+        }
+    }
+
+    @Override
+    public void update(float deltaTime) {
+
+    }
 }

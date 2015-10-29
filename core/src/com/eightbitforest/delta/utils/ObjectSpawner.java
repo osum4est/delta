@@ -3,6 +3,8 @@ package com.eightbitforest.delta.utils;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.eightbitforest.delta.objects.Player;
+import com.eightbitforest.delta.utils.interfaces.ISpawnable;
+import com.eightbitforest.delta.utils.interfaces.IUpdates;
 
 import java.util.Random;
 
@@ -22,7 +24,7 @@ public class ObjectSpawner implements IUpdates {
         lastPlayerPos = new Vector2(0, 0);
         playerPos = player.body.getPosition();
 
-        G.i.updateThese.add(this);
+        GameRegistry.registerObject(this);
     }
 
     Vector2 move = new Vector2(0, 0);
@@ -46,9 +48,9 @@ public class ObjectSpawner implements IUpdates {
         int quarterSize = G.i.SPAWN_SQUARE_SIZE / 4;
         int halfSize = G.i.SPAWN_SQUARE_SIZE / 2;
 
-        System.out.println(G.i.spawnables.size);
+        System.out.println(G.i.spawnThese.size);
 
-        for (Class<? extends ISpawnable> spawnable : G.i.spawnables)
+        for (Class<? extends ISpawnable> spawnable : G.i.spawnThese)
         {
             ISpawnable iSpawnable;
             try {
@@ -67,6 +69,8 @@ public class ObjectSpawner implements IUpdates {
                             pos.y = DeltaUtils.randomRange(quarterSize, halfSize) * move.y + DeltaUtils.randomRange(-halfSize, halfSize) * move.x + lastPlayerPos.y;
 
                             spawnTemp.getBody().setTransform(pos, spawnTemp.getBody().getAngle());
+
+                            GameRegistry.registerObject(spawnTemp);
                         }
                     }
                 }

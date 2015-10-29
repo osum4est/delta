@@ -1,4 +1,4 @@
-package com.eightbitforest.delta.utils;
+package com.eightbitforest.delta.utils.interfaces;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 

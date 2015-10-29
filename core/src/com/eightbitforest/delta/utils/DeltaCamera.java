@@ -1,4 +1,4 @@
-package com.eightbitforest.delta;
+package com.eightbitforest.delta.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;

@@ -1,7 +1,7 @@
 package com.eightbitforest.delta.utils;
 
 import com.badlogic.gdx.physics.box2d.Contact;
-import com.eightbitforest.delta.objects.GameObjectDynamic;
+import com.eightbitforest.delta.objects.base.GameObjectDynamic;
 
 /**
  * Created by fjon2248 on 10/21/2015.

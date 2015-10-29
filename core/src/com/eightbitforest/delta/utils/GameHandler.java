@@ -1,11 +1,20 @@
 package com.eightbitforest.delta.utils;
 
+import com.eightbitforest.delta.objects.base.GameObjectDynamic;
+import com.eightbitforest.delta.utils.interfaces.IUpdates;
+
 /**
  * Created by osumf on 8/17/2015.
  */
 public class GameHandler {
 
     public static boolean debugMode = false;
+
+    public void removeGameObject(GameObjectDynamic gameObject) {
+        if (!G.i.removeThese.contains(gameObject, true)) {
+            G.i.removeThese.add(gameObject);
+        }
+    }
 
     public void update(float deltaTime)
     {

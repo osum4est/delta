@@ -1,4 +1,4 @@
-package com.eightbitforest.delta.utils;
+package com.eightbitforest.delta.utils.interfaces;
 
 /**
  * Created by fjon2248 on 10/22/2015.

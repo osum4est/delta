@@ -1,6 +1,6 @@
 package com.eightbitforest.delta.utils;
 
-import com.eightbitforest.delta.objects.GameObjectDynamicTriangle;
+import com.eightbitforest.delta.objects.base.GameObjectDynamicTriangle;
 
 /**
  * Created by fjon2248 on 10/19/2015.

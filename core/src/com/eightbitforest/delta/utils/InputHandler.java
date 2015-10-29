@@ -1,6 +1,7 @@
 package com.eightbitforest.delta.utils;
 
 import com.badlogic.gdx.InputProcessor;
+import com.eightbitforest.delta.utils.interfaces.ITouchInput;
 
 /**
  * Created by osumf on 8/17/2015.

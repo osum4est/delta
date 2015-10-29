@@ -7,8 +7,9 @@ import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.eightbitforest.delta.objects.base.GameObjectDynamicTriangle;
 import com.eightbitforest.delta.utils.G;
-import com.eightbitforest.delta.utils.ITouchInput;
+import com.eightbitforest.delta.utils.interfaces.ITouchInput;
 import com.eightbitforest.delta.utils.ObjectType;
 
 /**
@@ -54,7 +55,7 @@ public class Player extends GameObjectDynamicTriangle implements ITouchInput {
     }
 
     @Override
-    int getId() {
+    public int getId() {
         return ObjectType.PLAYER;
     }
 

@@ -18,20 +18,25 @@ import com.eightbitforest.delta.utils.Globals;
  */
 public abstract class GameObjectDynamicTriangle extends GameObjectDynamic {
 
-    private float _linearDamping, _angularDamping, _density, _friction, _restitution;
+    private float _linearDamping, _angularDamping, _density, _friction, _restitution, _triangleSize;
 
     public GameObjectDynamicTriangle()
     {
-        this(2.0f, 2.0f, 1.0f, 1.0f, 0.0f);
+        this(G.i.TRIANGLE_HEIGHT);
     }
 
-    public GameObjectDynamicTriangle(float linearDamping, float angularDamping, float density, float friction, float restitution) {
+    public GameObjectDynamicTriangle(float triangleSize) {
+        this(2.0f, 2.0f, 1.0f, 1.0f, 0.0f, triangleSize);
+    }
+
+    public GameObjectDynamicTriangle(float linearDamping, float angularDamping, float density, float friction, float restitution, float triangleSize) {
         super(null, false);
         _linearDamping = linearDamping;
         _angularDamping = angularDamping;
         _density = density;
         _friction = friction;
         _restitution = restitution;
+        _triangleSize = triangleSize;
 
         body = getBody(new BodyDef(), new FixtureDef());
     }
@@ -45,7 +50,7 @@ public abstract class GameObjectDynamicTriangle extends GameObjectDynamic {
         bdef.type = BodyDef.BodyType.DynamicBody;
         bdef.position.set(0, 0);
 
-        PolygonShape shape = getTriangleShape(G.i.TRIANGLE_HEIGHT);
+        PolygonShape shape = getTriangleShape(_triangleSize);
 
         fdef.density = _density;
         fdef.friction = _friction;
@@ -67,7 +72,7 @@ public abstract class GameObjectDynamicTriangle extends GameObjectDynamic {
     @Override
     public void render(SpriteBatch batch) {
         batch.end();
-        drawTriangle(Globals.i.shapeRenderer, G.i.TRIANGLE_HEIGHT, getColor());
+        drawTriangle(G.i.shapeRenderer, _triangleSize, getColor());
         batch.begin();
 
     }

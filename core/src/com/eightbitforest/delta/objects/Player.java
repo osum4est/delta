@@ -7,10 +7,12 @@ import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Timer;
+import com.eightbitforest.delta.objects.base.Bullet;
 import com.eightbitforest.delta.objects.base.GameObjectDynamicTriangle;
 import com.eightbitforest.delta.utils.G;
-import com.eightbitforest.delta.utils.interfaces.ITouchInput;
 import com.eightbitforest.delta.utils.ObjectType;
+import com.eightbitforest.delta.utils.interfaces.ITouchInput;
 
 /**
  * Created by osumf on 8/17/2015.
@@ -27,6 +29,8 @@ public class Player extends GameObjectDynamicTriangle implements ITouchInput {
     ParticleEmitter thrusterEmitter;
     ParticleEffect thrusterEffect;
 
+    Timer touchTimer;
+
     public Player() {
         thrusterEffect = new ParticleEffect();
         thrusterEffect.load(Gdx.files.internal("effects/thruster.p"), Gdx.files.internal("images"));
@@ -36,16 +40,28 @@ public class Player extends GameObjectDynamicTriangle implements ITouchInput {
 
         thrusterEmitter = thrusterEffect.findEmitter("thruster");
 
-        G.i.inputThese.add(this);
+        touchTimer = new Timer();
+    }
+
+    public void shoot() {
+        G.i.objectSpawner.spawnObjectAtPosition(new Bullet(.5f), body.getPosition().x, body.getPosition().y);
     }
 
     @Override
     public void touchDown(int screenX, int screenY, int pointer, int button) {
-        force = thrust;
+        touchTimer.scheduleTask(new Timer.Task() {
+            @Override
+            public void run() {
+                force = thrust;
+            }
+        }, .1f);
     }
 
     @Override
     public void touchUp(int screenX, int screenY, int pointer, int button) {
+        touchTimer.clear();
+        if (force != thrust)
+            shoot();
         force = 0;
     }
 

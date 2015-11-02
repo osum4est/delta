@@ -6,10 +6,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.eightbitforest.delta.objects.base.GameObjectDynamic;
 import com.eightbitforest.delta.objects.ObjectAsteroid;
 import com.eightbitforest.delta.objects.ObjectEnemy;
 import com.eightbitforest.delta.objects.Player;
+import com.eightbitforest.delta.objects.base.GameObjectDynamic;
 import com.eightbitforest.delta.utils.interfaces.ISpawnable;
 import com.eightbitforest.delta.utils.interfaces.ITouchInput;
 import com.eightbitforest.delta.utils.interfaces.IUpdates;
@@ -36,6 +36,7 @@ public class Globals {
     public World world;
     public Box2DDebugRenderer debugRenderer;
 
+    public ObjectSpawner objectSpawner;
 
     public Player player;
 
@@ -59,7 +60,8 @@ public class Globals {
 
         player = new Player();
         GameRegistry.registerObject(player);
-        GameRegistry.registerObject(new ObjectSpawner());
+        objectSpawner = new ObjectSpawner();
+        GameRegistry.registerObject(objectSpawner);
 
         registerSpawnables();
     }

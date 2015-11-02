@@ -3,6 +3,7 @@ package com.eightbitforest.delta.utils;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.eightbitforest.delta.objects.Player;
+import com.eightbitforest.delta.objects.base.GameObjectDynamic;
 import com.eightbitforest.delta.utils.interfaces.ISpawnable;
 import com.eightbitforest.delta.utils.interfaces.IUpdates;
 
@@ -61,16 +62,9 @@ public class ObjectSpawner implements IUpdates {
                         float chance = random.nextFloat();
                         if (chance <= iSpawnable.getSpawnChance())
                         {
-                            System.out.println("X: " + lastPlayerPos.x + ", Y: " + lastPlayerPos.y);
-                            System.out.println("X MOVE: " + move.x + ", Y MOVE: " + move.y);
-                            ISpawnable spawnTemp = spawnable.newInstance();
-                            Vector2 pos = new Vector2(0, 0);
-                            pos.x = DeltaUtils.randomRange(quarterSize, halfSize) * move.x + DeltaUtils.randomRange(-halfSize, halfSize) * move.y + lastPlayerPos.x;
-                            pos.y = DeltaUtils.randomRange(quarterSize, halfSize) * move.y + DeltaUtils.randomRange(-halfSize, halfSize) * move.x + lastPlayerPos.y;
-
-                            spawnTemp.getBody().setTransform(pos, spawnTemp.getBody().getAngle());
-
-                            GameRegistry.registerObject(spawnTemp);
+                            spawnObjectAtPosition(spawnable,
+                                    DeltaUtils.randomRange(quarterSize, halfSize) * move.x + DeltaUtils.randomRange(-halfSize, halfSize) * move.y + lastPlayerPos.x,
+                                    DeltaUtils.randomRange(quarterSize, halfSize) * move.y + DeltaUtils.randomRange(-halfSize, halfSize) * move.x + lastPlayerPos.y);
                         }
                     }
                 }
@@ -79,6 +73,31 @@ public class ObjectSpawner implements IUpdates {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void spawnObjectAtPosition(Class<? extends ISpawnable> spawnable, float x, float y) {
+        try {
+            ISpawnable spawnTemp = spawnable.newInstance();
+            Vector2 pos = new Vector2(0, 0);
+            pos.x = x;
+            pos.y = y;
+            spawnTemp.getBody().setTransform(pos, spawnTemp.getBody().getAngle());
+            GameRegistry.registerObject(spawnTemp);
+        } catch (Exception e) {
+            System.out.println("ERROR: Cannot spawn object");
+        }
+    }
+
+    public void spawnObjectAtPosition(GameObjectDynamic gameObjectDynamic, float x, float y) {
+        try {
+            Vector2 pos = new Vector2(0, 0);
+            pos.x = x;
+            pos.y = y;
+            gameObjectDynamic.body.setTransform(pos, gameObjectDynamic.body.getAngle());
+            GameRegistry.registerObject(gameObjectDynamic);
+        } catch (Exception e) {
+            System.out.println("ERROR: Cannot spawn object");
         }
     }
 

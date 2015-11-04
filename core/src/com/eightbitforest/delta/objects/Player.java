@@ -32,6 +32,8 @@ public class Player extends GameObjectDynamicTriangle implements ITouchInput {
     Timer touchTimer;
 
     public Player() {
+        super(ObjectType.PLAYER, G.i.CATEGORY_PLAYER, G.i.MASK_PLAYER);
+
         thrusterEffect = new ParticleEffect();
         thrusterEffect.load(Gdx.files.internal("effects/thruster.p"), Gdx.files.internal("images"));
         thrusterEffect.setPosition(0, 0);
@@ -44,7 +46,7 @@ public class Player extends GameObjectDynamicTriangle implements ITouchInput {
     }
 
     public void shoot() {
-        G.i.objectSpawner.spawnObjectAtPosition(new Bullet(.5f), body.getPosition().x, body.getPosition().y);
+        G.i.objectSpawner.spawnObjectAtPositionAndRotation(new Bullet(.5f), body.getPosition().x, body.getPosition().y, body.getAngle());
     }
 
     @Override
@@ -68,11 +70,6 @@ public class Player extends GameObjectDynamicTriangle implements ITouchInput {
     @Override
     public void touchDragged(int screenX, int screenY, int pointer) {
         torque = Gdx.input.getDeltaX() * -turnSpeed;
-    }
-
-    @Override
-    public int getId() {
-        return ObjectType.PLAYER;
     }
 
     @Override

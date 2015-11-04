@@ -14,16 +14,14 @@ public abstract class GameObject implements IUpdates {
 
     public int id;
 
-    public GameObject(String image)
+    public GameObject(int id, String image)
     {
         super();
         if (image != null)
             sprite = new Sprite(new Texture(Gdx.files.internal(image)));
 
-        id = getId();
+        this.id = id;
     }
-
-    public abstract int getId();
 
     @Override
     public void dispose() {

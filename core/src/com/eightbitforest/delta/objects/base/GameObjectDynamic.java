@@ -14,16 +14,16 @@ public abstract class GameObjectDynamic extends GameObject {
 
     abstract Body getBody(BodyDef bdef, FixtureDef fdef);
 
-    public GameObjectDynamic(String image, boolean setBody)
+    public GameObjectDynamic(int id, String image, boolean setBody)
     {
-        super(image);
+        super(id, image);
         if (setBody)
             body = getBody(new BodyDef(), new FixtureDef());
     }
 
-    public GameObjectDynamic(String image)
+    public GameObjectDynamic(int id, String image)
     {
-        super(image);
+        super(id, image);
         body = getBody(new BodyDef(), new FixtureDef());
     }
 

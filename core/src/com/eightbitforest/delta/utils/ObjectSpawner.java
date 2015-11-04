@@ -101,6 +101,18 @@ public class ObjectSpawner implements IUpdates {
         }
     }
 
+    public void spawnObjectAtPositionAndRotation(GameObjectDynamic gameObjectDynamic, float x, float y, float rotation) {
+        try {
+            Vector2 pos = new Vector2(0, 0);
+            pos.x = x;
+            pos.y = y;
+            gameObjectDynamic.body.setTransform(pos, rotation);
+            GameRegistry.registerObject(gameObjectDynamic);
+        } catch (Exception e) {
+            System.out.println("ERROR: Cannot spawn object");
+        }
+    }
+
     @Override
     public void render(SpriteBatch batch) {
 

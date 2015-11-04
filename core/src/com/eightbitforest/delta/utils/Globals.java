@@ -21,6 +21,13 @@ public class Globals {
     public final float TRIANGLE_HEIGHT = 1f;
     public final int SPAWN_SQUARE_SIZE = 100;
 
+    public final short CATEGORY_NONE = 0x1;
+    public final short CATEGORY_PLAYER = 0x2;
+    public final short CATEGORY_ENEMY = 0x4;
+    public final short MASK_NONE = 0xF;
+    public final short MASK_PLAYER = CATEGORY_ENEMY | CATEGORY_NONE;
+    public final short MASK_ENEMY = CATEGORY_PLAYER | CATEGORY_NONE;
+
     public SpriteBatch batch;
     public ShapeRenderer shapeRenderer;
 

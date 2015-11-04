@@ -19,24 +19,35 @@ import com.eightbitforest.delta.utils.Globals;
 public abstract class GameObjectDynamicTriangle extends GameObjectDynamic {
 
     private float _linearDamping, _angularDamping, _density, _friction, _restitution, _triangleSize;
+    private short _category, _mask;
 
-    public GameObjectDynamicTriangle()
+    public GameObjectDynamicTriangle(int id)
     {
-        this(G.i.TRIANGLE_HEIGHT);
+        this(id, G.i.TRIANGLE_HEIGHT, G.i.CATEGORY_NONE, G.i.MASK_NONE);
     }
 
-    public GameObjectDynamicTriangle(float triangleSize) {
-        this(2.0f, 2.0f, 1.0f, 1.0f, 0.0f, triangleSize);
+    public GameObjectDynamicTriangle(int id, float triangleSize) {
+        this(id, triangleSize, G.i.CATEGORY_NONE, G.i.MASK_NONE);
     }
 
-    public GameObjectDynamicTriangle(float linearDamping, float angularDamping, float density, float friction, float restitution, float triangleSize) {
-        super(null, false);
+    public GameObjectDynamicTriangle(int id, short category, short mask) {
+        this(id, G.i.TRIANGLE_HEIGHT, category, mask);
+    }
+
+    public GameObjectDynamicTriangle(int id, float triangleSize, short category, short mask) {
+        this(id, 2.0f, 2.0f, 1.0f, 1.0f, 0.0f, triangleSize, category, mask);
+    }
+
+    public GameObjectDynamicTriangle(int id, float linearDamping, float angularDamping, float density, float friction, float restitution, float triangleSize, short category, short mask) {
+        super(id, null, false);
         _linearDamping = linearDamping;
         _angularDamping = angularDamping;
         _density = density;
         _friction = friction;
         _restitution = restitution;
         _triangleSize = triangleSize;
+        _category = category;
+        _mask = mask;
 
         body = getBody(new BodyDef(), new FixtureDef());
     }
@@ -56,6 +67,8 @@ public abstract class GameObjectDynamicTriangle extends GameObjectDynamic {
         fdef.friction = _friction;
         fdef.restitution = _restitution;
         fdef.shape = shape;
+        fdef.filter.categoryBits = _category;
+        fdef.filter.maskBits = _mask;
 
         body = Globals.i.world.createBody(bdef);
         body.createFixture(fdef);
@@ -64,7 +77,7 @@ public abstract class GameObjectDynamicTriangle extends GameObjectDynamic {
         body.setLinearDamping(_linearDamping);
         body.setAngularDamping(_angularDamping);
 
-        body.setUserData(new BodyData(this, getId()));
+        body.setUserData(new BodyData(this, id));
 
         return body;
     }

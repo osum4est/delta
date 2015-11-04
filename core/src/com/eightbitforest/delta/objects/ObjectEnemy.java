@@ -11,10 +11,8 @@ import com.eightbitforest.delta.utils.ObjectType;
 
 public class ObjectEnemy extends GameObjectDynamicTriangle implements ISpawnable {
 
-
-    @Override
-    public int getId() {
-        return ObjectType.ENEMY;
+    public ObjectEnemy() {
+        super(ObjectType.ENEMY, G.i.CATEGORY_ENEMY, G.i.MASK_ENEMY);
     }
 
     @Override

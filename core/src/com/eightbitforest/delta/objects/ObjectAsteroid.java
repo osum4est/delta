@@ -10,9 +10,8 @@ import com.eightbitforest.delta.utils.interfaces.ISpawnable;
 
 public class ObjectAsteroid extends GameObjectDynamicTriangle implements ISpawnable {
 
-    @Override
-    public int getId() {
-        return ObjectType.ASTEROID;
+    public ObjectAsteroid() {
+        super(ObjectType.ASTEROID);
     }
 
     @Override
@@ -33,13 +32,6 @@ public class ObjectAsteroid extends GameObjectDynamicTriangle implements ISpawna
     @Override
     public Body getBody() {
         return body;
-    }
-
-    @Override
-    public void onCollide(GameObjectDynamic other) {
-        if (other.id == ObjectType.PLAYER) {
-            dispose();
-        }
     }
 
     @Override

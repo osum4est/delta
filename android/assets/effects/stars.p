@@ -10,8 +10,8 @@ max: 100
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 5.0
-highMax: 5.0
+highMin: 50.0
+highMax: 50.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -36,20 +36,20 @@ active: false
 - Spawn Shape - 
 shape: square
 - Spawn Width - 
-lowMin: -1000.0
-lowMax: -1000.0
-highMin: 1000.0
-highMax: 1000.0
+lowMin: -50.0
+lowMax: -50.0
+highMin: 50.0
+highMax: 50.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
 timelineCount: 1
 timeline0: 0.0
 - Spawn Height - 
-lowMin: -1000.0
-lowMax: -1000.0
-highMin: 1000.0
-highMax: 1000.0
+lowMin: -50.0
+lowMax: -50.0
+highMin: 50.0
+highMax: 50.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -58,8 +58,8 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 5.0
-highMax: 10.0
+highMin: 0.25
+highMax: 0.3
 relative: false
 scalingCount: 2
 scaling0: 1.0
@@ -72,7 +72,7 @@ active: true
 lowMin: 0.0
 lowMax: 0.0
 highMin: 0.0
-highMax: 10.0
+highMax: 0.25
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -137,4 +137,4 @@ additive: true
 behind: false
 premultipliedAlpha: false
 - Image Path -
-/C:/Users/osumf/Documents/GitHub/delta/android/assets/images/triangle.png
+/E:/Documents/Programming/git/delta/android/assets/images/triangle.png

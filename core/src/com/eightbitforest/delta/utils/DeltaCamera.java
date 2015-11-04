@@ -22,7 +22,6 @@ public class DeltaCamera extends OrthographicCamera {
         starsEffect = new ParticleEffect();
         starsEffect.load(Gdx.files.internal("effects/stars.p"), Gdx.files.internal("images"));
         starsEffect.setPosition(0, 0);
-        starsEffect.scaleEffect(1 / (float) G.i.CAMERA_SIZE);
         starsEffect.start();
     }
 

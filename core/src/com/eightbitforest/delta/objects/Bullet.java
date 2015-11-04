@@ -1,7 +1,8 @@
-package com.eightbitforest.delta.objects.base;
+package com.eightbitforest.delta.objects;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
+import com.eightbitforest.delta.objects.base.GameObjectDynamicTriangle;
 import com.eightbitforest.delta.utils.G;
 import com.eightbitforest.delta.utils.ObjectType;
 
@@ -16,11 +17,12 @@ public class Bullet extends GameObjectDynamicTriangle {
 
     @Override
     public Color getColor() {
-        return Color.MAGENTA;
+        return Color.WHITE;
     }
 
     @Override
     public void update(float deltaTime) {
-        body.applyForceToCenter(new Vector2(0, 1).rotateRad(body.getAngle()), true);
+        body.setLinearVelocity(new Vector2(0, 25).rotateRad(body.getAngle()));
+        //body.applyForceToCenter(, true);
     }
 }

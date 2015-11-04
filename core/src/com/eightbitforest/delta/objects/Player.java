@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
-import com.eightbitforest.delta.objects.base.Bullet;
 import com.eightbitforest.delta.objects.base.GameObjectDynamicTriangle;
 import com.eightbitforest.delta.utils.G;
 import com.eightbitforest.delta.utils.ObjectType;
@@ -37,7 +36,7 @@ public class Player extends GameObjectDynamicTriangle implements ITouchInput {
         thrusterEffect = new ParticleEffect();
         thrusterEffect.load(Gdx.files.internal("effects/thruster.p"), Gdx.files.internal("images"));
         thrusterEffect.setPosition(0, 0);
-        thrusterEffect.scaleEffect(1 / (float) G.i.CAMERA_SIZE);
+
         thrusterEffect.start();
 
         thrusterEmitter = thrusterEffect.findEmitter("thruster");
@@ -46,7 +45,7 @@ public class Player extends GameObjectDynamicTriangle implements ITouchInput {
     }
 
     public void shoot() {
-        G.i.objectSpawner.spawnObjectAtPositionAndRotation(new Bullet(.5f), body.getPosition().x, body.getPosition().y, body.getAngle());
+        G.i.objectSpawner.spawnObjectAtPositionAndRotation(new Bullet(.3f), body.getPosition().x, body.getPosition().y, body.getAngle());
     }
 
     @Override
@@ -56,7 +55,7 @@ public class Player extends GameObjectDynamicTriangle implements ITouchInput {
             public void run() {
                 force = thrust;
             }
-        }, .1f);
+        }, .15f);
     }
 
     @Override

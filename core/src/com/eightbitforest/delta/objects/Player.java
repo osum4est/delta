@@ -45,7 +45,7 @@ public class Player extends GameObjectDynamicTriangle implements ITouchInput {
     }
 
     public void shoot() {
-        G.i.objectSpawner.spawnObjectAtPositionAndRotation(new Bullet(.3f), body.getPosition().x, body.getPosition().y, body.getAngle());
+        G.i.objectSpawner.spawnObjectAtPosition(new Bullet(.3f, body.getAngle()), body.getPosition().x, body.getPosition().y);
     }
 
     @Override

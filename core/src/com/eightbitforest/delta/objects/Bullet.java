@@ -11,8 +11,11 @@ import com.eightbitforest.delta.utils.ObjectType;
  */
 public class Bullet extends GameObjectDynamicTriangle {
 
-    public Bullet(float size) {
+    float angle = 0;
+
+    public Bullet(float size, float angle) {
         super(ObjectType.BULLET, size, G.i.CATEGORY_PLAYER, G.i.MASK_PLAYER);
+        this.angle = angle;
     }
 
     @Override
@@ -22,7 +25,7 @@ public class Bullet extends GameObjectDynamicTriangle {
 
     @Override
     public void update(float deltaTime) {
-        body.setLinearVelocity(new Vector2(0, 25).rotateRad(body.getAngle()));
-        //body.applyForceToCenter(, true);
+        body.setTransform(body.getPosition(), angle);
+        body.setLinearVelocity(new Vector2(0, 25).rotateRad(angle));
     }
 }

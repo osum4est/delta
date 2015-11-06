@@ -42,7 +42,7 @@ public class ObjectEnemy extends GameObjectDynamicTriangle implements ISpawnable
     }
 
     @Override
-    public void onCollide(GameObjectDynamic other) {
+    public void onCollideEnter(GameObjectDynamic other) {
         if (other.id == ObjectType.BULLET) {
             dispose();
         }

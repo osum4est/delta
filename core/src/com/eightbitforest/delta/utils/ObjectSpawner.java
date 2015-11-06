@@ -24,8 +24,6 @@ public class ObjectSpawner implements IUpdates {
         player = G.i.player;
         lastPlayerPos = new Vector2(0, 0);
         playerPos = player.body.getPosition();
-
-        GameRegistry.registerObject(this);
     }
 
     Vector2 move = new Vector2(0, 0);

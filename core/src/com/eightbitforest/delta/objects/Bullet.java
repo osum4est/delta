@@ -12,7 +12,7 @@ import com.eightbitforest.delta.utils.ObjectType;
 public class Bullet extends GameObjectDynamicTriangle {
 
     public Bullet(float size) {
-        super(ObjectType.BULLET, size, G.i.CATEGORY_PLAYER, G.i.MASK_NONE);
+        super(ObjectType.BULLET, size, G.i.CATEGORY_PLAYER, G.i.MASK_PLAYER);
     }
 
     @Override

@@ -11,17 +11,18 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 public class CollisionHandler implements ContactListener {
     @Override
     public void beginContact(Contact contact) {
-        ((BodyData) contact.getFixtureA().getBody().getUserData()).gameObject.onCollide(
+        ((BodyData) contact.getFixtureA().getBody().getUserData()).gameObject.onCollideEnter(
                 ((BodyData) contact.getFixtureB().getBody().getUserData()).gameObject);
-        ((BodyData) contact.getFixtureB().getBody().getUserData()).gameObject.onCollide(
+        ((BodyData) contact.getFixtureB().getBody().getUserData()).gameObject.onCollideEnter(
                 ((BodyData) contact.getFixtureA().getBody().getUserData()).gameObject);
-//        DeltaContact deltaContact = new DeltaContact(contact);
-//        if (deltaContact.testCollision(ObjectType.PLAYER, ObjectType.ASTEROID))
-//            System.out.println("You hit an asteroid!");
     }
 
     @Override
     public void endContact(Contact contact) {
+        ((BodyData) contact.getFixtureA().getBody().getUserData()).gameObject.onCollideExit(
+                ((BodyData) contact.getFixtureB().getBody().getUserData()).gameObject);
+        ((BodyData) contact.getFixtureB().getBody().getUserData()).gameObject.onCollideExit(
+                ((BodyData) contact.getFixtureA().getBody().getUserData()).gameObject);
     }
 
     @Override

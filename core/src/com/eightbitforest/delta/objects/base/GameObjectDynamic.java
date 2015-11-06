@@ -27,7 +27,8 @@ public abstract class GameObjectDynamic extends GameObject {
         body = getBody(new BodyDef(), new FixtureDef());
     }
 
-    public void onCollide(GameObjectDynamic other) { }
+    public void onCollideEnter(GameObjectDynamic other) { }
+    public void onCollideExit(GameObjectDynamic other) { }
 
     @Override
     public void dispose() {

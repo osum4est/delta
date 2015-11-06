@@ -23,11 +23,12 @@ public abstract class GameObjectDynamicTriangle extends GameObjectDynamic {
 
     public GameObjectDynamicTriangle(int id)
     {
-        this(id, G.i.TRIANGLE_HEIGHT, G.i.CATEGORY_NONE, G.i.MASK_NONE);
+        this(id, G.i.TRIANGLE_HEIGHT, G.i.CATEGORY_ALL, G.i.MASK_ALL);
+
     }
 
     public GameObjectDynamicTriangle(int id, float triangleSize) {
-        this(id, triangleSize, G.i.CATEGORY_NONE, G.i.MASK_NONE);
+        this(id, triangleSize, G.i.CATEGORY_ALL, G.i.MASK_ALL);
     }
 
     public GameObjectDynamicTriangle(int id, short category, short mask) {
@@ -70,7 +71,7 @@ public abstract class GameObjectDynamicTriangle extends GameObjectDynamic {
         fdef.filter.categoryBits = _category;
         fdef.filter.maskBits = _mask;
 
-        body = Globals.i.world.createBody(bdef);
+        body = G.i.world.createBody(bdef);
         body.createFixture(fdef);
         shape.dispose();
 

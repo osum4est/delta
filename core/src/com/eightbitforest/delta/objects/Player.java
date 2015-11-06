@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
+import com.eightbitforest.delta.objects.base.GameObjectDynamic;
 import com.eightbitforest.delta.objects.base.GameObjectDynamicTriangle;
+import com.eightbitforest.delta.objects.base.PlayerDespawnCollider;
 import com.eightbitforest.delta.utils.G;
 import com.eightbitforest.delta.utils.ObjectType;
 import com.eightbitforest.delta.utils.interfaces.ITouchInput;
@@ -36,9 +38,7 @@ public class Player extends GameObjectDynamicTriangle implements ITouchInput {
         thrusterEffect = new ParticleEffect();
         thrusterEffect.load(Gdx.files.internal("effects/thruster.p"), Gdx.files.internal("images"));
         thrusterEffect.setPosition(0, 0);
-
         thrusterEffect.start();
-
         thrusterEmitter = thrusterEffect.findEmitter("thruster");
 
         touchTimer = new Timer();

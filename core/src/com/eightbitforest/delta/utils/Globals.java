@@ -29,7 +29,7 @@ public class Globals {
     public final short CATEGORY_ENEMY = 0x8;
     public final short MASK_NONE = 0x0;
     public final short MASK_ALL = 0xF;
-    public final short MASK_PLAYER = CATEGORY_ENEMY | CATEGORY_ALL | CATEGORY_NONE;
+    public final short MASK_PLAYER = CATEGORY_ENEMY | CATEGORY_ALL;
     public final short MASK_ENEMY = CATEGORY_PLAYER | CATEGORY_ALL;
 
     public SpriteBatch batch;

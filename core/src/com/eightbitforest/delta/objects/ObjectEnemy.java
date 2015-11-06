@@ -17,8 +17,10 @@ public class ObjectEnemy extends GameObjectDynamicTriangle implements ISpawnable
 
     @Override
     public void update(float deltaTime) {
-        body.setTransform(body.getPosition(), G.i.player.body.getPosition().sub(body.getPosition()).angleRad() + (float) Math.PI * 3 / 2);
-        body.applyForceToCenter(new Vector2(0, 5).rotateRad(body.getAngle()), true);
+        if (body.getPosition().dst(G.i.player.body.getPosition()) < 20) {
+            body.setTransform(body.getPosition(), G.i.player.body.getPosition().sub(body.getPosition()).angleRad() + (float) Math.PI * 3 / 2);
+            body.applyForceToCenter(new Vector2(0, 5).rotateRad(body.getAngle()), true);
+        }
     }
 
     @Override

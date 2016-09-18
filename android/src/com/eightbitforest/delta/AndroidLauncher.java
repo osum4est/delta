@@ -1,4 +1,4 @@
-package com.eightbitforest.delta.android;
+package com.eightbitforest.delta;
 
 import android.os.Bundle;
 

@@ -12,19 +12,25 @@ public abstract class GameObjectDynamic extends GameObject {
 
     public Body body;
 
-    abstract Body getBody(BodyDef bdef, FixtureDef fdef);
+    public Body getBody() { return body; }
 
     public GameObjectDynamic(int id, String image, boolean setBody)
     {
         super(id, image);
         if (setBody)
-            body = getBody(new BodyDef(), new FixtureDef());
+            body = getBody();
     }
 
     public GameObjectDynamic(int id, String image)
     {
         super(id, image);
-        body = getBody(new BodyDef(), new FixtureDef());
+        body = getBody();
+    }
+
+    public GameObjectDynamic(int id, BodyBuilder body)
+    {
+        super(id, null);
+        this.body = body.createBody(this, id);
     }
 
     public void onCollideEnter(GameObjectDynamic other) { }

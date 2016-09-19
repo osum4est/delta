@@ -1,5 +1,6 @@
 package com.eightbitforest.delta.utils;
 
+import com.eightbitforest.delta.objects.ObjectAsteroid;
 import com.eightbitforest.delta.objects.base.GameObjectDynamic;
 import com.eightbitforest.delta.utils.interfaces.IUpdates;
 

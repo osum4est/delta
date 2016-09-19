@@ -3,6 +3,7 @@ package com.eightbitforest.delta.objects;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.eightbitforest.delta.objects.base.BodyBuilder;
 import com.eightbitforest.delta.objects.base.GameObjectDynamic;
 import com.eightbitforest.delta.objects.base.GameObjectDynamicTriangle;
 import com.eightbitforest.delta.utils.G;
@@ -12,7 +13,10 @@ import com.eightbitforest.delta.utils.ObjectType;
 public class ObjectEnemy extends GameObjectDynamicTriangle implements ISpawnable {
 
     public ObjectEnemy() {
-        super(ObjectType.ENEMY, G.i.CATEGORY_ENEMY, G.i.MASK_ENEMY);
+        super(ObjectType.ENEMY,
+                new BodyBuilder()
+                    .setCategory(G.i.CATEGORY_ENEMY)
+                    .setMask(G.i.MASK_ENEMY));
     }
 
     @Override

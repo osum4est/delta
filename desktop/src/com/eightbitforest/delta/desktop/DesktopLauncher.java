@@ -7,6 +7,8 @@ import com.eightbitforest.delta.DeltaMain;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.height = 640;
+		config.width = 480;
 		new LwjglApplication(new DeltaMain(), config);
 	}
 }

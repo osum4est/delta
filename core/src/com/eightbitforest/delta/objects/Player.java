@@ -8,20 +8,22 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
+import com.eightbitforest.delta.objects.base.BodyBuilder;
 import com.eightbitforest.delta.objects.base.GameObjectDynamic;
 import com.eightbitforest.delta.objects.base.GameObjectDynamicTriangle;
 import com.eightbitforest.delta.objects.base.PlayerDespawnCollider;
 import com.eightbitforest.delta.utils.G;
 import com.eightbitforest.delta.utils.ObjectType;
 import com.eightbitforest.delta.utils.interfaces.ITouchInput;
+import sun.security.ssl.Debug;
 
 /**
  * Created by osumf on 8/17/2015.
  */
 public class Player extends GameObjectDynamicTriangle implements ITouchInput {
 
-    public float thrust = 15f;
-    public float turnSpeed = .25f;
+    public float thrust = 25f;
+    public float turnSpeed = .2f;
 
     public float force = 0f;
     public float torque = 0f;
@@ -32,8 +34,13 @@ public class Player extends GameObjectDynamicTriangle implements ITouchInput {
 
     Timer touchTimer;
 
+    ObjectPlanet planet;
+
     public Player() {
-        super(ObjectType.PLAYER, G.i.CATEGORY_PLAYER, G.i.MASK_PLAYER);
+        super(ObjectType.PLAYER,
+                new BodyBuilder()
+                    .setCategory(G.i.CATEGORY_PLAYER)
+                    .setMask(G.i.MASK_PLAYER));
 
         thrusterEffect = new ParticleEffect();
         thrusterEffect.load(Gdx.files.internal("effects/thruster.p"), Gdx.files.internal("images"));
@@ -42,6 +49,9 @@ public class Player extends GameObjectDynamicTriangle implements ITouchInput {
         thrusterEmitter = thrusterEffect.findEmitter("thruster");
 
         touchTimer = new Timer();
+
+
+        planet = new ObjectPlanet(0, 260 / G.i.PPM);
     }
 
     public void shoot() {
@@ -60,6 +70,7 @@ public class Player extends GameObjectDynamicTriangle implements ITouchInput {
 
     @Override
     public void touchUp(int screenX, int screenY, int pointer, int button) {
+        System.out.println(body.getPosition().scl(G.i.PPM));
         touchTimer.clear();
         if (force != thrust)
             shoot();

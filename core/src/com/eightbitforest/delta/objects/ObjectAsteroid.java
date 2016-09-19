@@ -2,8 +2,11 @@ package com.eightbitforest.delta.objects;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.MassData;
+import com.eightbitforest.delta.objects.base.BodyBuilder;
 import com.eightbitforest.delta.objects.base.GameObjectDynamic;
 import com.eightbitforest.delta.objects.base.GameObjectDynamicTriangle;
+import com.eightbitforest.delta.utils.G;
 import com.eightbitforest.delta.utils.ObjectType;
 import com.eightbitforest.delta.utils.interfaces.ISpawnable;
 
@@ -11,7 +14,11 @@ import com.eightbitforest.delta.utils.interfaces.ISpawnable;
 public class ObjectAsteroid extends GameObjectDynamicTriangle implements ISpawnable {
 
     public ObjectAsteroid() {
-        super(ObjectType.ASTEROID);
+        super(ObjectType.ASTEROID,
+                new BodyBuilder()
+                    .setLinearDamping(1.0f)
+                    .setDensity(.5f)
+                    .setRestitution((.5f)));
     }
 
     @Override

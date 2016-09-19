@@ -29,4 +29,9 @@ public abstract class GameObject implements IUpdates {
         if (sprite != null)
             getTexture().dispose();
     }
+
+    @Override
+    public void update(float deltaTime) {
+
+    }
 }

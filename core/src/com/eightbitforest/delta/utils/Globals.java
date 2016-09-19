@@ -18,7 +18,7 @@ import com.eightbitforest.delta.utils.interfaces.IUpdates;
 public class Globals {
     public static Globals i = new Globals();
 
-    public final int CAMERA_SIZE = 15;
+    public final int PPM = 30;
     public final float TRIANGLE_HEIGHT = 1f;
     public final int SPAWN_SQUARE_SIZE = 100;
     public final int DESPAWN_RADIUS = 100;
@@ -31,6 +31,9 @@ public class Globals {
     public final short MASK_ALL = 0xF;
     public final short MASK_PLAYER = CATEGORY_ENEMY | CATEGORY_ALL;
     public final short MASK_ENEMY = CATEGORY_PLAYER | CATEGORY_ALL;
+
+    public final float GAME_WIDTH = 480;
+    public final float GAME_HEIGHT = 640;
 
     public SpriteBatch batch;
     public ShapeRenderer shapeRenderer;
@@ -73,6 +76,7 @@ public class Globals {
         GameRegistry.registerObject(player);
         objectSpawner = new ObjectSpawner();
         GameRegistry.registerObject(objectSpawner);
+//        GameRegistry.registerObject(new ObjectAsteroid());
         GameRegistry.registerObject(new PlayerDespawnCollider());
 
         registerSpawnables();

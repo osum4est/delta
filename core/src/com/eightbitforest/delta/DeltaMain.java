@@ -3,6 +3,7 @@ package com.eightbitforest.delta;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.eightbitforest.delta.utils.G;
 import com.eightbitforest.delta.utils.GameHandler;
 import com.eightbitforest.delta.utils.Globals;
 import com.eightbitforest.delta.utils.InputHandler;
@@ -26,6 +27,11 @@ public class DeltaMain extends ApplicationAdapter {
 
 		Globals.i.gameHandler.update(Gdx.graphics.getDeltaTime());
 		Globals.i.gameHandler.render();
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		G.i.camera.resize(width, height);
 	}
 
 	@Override

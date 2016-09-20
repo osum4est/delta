@@ -89,6 +89,9 @@ public class BodyBuilder {
         this.triangleSize = triangleSize;
         return this;
     }
+    public float getTriangleSize() {
+        return triangleSize;
+    }
 
 
     public Body createBody(GameObjectDynamic go, int id) {

@@ -22,7 +22,7 @@ import sun.security.ssl.Debug;
  */
 public class Player extends GameObjectDynamicTriangle implements ITouchInput {
 
-    public float thrust = 25f;
+    public float thrust = 20f;
     public float turnSpeed = .2f;
 
     public float force = 0f;

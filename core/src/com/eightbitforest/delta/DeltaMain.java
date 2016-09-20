@@ -7,9 +7,14 @@ import com.eightbitforest.delta.utils.G;
 import com.eightbitforest.delta.utils.GameHandler;
 import com.eightbitforest.delta.utils.Globals;
 import com.eightbitforest.delta.utils.InputHandler;
+import com.eightbitforest.delta.utils.interfaces.IGooglePlay;
 
 public class DeltaMain extends ApplicationAdapter {
-	
+
+	public DeltaMain() {
+//		G.i.googlePlay = googlePlay;
+	}
+
 	@Override
 	public void create () {
 

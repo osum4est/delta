@@ -20,6 +20,7 @@ public abstract class GameObjectDynamicTriangle extends GameObjectDynamic {
 
 //    private float _linearDamping, _angularDamping, _density, _friction, _restitution, _triangleSize;
 //    private short _category, _mask;
+    private float triangeSize;
 
     public GameObjectDynamicTriangle(int id)
     {
@@ -28,6 +29,7 @@ public abstract class GameObjectDynamicTriangle extends GameObjectDynamic {
 
     public GameObjectDynamicTriangle(int id, BodyBuilder body) {
         super(id, body);
+        triangeSize = body.getTriangleSize();
     }
 
     public abstract Color getColor();
@@ -35,7 +37,7 @@ public abstract class GameObjectDynamicTriangle extends GameObjectDynamic {
     @Override
     public void render(SpriteBatch batch) {
         batch.end();
-        drawTriangle(G.i.shapeRenderer, G.i.TRIANGLE_HEIGHT, getColor());
+        drawTriangle(G.i.shapeRenderer, triangeSize, getColor());
         batch.begin();
 
     }

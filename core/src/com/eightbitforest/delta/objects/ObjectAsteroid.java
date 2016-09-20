@@ -16,9 +16,9 @@ public class ObjectAsteroid extends GameObjectDynamicTriangle implements ISpawna
     public ObjectAsteroid() {
         super(ObjectType.ASTEROID,
                 new BodyBuilder()
-                    .setLinearDamping(1.0f)
-                    .setDensity(.5f)
-                    .setRestitution((.5f)));
+                    .setLinearDamping(.75f)
+                    .setDensity(.25f)
+                    .setRestitution(.25f));
     }
 
     @Override

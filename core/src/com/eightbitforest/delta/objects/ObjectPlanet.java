@@ -11,14 +11,16 @@ import com.eightbitforest.delta.utils.GameRegistry;
  */
 public class ObjectPlanet {
 
+    public static final float SIZE = 1.5f;
+
     public ObjectPlanet(float x, float y)
     {
-        float unit = G.i.TRIANGLE_HEIGHT * 1/3;
-        float side = (2 / (float) Math.sqrt(3)) * G.i.TRIANGLE_HEIGHT / 2;
-        GameRegistry.registerObject(new ObjectPlanetPart(new Vector2(x, y + G.i.TRIANGLE_HEIGHT * 2/3), 180f));
+        float unit = SIZE * 1/3;
+        float side = (2 / (float) Math.sqrt(3)) * SIZE / 2;
+        GameRegistry.registerObject(new ObjectPlanetPart(new Vector2(x, y + SIZE * 2/3), 180f));
         GameRegistry.registerObject(new ObjectPlanetPart(new Vector2(x + side, y + unit), 0f));
         GameRegistry.registerObject(new ObjectPlanetPart(new Vector2(x + side, y - unit), 180f));
-        GameRegistry.registerObject(new ObjectPlanetPart(new Vector2(x, y - G.i.TRIANGLE_HEIGHT * 2/3), 0f));
+        GameRegistry.registerObject(new ObjectPlanetPart(new Vector2(x, y - SIZE * 2/3), 0f));
         GameRegistry.registerObject(new ObjectPlanetPart(new Vector2(x - side, y - unit), 180f));
         GameRegistry.registerObject(new ObjectPlanetPart(new Vector2(x - side, y + unit), 0f));
 

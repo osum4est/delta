@@ -17,7 +17,8 @@ public class ObjectPlanetPart extends GameObjectDynamicTriangle {
         super(ObjectType.PLANET_PART, new BodyBuilder()
                 .setBodyType(BodyDef.BodyType.KinematicBody)
                 .setPosition(pos)
-                .setRotation((float)Math.toRadians(rotation)));
+                .setRotation((float)Math.toRadians(rotation))
+                .setTriangleSize(ObjectPlanet.SIZE));
     }
 
     @Override

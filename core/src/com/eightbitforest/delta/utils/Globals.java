@@ -11,6 +11,7 @@ import com.eightbitforest.delta.objects.ObjectEnemy;
 import com.eightbitforest.delta.objects.Player;
 import com.eightbitforest.delta.objects.base.GameObjectDynamic;
 import com.eightbitforest.delta.objects.base.PlayerDespawnCollider;
+import com.eightbitforest.delta.utils.interfaces.IGooglePlay;
 import com.eightbitforest.delta.utils.interfaces.ISpawnable;
 import com.eightbitforest.delta.utils.interfaces.ITouchInput;
 import com.eightbitforest.delta.utils.interfaces.IUpdates;
@@ -18,7 +19,7 @@ import com.eightbitforest.delta.utils.interfaces.IUpdates;
 public class Globals {
     public static Globals i = new Globals();
 
-    public final int PPM = 30;
+    public final int PPM = 15;
     public final float TRIANGLE_HEIGHT = 1f;
     public final int SPAWN_SQUARE_SIZE = 100;
     public final int DESPAWN_RADIUS = 100;
@@ -34,6 +35,8 @@ public class Globals {
 
     public final float GAME_WIDTH = 480;
     public final float GAME_HEIGHT = 640;
+
+    public IGooglePlay googlePlay;
 
     public SpriteBatch batch;
     public ShapeRenderer shapeRenderer;
@@ -76,10 +79,13 @@ public class Globals {
         GameRegistry.registerObject(player);
         objectSpawner = new ObjectSpawner();
         GameRegistry.registerObject(objectSpawner);
-//        GameRegistry.registerObject(new ObjectAsteroid());
+        GameRegistry.registerObject(new ObjectAsteroid());
         GameRegistry.registerObject(new PlayerDespawnCollider());
 
         registerSpawnables();
+
+
+//        googlePlay.test();
     }
 
     public void registerSpawnables() {

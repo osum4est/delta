@@ -1,47 +1,35 @@
 package com.eightbitforest.delta;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.eightbitforest.delta.utils.G;
-import com.eightbitforest.delta.utils.GameHandler;
-import com.eightbitforest.delta.utils.Globals;
-import com.eightbitforest.delta.utils.InputHandler;
-import com.eightbitforest.delta.utils.interfaces.IGooglePlay;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.eightbitforest.delta.utils.Colors;
+import com.eightbitforest.delta.utils.Constants;
+import com.eightbitforest.delta.views.MainGame;
 
-public class DeltaMain extends ApplicationAdapter {
-
-	public DeltaMain() {
-//		G.i.googlePlay = googlePlay;
-	}
+public class DeltaMain extends Game {
 
 	@Override
 	public void create () {
-
-		// DEBUG MODE
-		GameHandler.debugMode = true;
-
-		Globals.i.init();
-		Gdx.input.setInputProcessor(new InputHandler());
+	    setScreen(new MainGame(this));
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(.1f, .1f, .1f, 1);
+		Gdx.gl.glClearColor(
+                Colors.BACKGROUND.r,
+                Colors.BACKGROUND.g,
+                Colors.BACKGROUND.b,
+                Colors.BACKGROUND.a);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		Globals.i.gameHandler.update(Gdx.graphics.getDeltaTime());
-		Globals.i.gameHandler.render();
-	}
-
-	@Override
-	public void resize(int width, int height) {
-		G.i.camera.resize(width, height);
+        super.render();
 	}
 
 	@Override
 	public void dispose() {
-
-		Globals.i.gameHandler.dispose();
+        super.dispose();
 	}
 }

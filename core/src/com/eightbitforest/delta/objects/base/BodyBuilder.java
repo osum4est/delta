@@ -2,8 +2,9 @@ package com.eightbitforest.delta.objects.base;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.eightbitforest.delta.level.Level;
 import com.eightbitforest.delta.utils.BodyData;
-import com.eightbitforest.delta.utils.G;
+import com.eightbitforest.delta.utils.Constants;
 
 /**
  * Created by osum4est on 9/18/16.
@@ -14,8 +15,8 @@ public class BodyBuilder {
     private float density = 1.0f;
     private float friction = 1.0f;
     private float restitution = 0.0f;
-    private short category = G.i.CATEGORY_ALL;
-    private short mask = G.i.MASK_ALL;
+    private short category = Constants.CATEGORY_ALL;
+    private short mask = Constants.MASK_ALL;
 
     private boolean sensor = false;
 
@@ -27,7 +28,7 @@ public class BodyBuilder {
     private BodyDef bodyDef;
     private FixtureDef fixtureDef;
 
-    private float triangleSize = G.i.TRIANGLE_HEIGHT;
+    private float triangleSize = Constants.TRIANGLE_HEIGHT;
 
     public BodyBuilder setLinearDamping(float linearDamping) {
         this.linearDamping = linearDamping;
@@ -94,7 +95,7 @@ public class BodyBuilder {
     }
 
 
-    public Body createBody(GameObjectDynamic go, int id) {
+    public Body createBody(Level level, GameObject go, int id) {
         Body b;
         if (shape == null)
             shape = getTriangleShape(triangleSize);
@@ -114,7 +115,7 @@ public class BodyBuilder {
             fixtureDef.filter.maskBits = mask;
             fixtureDef.isSensor = sensor;
         }
-        b = G.i.world.createBody(bodyDef);
+        b = level.getWorld().createBody(bodyDef);
         b.createFixture(fixtureDef);
         b.setLinearDamping(linearDamping);
         b.setAngularDamping(angularDamping);
@@ -125,7 +126,7 @@ public class BodyBuilder {
         return b;
     }
 
-    public PolygonShape getTriangleShape() { return getTriangleShape(G.i.TRIANGLE_HEIGHT); }
+    public PolygonShape getTriangleShape() { return getTriangleShape(Constants.TRIANGLE_HEIGHT); }
     public PolygonShape getTriangleShape(float height)
     {
         float side = (2 / (float)Math.sqrt(3)) * height;

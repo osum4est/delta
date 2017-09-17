@@ -1,0 +1,7 @@
+package com.eightbitforest.delta.utils;
+
+
+public class Ids {
+    public static final int PLAYER = 0;
+    public static final int WALL = 1;
+}

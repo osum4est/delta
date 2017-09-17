@@ -1,11 +1,11 @@
 package com.eightbitforest.delta.utils;
 
+import com.badlogic.gdx.utils.JsonValue;
+
 import java.util.Random;
 
-/**
- * Created by osumf on 8/22/2015.
- */
-public class DeltaUtils {
+
+public class Utils {
     public static int randomRange(float min, float max)
     {
         return randomRange((int)min, (int)max);
@@ -33,6 +33,17 @@ public class DeltaUtils {
                     matches++;
 
         return matches == values.length;
+    }
 
+    public static String getJsonStringOrDefault(JsonValue json, String key, String def) {
+        if (json.has(key))
+            return json.getString(key);
+        return def;
+    }
+
+    public static float getJsonFloatOrDefault(JsonValue json, String key, float def) {
+        if (json.has(key))
+            return json.getFloat(key);
+        return def;
     }
 }

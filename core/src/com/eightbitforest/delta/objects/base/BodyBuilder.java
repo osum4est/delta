@@ -1,7 +1,9 @@
 package com.eightbitforest.delta.objects.base;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.eightbitforest.delta.level.Level;
 import com.eightbitforest.delta.utils.BodyData;
 import com.eightbitforest.delta.utils.Constants;
@@ -23,12 +25,10 @@ public class BodyBuilder {
     private BodyDef.BodyType bodyType = BodyDef.BodyType.DynamicBody;
     private Vector2 position = new Vector2(0, 0);
     private float rotation = 0f;
-    private Shape shape;
+    private ShapeBuilder shape;
 
     private BodyDef bodyDef;
     private FixtureDef fixtureDef;
-
-    private float triangleSize = Constants.TRIANGLE_HEIGHT;
 
     public BodyBuilder setLinearDamping(float linearDamping) {
         this.linearDamping = linearDamping;
@@ -70,11 +70,17 @@ public class BodyBuilder {
         this.position = position;
         return this;
     }
+
+    public BodyBuilder movePosition(Vector2 movement) {
+        this.position = this.position.add(movement);
+        return this;
+    }
     public BodyBuilder setRotation(float rotation) {
         this.rotation = rotation;
         return this;
     }
-    public BodyBuilder setShape(Shape shape) {
+
+    public BodyBuilder setShape(ShapeBuilder shape) {
         this.shape = shape;
         return this;
     }
@@ -86,19 +92,12 @@ public class BodyBuilder {
         this.fixtureDef = fixtureDef;
         return this;
     }
-    public BodyBuilder setTriangleSize(float triangleSize) {
-        this.triangleSize = triangleSize;
-        return this;
-    }
-    public float getTriangleSize() {
-        return triangleSize;
-    }
 
 
-    public Body createBody(Level level, GameObject go, int id) {
+    public Body createBody(Level level, GameObjectPolygon go, int id) {
         Body b;
         if (shape == null)
-            shape = getTriangleShape(triangleSize);
+            shape = new ShapeBuilder();
         if (bodyDef == null) {
             bodyDef = new BodyDef();
             bodyDef.type = bodyType;
@@ -110,7 +109,7 @@ public class BodyBuilder {
             fixtureDef.density = density;
             fixtureDef.friction = friction;
             fixtureDef.restitution = restitution;
-            fixtureDef.shape = shape;
+            fixtureDef.shape = shape.createShape();
             fixtureDef.filter.categoryBits = category;
             fixtureDef.filter.maskBits = mask;
             fixtureDef.isSensor = sensor;
@@ -121,22 +120,12 @@ public class BodyBuilder {
         b.setAngularDamping(angularDamping);
         b.setUserData(new BodyData(go, id));
 
-        shape.dispose();
+        fixtureDef.shape.dispose();
 
         return b;
     }
 
-    public PolygonShape getTriangleShape() { return getTriangleShape(Constants.TRIANGLE_HEIGHT); }
-    public PolygonShape getTriangleShape(float height)
-    {
-        float side = (2 / (float)Math.sqrt(3)) * height;
-
-        PolygonShape shape = new PolygonShape();
-        shape.set(new Vector2[]{
-                new Vector2(-side / 2, -height / 3),
-                new Vector2(side / 2, -height / 3),
-                new Vector2(0, height / 3 * 2)});
-
-        return shape;
+    public float[] getShapeVertices() {
+        return shape.getVertices();
     }
 }

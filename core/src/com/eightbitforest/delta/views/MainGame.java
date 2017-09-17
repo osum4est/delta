@@ -6,23 +6,25 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.eightbitforest.delta.debug.DebugGrid;
 import com.eightbitforest.delta.level.Level;
+import com.eightbitforest.delta.level.LevelLoader;
 import com.eightbitforest.delta.utils.Constants;
 
 public class MainGame implements Screen {
 
     private Game game;
     private Level level;
-    private Box2DDebugRenderer debugRenderer;
     private ParticleEffect starsEffect;
+    private Box2DDebugRenderer debugRenderer;
+    private DebugGrid debugGrid;
 
 
     public MainGame(Game game) {
         this.game = game;
-        this.level = new Level();
+        this.level = LevelLoader.loadLocalLevel("001.lvl");
 
         Gdx.input.setInputProcessor(level);
-        debugRenderer = new Box2DDebugRenderer();
 
         starsEffect = new ParticleEffect();
         starsEffect.load(Gdx.files.internal("effects/stars.p"), Gdx.files.internal("images"));
@@ -31,6 +33,11 @@ public class MainGame implements Screen {
 
         level.getCamera().position.x = 0;
         level.getCamera().position.y = 0;
+
+        if (Constants.DEBUG_MODE) {
+            debugRenderer = new Box2DDebugRenderer();
+            debugGrid = new DebugGrid();
+        }
     }
 
     @Override
@@ -51,7 +58,11 @@ public class MainGame implements Screen {
 
         level.act();
         level.draw();
-        debugRenderer.render(level.getWorld(), level.getBatch().getProjectionMatrix());
+
+        if (Constants.DEBUG_MODE) {
+            debugGrid.render(level.getBatch().getProjectionMatrix(), 25, 25);
+            debugRenderer.render(level.getWorld(), level.getBatch().getProjectionMatrix());
+        }
     }
 
     @Override

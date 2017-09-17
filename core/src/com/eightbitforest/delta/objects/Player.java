@@ -7,11 +7,11 @@ import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.eightbitforest.delta.level.Level;
-import com.eightbitforest.delta.objects.base.GameObject;
+import com.eightbitforest.delta.objects.base.GameObjectPolygon;
 import com.eightbitforest.delta.utils.Colors;
-import com.eightbitforest.delta.utils.ObjectType;
+import com.eightbitforest.delta.utils.Ids;
 
-public class Player extends GameObject {
+public class Player extends GameObjectPolygon {
 
     private float thrust = 20f;
     private float turnSpeed = .2f;
@@ -24,7 +24,7 @@ public class Player extends GameObject {
     private ParticleEffect thrusterEffect;
 
     public Player(Level level, float x, float y) {
-        super(level, ObjectType.PLAYER, x, y, Colors.PLAYER);
+        super(level, Ids.PLAYER, x, y, Colors.PLAYER);
 
         thrusterEffect = new ParticleEffect();
         thrusterEffect.load(Gdx.files.internal("effects/thruster.p"), Gdx.files.internal("images"));

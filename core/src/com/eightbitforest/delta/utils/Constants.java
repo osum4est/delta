@@ -2,10 +2,12 @@ package com.eightbitforest.delta.utils;
 
 public class Constants {
     public static final boolean DEBUG_MODE = true;
+    public static final String TAG = "delta";
+
 
     public static final int PPM = 15;
-    public static final float TRIANGLE_HEIGHT = 1f;
-    public static final float TRIANGLE_SIDE = (2 / (float) Math.sqrt(3)) * TRIANGLE_HEIGHT;
+    public static final float TRIANGLE_SIDE = 1f; // GRID WIDTH
+    public static final float TRIANGLE_HEIGHT = TRIANGLE_SIDE / (2 / (float) Math.sqrt(3)); // GRID HEIGHT
 
     public static final short CATEGORY_NONE = 0x1;
     public static final short CATEGORY_ALL = 0x2;

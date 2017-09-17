@@ -2,18 +2,22 @@ package com.eightbitforest.delta.level;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.eightbitforest.delta.objects.Player;
+import com.eightbitforest.delta.objects.base.GameObjectPolygon;
 import com.eightbitforest.delta.utils.Constants;
+
+import java.util.ArrayList;
 
 public class Level extends Stage {
     private World world;
     private Player player;
+
+    private ArrayList<GameObjectPolygon> objects;
 
     public Level() {
         super(new ExtendViewport(Constants.WIDTH / Constants.PPM, Constants.HEIGHT / Constants.PPM));
@@ -22,9 +26,10 @@ public class Level extends Stage {
                 new Vector2(0, 0),
                 false
         );
-        this.player = new Player(this, 0f, 0f);
 
-        addActor(this.player);
+        this.objects = new ArrayList<GameObjectPolygon>();
+        this.player = new Player(this, 0f, 0f);
+        addObject(this.player);
 
         addListener(new InputListener() {
             @Override
@@ -57,5 +62,10 @@ public class Level extends Stage {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void addObject(GameObjectPolygon object) {
+        addActor(object);
+        objects.add(object);
     }
 }

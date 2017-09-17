@@ -1,7 +1,7 @@
 package com.eightbitforest.delta.utils;
 
 import com.badlogic.gdx.physics.box2d.Contact;
-import com.eightbitforest.delta.objects.base.GameObject;
+import com.eightbitforest.delta.objects.base.GameObjectPolygon;
 
 /**
  * Created by fjon2248 on 10/21/2015.
@@ -10,8 +10,8 @@ public class DeltaContact {
     public Contact contact;
     public BodyData bodyDataA;
     public BodyData bodyDataB;
-    public GameObject gameObjectA;
-    public GameObject gameObjectB;
+    public GameObjectPolygon gameObjectA;
+    public GameObjectPolygon gameObjectB;
 
     public DeltaContact(Contact contact) {
         this.contact = contact;

@@ -1,0 +1,117 @@
+package com.eightbitforest.delta.objects.base;
+
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.math.EarClippingTriangulator;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.JsonValue;
+import com.eightbitforest.delta.level.Level;
+
+/**
+ * Only uses Actor for updating and color
+ */
+public abstract class GameObjectPolygon extends Actor {
+    //    protected ShapeRenderer renderer;
+    private PolygonSpriteBatch polygonSpriteBatch;
+    private PolygonSprite polygonSprite;
+
+    protected Body body;
+    private Level level;
+
+    private int id;
+
+    public GameObjectPolygon(Level level, int id, boolean createBody) {
+        polygonSpriteBatch = new PolygonSpriteBatch();
+        this.id = id;
+        this.level = level;
+
+        if (createBody)
+            setBody(new BodyBuilder());
+    }
+
+    public GameObjectPolygon(Level level, int id) {
+        this(level, id, true);
+    }
+
+    public GameObjectPolygon(Level level, int id, Color color) {
+        this(level, id);
+        setColor(color);
+    }
+
+    public GameObjectPolygon(Level level, int id, float x, float y) {
+        this(level, id);
+        body.setTransform(x, y, 0);
+    }
+
+    public GameObjectPolygon(Level level, int id, float x, float y, Color color) {
+        this(level, id);
+        body.setTransform(x, y, 0);
+        setColor(color);
+    }
+
+    @Override
+    public float getX() {
+        return body.getPosition().x;
+    }
+
+    @Override
+    public void setX(float x) {
+        body.setTransform(x, body.getPosition().y, body.getAngle());
+    }
+
+    @Override
+    public float getY() {
+        return body.getPosition().y;
+    }
+
+    @Override
+    public void setY(float y) {
+        body.setTransform(body.getPosition().x, y, body.getAngle());
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        batch.end();
+
+        polygonSpriteBatch.setProjectionMatrix(batch.getProjectionMatrix());
+        polygonSpriteBatch.setTransformMatrix(batch.getTransformMatrix());
+        polygonSprite.setPosition(getX(), getY());
+        polygonSprite.setColor(getColor());
+        polygonSprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
+
+        polygonSpriteBatch.begin();
+        polygonSprite.draw(polygonSpriteBatch);
+        polygonSpriteBatch.end();
+
+        batch.begin();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setProperties(JsonValue json) {
+        if (json.has("x")) {
+            setX(json.getFloat("x"));
+        }
+        if (json.has("y")) {
+            setY(json.getFloat("y"));
+        }
+    }
+
+    protected void setBody(BodyBuilder body) {
+        this.body = body.createBody(level, this, id);
+        float[] vertices = body.getShapeVertices();
+
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(getColor());
+        pixmap.fill();
+        polygonSprite = new PolygonSprite(new PolygonRegion(new TextureRegion(new Texture(pixmap)),
+                vertices, new EarClippingTriangulator().computeTriangles(vertices).toArray()));
+        polygonSprite.setOrigin(0, 0);
+    }
+}

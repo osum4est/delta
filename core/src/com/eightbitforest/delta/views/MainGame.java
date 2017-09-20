@@ -9,20 +9,25 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.eightbitforest.delta.debug.DebugGrid;
 import com.eightbitforest.delta.level.Level;
 import com.eightbitforest.delta.level.LevelLoader;
+import com.eightbitforest.delta.ui.InGameHud;
 import com.eightbitforest.delta.utils.Constants;
 
 public class MainGame implements Screen {
 
     private Game game;
     private Level level;
+    private InGameHud hud;
+
     private ParticleEffect starsEffect;
+
     private Box2DDebugRenderer debugRenderer;
     private DebugGrid debugGrid;
-
 
     public MainGame(Game game) {
         this.game = game;
         this.level = LevelLoader.loadLocalLevel("001.lvl");
+        this.hud = new InGameHud(this.level);
+        level.addActor(this.hud);
 
         Gdx.input.setInputProcessor(level);
 

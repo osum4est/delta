@@ -12,7 +12,7 @@ import com.eightbitforest.delta.utils.Constants;
  * Created by osum4est on 9/18/16.
  */
 public class BodyBuilder {
-    private float linearDamping = 2.0f;
+    private float linearDamping = 1.5f;
     private float angularDamping = 2.0f;
     private float density = 1.0f;
     private float friction = 1.0f;

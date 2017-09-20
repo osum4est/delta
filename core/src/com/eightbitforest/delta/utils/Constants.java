@@ -1,13 +1,15 @@
 package com.eightbitforest.delta.utils;
 
+import com.badlogic.gdx.Gdx;
+
 public class Constants {
-    public static final boolean DEBUG_MODE = true;
+    public static final boolean DEBUG_MODE = false;
     public static final String TAG = "delta";
 
 
     public static final int PPM = 15;
     public static final float TRIANGLE_SIDE = 1f; // GRID WIDTH
-    public static final float TRIANGLE_HEIGHT = TRIANGLE_SIDE / (2 / (float) Math.sqrt(3)); // GRID HEIGHT
+    public static final float TRIANGLE_HEIGHT = Utils.getTriangleHeight(TRIANGLE_SIDE); // GRID HEIGHT
 
     public static final short CATEGORY_NONE = 0x1;
     public static final short CATEGORY_ALL = 0x2;
@@ -18,8 +20,18 @@ public class Constants {
     public static final short MASK_PLAYER = CATEGORY_ENEMY | CATEGORY_ALL;
     public static final short MASK_ENEMY = CATEGORY_PLAYER | CATEGORY_ALL;
 
-    public static final float WIDTH = 320;
-    public static final float HEIGHT = 480;
+    public static final float VIEWPORT_WIDTH = 320;
+    public static final float VIEWPORT_HEIGHT = 480;
+
+    public static final float WINDOW_WIDTH = Gdx.graphics.getWidth();
+    public static final float WINDOW_HEIGHT = Gdx.graphics.getHeight();
 
     public static final float CAMERA_LERP_AMOUNT = .1f;
+
+    public static final float PLAYER_THRUST = 20f;
+    public static final float PLAYER_TURN_SPEED = 50f;
+    public static final float PLAYER_MAX_DV = 5f;
+
+    public static final float HUD_DV_HEIGHT = 5f;
 }
+

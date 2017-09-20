@@ -53,6 +53,13 @@ public abstract class GameObjectPolygon extends Actor {
         setColor(color);
     }
 
+    public GameObjectPolygon(Level level, int id, float x, float y, Color color, float triangleSize) {
+        this(level, id, false);
+        setBody(new BodyBuilder().setShape(new ShapeBuilder().setAsTriangle(triangleSize)));
+        body.setTransform(x, y, 0);
+        setColor(color);
+    }
+
     @Override
     public float getX() {
         return body.getPosition().x;
@@ -71,6 +78,11 @@ public abstract class GameObjectPolygon extends Actor {
     @Override
     public void setY(float y) {
         body.setTransform(body.getPosition().x, y, body.getAngle());
+    }
+
+    @Override
+    public void setRotation(float degrees) {
+        body.setTransform(getX(), getY(), degrees * MathUtils.radiansToDegrees);
     }
 
     @Override
@@ -113,5 +125,19 @@ public abstract class GameObjectPolygon extends Actor {
         polygonSprite = new PolygonSprite(new PolygonRegion(new TextureRegion(new Texture(pixmap)),
                 vertices, new EarClippingTriangulator().computeTriangles(vertices).toArray()));
         polygonSprite.setOrigin(0, 0);
+    }
+
+    protected Level getLevel() {
+        return level;
+    }
+
+    public void onCollideEnter(GameObjectPolygon other) {
+    }
+
+    public void onCollideExit(GameObjectPolygon other) {
+    }
+
+    public Body getBody() {
+        return body;
     }
 }

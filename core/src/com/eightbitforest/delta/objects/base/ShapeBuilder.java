@@ -3,6 +3,7 @@ package com.eightbitforest.delta.objects.base;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.eightbitforest.delta.utils.Constants;
+import com.eightbitforest.delta.utils.Utils;
 
 public class ShapeBuilder {
     private float[] vertices;
@@ -19,10 +20,15 @@ public class ShapeBuilder {
     }
 
     public ShapeBuilder setAsTriangle() {
+        return setAsTriangle(Constants.TRIANGLE_SIDE);
+    }
+
+    public ShapeBuilder setAsTriangle(float triangleSize) {
+        float height = Utils.getTriangleHeight(triangleSize);
         vertices = new float[]{
-                -Constants.TRIANGLE_SIDE / 2, -Constants.TRIANGLE_HEIGHT / 3,
-                Constants.TRIANGLE_SIDE / 2, -Constants.TRIANGLE_HEIGHT / 3,
-                0, Constants.TRIANGLE_HEIGHT / 3 * 2
+                -triangleSize / 2, -height / 3,
+                triangleSize / 2, -height / 3,
+                0, height / 3 * 2
         };
 
         return this;

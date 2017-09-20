@@ -46,4 +46,8 @@ public class Utils {
             return json.getFloat(key);
         return def;
     }
+
+    public static float getTriangleHeight(float triangleSide) {
+        return triangleSide / (2 / (float) Math.sqrt(3));
+    }
 }

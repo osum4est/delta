@@ -6,6 +6,6 @@
 
 	<inherits name='DeltaMain' />
 	<entry-point class='com.eightbitforest.delta.client.HtmlLauncher' />
-	
+    <set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/>
 	<set-configuration-property name="gdx.assetpath" value="../android/assets" />
 </module>

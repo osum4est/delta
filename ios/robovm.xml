@@ -14,9 +14,6 @@
       <skipPngCrush>true</skipPngCrush>
     </resource>
     <resource>
-      <directory>resources</directory>
-    </resource>
-    <resource>
       <directory>data</directory>
     </resource>
   </resources>
@@ -38,22 +35,7 @@
   <libs>
       <lib>z</lib>   
   </libs>
-  <frameworkPaths>
-    <path>libs</path>
-  </frameworkPaths>
   <frameworks>
-
-    <framework>CoreTelephony</framework>
-    <framework>GoogleOpenSource</framework>
-      <framework>GoogleSignIn</framework>
-      <framework>GoogleAppUtilities</framework>
-      <framework>GoogleAuthUtilities</framework>
-      <framework>GoogleNetworkingUtilities</framework>
-      <framework>GooglePlus</framework>
-      <framework>GoogleUtilities</framework>
-      <framework>GoogleSymbolUtilities</framework>
-      <framework>SafariServices</framework>
-
     <framework>UIKit</framework>
     <framework>OpenGLES</framework>
     <framework>QuartzCore</framework>
@@ -61,6 +43,5 @@
     <framework>OpenAL</framework>
     <framework>AudioToolbox</framework>
     <framework>AVFoundation</framework>
-    <framework>gpg</framework>
   </frameworks>
 </config>

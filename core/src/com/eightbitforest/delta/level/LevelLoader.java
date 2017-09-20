@@ -2,6 +2,7 @@ package com.eightbitforest.delta.level;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.eightbitforest.delta.objects.Exit;
 import com.eightbitforest.delta.objects.walls.*;
 import com.eightbitforest.delta.utils.Constants;
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 
 public class LevelLoader {
     public static Level loadLocalLevel(String filename) {
-        FileHandle handle = Gdx.files.internal("levels/" + filename);
+        FileHandle handle = Gdx.files.internal("levels/pack_001/" + filename);
         String file = handle.readString();
         return loadFromString(file);
     }
@@ -102,6 +103,9 @@ public class LevelLoader {
                 break;
             case '■':
                 level.addObject(new WallBox(level, x, y * Constants.TRIANGLE_HEIGHT));
+                break;
+            case 'E':
+                level.addObject(new Exit(level, x, y * Constants.TRIANGLE_HEIGHT));
                 break;
         }
     }

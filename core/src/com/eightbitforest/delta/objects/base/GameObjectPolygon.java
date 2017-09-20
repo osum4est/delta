@@ -15,7 +15,6 @@ import com.eightbitforest.delta.level.Level;
  * Only uses Actor for updating and color
  */
 public abstract class GameObjectPolygon extends Actor {
-    //    protected ShapeRenderer renderer;
     private PolygonSpriteBatch polygonSpriteBatch;
     private PolygonSprite polygonSprite;
 
@@ -23,6 +22,10 @@ public abstract class GameObjectPolygon extends Actor {
     private Level level;
 
     private int id;
+
+    public GameObjectPolygon(Level level, int id) {
+        this(level, id, true);
+    }
 
     public GameObjectPolygon(Level level, int id, boolean createBody) {
         polygonSpriteBatch = new PolygonSpriteBatch();
@@ -33,10 +36,6 @@ public abstract class GameObjectPolygon extends Actor {
             setBody(new BodyBuilder());
     }
 
-    public GameObjectPolygon(Level level, int id) {
-        this(level, id, true);
-    }
-
     public GameObjectPolygon(Level level, int id, Color color) {
         this(level, id);
         setColor(color);
@@ -44,13 +43,17 @@ public abstract class GameObjectPolygon extends Actor {
 
     public GameObjectPolygon(Level level, int id, float x, float y) {
         this(level, id);
-        body.setTransform(x, y, 0);
+        setPosition(x, y);
     }
 
     public GameObjectPolygon(Level level, int id, float x, float y, Color color) {
-        this(level, id);
-        body.setTransform(x, y, 0);
+        this(level, id, x, y, color, true);
+    }
+
+    public GameObjectPolygon(Level level, int id, float x, float y, Color color, boolean createBody) {
+        this(level, id, createBody);
         setColor(color);
+        setPosition(x, y);
     }
 
     public GameObjectPolygon(Level level, int id, float x, float y, Color color, float triangleSize) {
@@ -67,7 +70,9 @@ public abstract class GameObjectPolygon extends Actor {
 
     @Override
     public void setX(float x) {
-        body.setTransform(x, body.getPosition().y, body.getAngle());
+        if (body != null)
+            body.setTransform(x, body.getPosition().y, body.getAngle());
+        super.setX(x);
     }
 
     @Override
@@ -77,7 +82,15 @@ public abstract class GameObjectPolygon extends Actor {
 
     @Override
     public void setY(float y) {
-        body.setTransform(body.getPosition().x, y, body.getAngle());
+        if (body != null)
+            body.setTransform(body.getPosition().x, y, body.getAngle());
+        super.setY(y);
+    }
+
+    @Override
+    public void setPosition(float x, float y) {
+        setX(x);
+        setY(y);
     }
 
     @Override
@@ -117,6 +130,7 @@ public abstract class GameObjectPolygon extends Actor {
 
     protected void setBody(BodyBuilder body) {
         this.body = body.createBody(level, this, id);
+        this.body.setTransform(super.getX(), super.getY(), 0);
         float[] vertices = body.getShapeVertices();
 
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);

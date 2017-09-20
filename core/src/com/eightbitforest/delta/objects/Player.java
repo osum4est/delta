@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.eightbitforest.delta.level.Level;
 import com.eightbitforest.delta.objects.base.GameObjectPolygon;
-import com.eightbitforest.delta.objects.walls.Wall;
 import com.eightbitforest.delta.utils.Colors;
 import com.eightbitforest.delta.utils.Constants;
 import com.eightbitforest.delta.utils.Ids;
@@ -24,6 +23,7 @@ public class Player extends GameObjectPolygon {
     private ParticleEffect thrusterEffect;
 
     private boolean dead = false;
+    private boolean disabled = false;
 
     public Player(Level level, float x, float y) {
         super(level, Ids.PLAYER, x, y, Colors.PLAYER);
@@ -37,10 +37,11 @@ public class Player extends GameObjectPolygon {
 
     @Override
     public void act(float delta) {
-        if (dV > 0 && !dead) {
+        if (dV > 0 && !dead && !disabled) {
             if (force > 0)
                 dV -= delta;
 
+            // Move and turn player
             Vector2 v2force = new Vector2(0, 1).rotateRad(body.getAngle()).nor();
             body.applyForceToCenter(new Vector2(v2force.x * force, v2force.y * force), true);
             body.applyTorque(torque, true);
@@ -49,14 +50,19 @@ public class Player extends GameObjectPolygon {
             force = 0;
         }
 
-        if (force > 0 && !emitting) {
+        // Toggle thruster effect if needed
+        if (force > 0 && !emitting && !disabled && dV > 0) {
             thrusterEffect.start();
             emitting = true;
-        } else if (force <= 0 && emitting) {
+        } else if (force <= 0 && emitting && !disabled && dV > 0) {
+            thrusterEffect.allowCompletion();
+            emitting = false;
+        } else if (force > 0 && emitting && (disabled || dV > 0)) {
             thrusterEffect.allowCompletion();
             emitting = false;
         }
 
+        // Update thruster effect
         ParticleEmitter.ScaledNumericValue angle = thrusterEmitter.getAngle();
         float degs = body.getAngle() * MathUtils.radiansToDegrees + 90;
         angle.setHigh(degs - 30, degs + 30);
@@ -73,9 +79,7 @@ public class Player extends GameObjectPolygon {
     }
 
     public void startMoving() {
-        if (dV > 0) {
-            this.force = Constants.PLAYER_THRUST;
-        }
+        this.force = Constants.PLAYER_THRUST;
     }
 
     public void stopMoving() {
@@ -106,10 +110,17 @@ public class Player extends GameObjectPolygon {
         }
     }
 
+    public void disable() {
+        disabled = true;
+    }
+
     @Override
     public void onCollideEnter(GameObjectPolygon other) {
-        if (other instanceof Wall && !dead) {
+        if (other.getId() == Ids.WALL && !dead) {
             die();
+        } else if (other.getId() == Ids.EXIT && !dead) {
+            System.out.println("Next level!");
+            disable();
         }
     }
 

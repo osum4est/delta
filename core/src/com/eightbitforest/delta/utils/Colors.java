@@ -11,6 +11,8 @@ public class Colors {
     public static final Color BLACK = new Color(0x272822ff);
 
     public static final Color BACKGROUND  = BLACK;
+    public static final Color WALL = WHITE;
+    public static final Color EXIT = ORANGE;
     public static final Color PLAYER = BLUE;
 
     public static Color fromHex(String hex) {

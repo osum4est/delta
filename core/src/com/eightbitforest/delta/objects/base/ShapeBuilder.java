@@ -6,15 +6,15 @@ import com.eightbitforest.delta.utils.Constants;
 import com.eightbitforest.delta.utils.Utils;
 
 public class ShapeBuilder {
-    private float[] vertices;
+    private float[][] vertices;
 
     public ShapeBuilder setAsRect(float width, float height) {
-        vertices = new float[]{
+        vertices = new float[][]{new float[]{
                 -width / 2, -height / 3,
                 -width / 2, height / 3 * 2,
                 width / 2, height / 3 * 2,
                 width / 2, -height / 3
-        };
+        }};
 
         return this;
     }
@@ -25,44 +25,60 @@ public class ShapeBuilder {
 
     public ShapeBuilder setAsTriangle(float triangleSize) {
         float height = Utils.getTriangleHeight(triangleSize);
-        vertices = new float[]{
+        vertices = new float[][]{new float[]{
                 -triangleSize / 2, -height / 3,
                 triangleSize / 2, -height / 3,
                 0, height / 3 * 2
-        };
+        }};
 
         return this;
     }
 
     public ShapeBuilder setAsHalfTriangle() {
-        vertices = new float[]{
+        vertices = new float[][]{new float[]{
                 0, -Constants.TRIANGLE_HEIGHT / 3,
                 Constants.TRIANGLE_SIDE / 2, Constants.TRIANGLE_HEIGHT / 3 * 2,
                 Constants.TRIANGLE_SIDE / 2, -Constants.TRIANGLE_HEIGHT / 3
-        };
+        }};
 
         return this;
     }
 
     public ShapeBuilder setAsHalfTriangleLong() {
-        vertices = new float[]{
+        vertices = new float[][]{new float[]{
                 -Constants.TRIANGLE_SIDE / 2, -Constants.TRIANGLE_HEIGHT / 3,
                 0, Constants.TRIANGLE_HEIGHT / 3 * 2,
                 Constants.TRIANGLE_SIDE / 2, Constants.TRIANGLE_HEIGHT / 3 * 2,
                 Constants.TRIANGLE_SIDE / 2, -Constants.TRIANGLE_HEIGHT / 3
-        };
+        }};
 
+        return this;
+    }
+
+    public ShapeBuilder setAsInvertedTriangle() {
+        vertices = new float[][]{new float[]{
+                -Constants.TRIANGLE_SIDE / 2, -Constants.TRIANGLE_HEIGHT / 3,
+                -Constants.TRIANGLE_SIDE / 2, Constants.TRIANGLE_HEIGHT / 3 * 2,
+                0, Constants.TRIANGLE_HEIGHT / 3 * 2
+        }, new float[]{
+                Constants.TRIANGLE_SIDE / 2, -Constants.TRIANGLE_HEIGHT / 3,
+                0, Constants.TRIANGLE_HEIGHT / 3 * 2,
+                Constants.TRIANGLE_SIDE / 2, Constants.TRIANGLE_HEIGHT / 3 * 2,
+
+        }};
         return this;
     }
 
     public ShapeBuilder flip(boolean x, boolean y) {
         if (vertices != null) {
-            for (int i = 0; i < vertices.length; i += 2) {
-                if (x)
-                    vertices[i] *= -1;
-                if (y) {
-                    vertices[i + 1] *= -1;
-                    vertices[i + 1] += Constants.TRIANGLE_HEIGHT / 3;
+            for (int s = 0; s < vertices.length; s += 2) {
+                for (int i = 0; i < vertices[s].length; i += 2) {
+                    if (x)
+                        vertices[s][i] *= -1;
+                    if (y) {
+                        vertices[s][i + 1] *= -1;
+                        vertices[s][i + 1] += Constants.TRIANGLE_HEIGHT / 3;
+                    }
                 }
             }
         }
@@ -70,16 +86,20 @@ public class ShapeBuilder {
         return this;
     }
 
-    public Shape createShape() {
-        PolygonShape shape = new PolygonShape();
+    public Shape[] createShapes() {
         if (vertices == null)
             setAsTriangle();
 
-        shape.set(vertices);
-        return shape;
+        PolygonShape[] shapes = new PolygonShape[vertices.length];
+        for (int i = 0; i < shapes.length; i++) {
+            shapes[i] = new PolygonShape();
+            shapes[i].set(vertices[i]);
+        }
+
+        return shapes;
     }
 
-    public float[] getVertices() {
+    public float[][] getVertices() {
         return vertices;
     }
 }

@@ -16,7 +16,7 @@ import com.eightbitforest.delta.level.Level;
  */
 public abstract class GameObjectPolygon extends Actor {
     private PolygonSpriteBatch polygonSpriteBatch;
-    private PolygonSprite polygonSprite;
+    private PolygonSprite[] polygonSprites;
 
     protected Body body;
     private Level level;
@@ -104,14 +104,16 @@ public abstract class GameObjectPolygon extends Actor {
 
         polygonSpriteBatch.setProjectionMatrix(batch.getProjectionMatrix());
         polygonSpriteBatch.setTransformMatrix(batch.getTransformMatrix());
-        polygonSprite.setPosition(getX(), getY());
-        polygonSprite.setColor(getColor());
-        polygonSprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
-
         polygonSpriteBatch.begin();
-        polygonSprite.draw(polygonSpriteBatch);
-        polygonSpriteBatch.end();
 
+        for (PolygonSprite polygonSprite : polygonSprites) {
+            polygonSprite.setPosition(getX(), getY());
+            polygonSprite.setColor(getColor());
+            polygonSprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
+            polygonSprite.draw(polygonSpriteBatch);
+        }
+
+        polygonSpriteBatch.end();
         batch.begin();
     }
 
@@ -131,14 +133,18 @@ public abstract class GameObjectPolygon extends Actor {
     protected void setBody(BodyBuilder body) {
         this.body = body.createBody(level, this, id);
         this.body.setTransform(super.getX(), super.getY(), 0);
-        float[] vertices = body.getShapeVertices();
+        float[][] vertices = body.getShapeVertices();
 
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
         pixmap.setColor(getColor());
         pixmap.fill();
-        polygonSprite = new PolygonSprite(new PolygonRegion(new TextureRegion(new Texture(pixmap)),
-                vertices, new EarClippingTriangulator().computeTriangles(vertices).toArray()));
-        polygonSprite.setOrigin(0, 0);
+
+        polygonSprites = new PolygonSprite[vertices.length];
+        for (int i = 0; i < polygonSprites.length; i++) {
+            polygonSprites[i] = new PolygonSprite(new PolygonRegion(new TextureRegion(new Texture(pixmap)),
+                    vertices[i], new EarClippingTriangulator().computeTriangles(vertices[i]).toArray()));
+            polygonSprites[i].setOrigin(0, 0);
+        }
     }
 
     protected Level getLevel() {

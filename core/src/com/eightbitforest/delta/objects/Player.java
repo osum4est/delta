@@ -7,7 +7,9 @@ import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.eightbitforest.delta.level.Level;
+import com.eightbitforest.delta.objects.base.BodyBuilder;
 import com.eightbitforest.delta.objects.base.GameObjectPolygon;
+import com.eightbitforest.delta.objects.base.ShapeBuilder;
 import com.eightbitforest.delta.utils.Colors;
 import com.eightbitforest.delta.utils.Constants;
 import com.eightbitforest.delta.utils.Ids;
@@ -127,7 +129,11 @@ public class Player extends GameObjectPolygon {
     private static class PlayerDeathPart extends GameObjectPolygon {
 
         public PlayerDeathPart(Level level, int id, float x, float y) {
-            super(level, id, x, y, Colors.PLAYER, Constants.TRIANGLE_SIDE / 2);
+            super(level, id, x, y, Colors.PLAYER, false);
+            setBody(new BodyBuilder()
+                    .setShape(new ShapeBuilder().setAsTriangle(Constants.TRIANGLE_SIDE / 2))
+                    .setRestitution(.5f)
+            );
         }
     }
 }

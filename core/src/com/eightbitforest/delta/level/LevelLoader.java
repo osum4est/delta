@@ -3,6 +3,7 @@ package com.eightbitforest.delta.level;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.eightbitforest.delta.objects.Exit;
+import com.eightbitforest.delta.objects.Player;
 import com.eightbitforest.delta.objects.walls.*;
 import com.eightbitforest.delta.utils.Constants;
 
@@ -101,11 +102,17 @@ public class LevelLoader {
             case '◺':
                 level.addObject(new WallTriangleHalfTopRightLong(level, x, y * Constants.TRIANGLE_HEIGHT));
                 break;
+            case '^':
+                level.addObject(new WallTriangleInvertedUp(level, x, y * Constants.TRIANGLE_HEIGHT));
+                break;
             case '■':
                 level.addObject(new WallBox(level, x, y * Constants.TRIANGLE_HEIGHT));
                 break;
             case 'E':
                 level.addObject(new Exit(level, x, y * Constants.TRIANGLE_HEIGHT));
+                break;
+            case 'P':
+                level.setPlayer(new Player(level, x, y * Constants.TRIANGLE_HEIGHT));
                 break;
         }
     }

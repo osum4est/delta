@@ -32,8 +32,6 @@ public class Level extends Stage {
         world.setContactListener(collisionHandler);
 
         this.objects = new ArrayList<GameObjectPolygon>();
-        this.player = new Player(this, 0f, 0f);
-        addObject(this.player);
 
         addListener(new InputListener() {
             float prevX = 0;
@@ -74,6 +72,11 @@ public class Level extends Stage {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+        addObject(player);
     }
 
     public void addObject(GameObjectPolygon object) {

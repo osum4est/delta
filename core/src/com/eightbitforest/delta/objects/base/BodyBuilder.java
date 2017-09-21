@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.eightbitforest.delta.level.Level;
 import com.eightbitforest.delta.utils.BodyData;
 import com.eightbitforest.delta.utils.Constants;
@@ -104,28 +105,32 @@ public class BodyBuilder {
             bodyDef.position.set(position);
             bodyDef.angle = rotation;
         }
-        if (fixtureDef == null) {
-            fixtureDef = new FixtureDef();
-            fixtureDef.density = density;
-            fixtureDef.friction = friction;
-            fixtureDef.restitution = restitution;
-            fixtureDef.shape = shape.createShape();
-            fixtureDef.filter.categoryBits = category;
-            fixtureDef.filter.maskBits = mask;
-            fixtureDef.isSensor = sensor;
-        }
+
         b = level.getWorld().createBody(bodyDef);
-        b.createFixture(fixtureDef);
         b.setLinearDamping(linearDamping);
         b.setAngularDamping(angularDamping);
         b.setUserData(new BodyData(go, id));
 
-        fixtureDef.shape.dispose();
+        Shape[] shapes = shape.createShapes();
+        for (int i = 0; i < shapes.length; i++) {
+            if (fixtureDef == null) {
+                fixtureDef = new FixtureDef();
+                fixtureDef.density = density;
+                fixtureDef.friction = friction;
+                fixtureDef.restitution = restitution;
+                fixtureDef.filter.categoryBits = category;
+                fixtureDef.filter.maskBits = mask;
+                fixtureDef.isSensor = sensor;
+            }
+            fixtureDef.shape = shapes[i];
+            b.createFixture(fixtureDef);
+            fixtureDef.shape.dispose();
+        }
 
         return b;
     }
 
-    public float[] getShapeVertices() {
+    public float[][] getShapeVertices() {
         return shape.getVertices();
     }
 }

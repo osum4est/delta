@@ -3,7 +3,7 @@ package com.eightbitforest.delta.utils;
 import com.badlogic.gdx.Gdx;
 
 public class Constants {
-    public static final boolean DEBUG_MODE = false;
+    public static final boolean DEBUG_MODE = true;
     public static final String TAG = "delta";
 
 

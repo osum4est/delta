@@ -40,11 +40,13 @@ public class CollisionHandler implements ContactListener {
     public void step() {
         for (int i = 0; i < beginCollisions.size(); i += 2) {
             beginCollisions.get(i).onCollideEnter(beginCollisions.get(i + 1));
+            beginCollisions.get(i + 1).onCollideEnter(beginCollisions.get(i));
         }
         beginCollisions.clear();
 
         for (int i = 0; i < endCollisions.size(); i += 2) {
             endCollisions.get(i).onCollideExit(endCollisions.get(i + 1));
+            endCollisions.get(i + 1).onCollideExit(endCollisions.get(i));
         }
         endCollisions.clear();
     }

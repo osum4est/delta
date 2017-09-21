@@ -8,14 +8,14 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.eightbitforest.delta.debug.DebugGrid;
 import com.eightbitforest.delta.level.Level;
-import com.eightbitforest.delta.level.LevelLoader;
+import com.eightbitforest.delta.level.LevelPack;
 import com.eightbitforest.delta.ui.InGameHud;
 import com.eightbitforest.delta.utils.Constants;
 
 public class MainGame implements Screen {
-
     private Game game;
-    private Level level;
+    private LevelPack levelPack;
+    private Level currentLevel;
     private InGameHud hud;
 
     private ParticleEffect starsEffect;
@@ -23,26 +23,29 @@ public class MainGame implements Screen {
     private Box2DDebugRenderer debugRenderer;
     private DebugGrid debugGrid;
 
-    public MainGame(Game game) {
-        this.game = game;
-        this.level = LevelLoader.loadLocalLevel("001.lvl");
-        this.hud = new InGameHud(this.level);
-        level.addActor(this.hud);
+    private static MainGame instance;
 
-        Gdx.input.setInputProcessor(level);
+    public MainGame(Game game) {
+        instance = this;
+
+        this.game = game;
+
+        levelPack = new LevelPack("pack_001");
+        switchLevel(levelPack.loadNextLevel());
 
         starsEffect = new ParticleEffect();
         starsEffect.load(Gdx.files.internal("effects/stars.p"), Gdx.files.internal("images"));
         starsEffect.setPosition(0, 0);
         starsEffect.start();
 
-        level.getCamera().position.x = 0;
-        level.getCamera().position.y = 0;
-
         if (Constants.DEBUG_MODE) {
             debugRenderer = new Box2DDebugRenderer();
             debugGrid = new DebugGrid();
         }
+    }
+
+    public static MainGame getInstance() {
+        return instance;
     }
 
     @Override
@@ -52,22 +55,38 @@ public class MainGame implements Screen {
 
     @Override
     public void render(float delta) {
-        level.getCamera().position.x = MathUtils.lerp(level.getCamera().position.x, level.getPlayer().getX(), Constants.CAMERA_LERP_AMOUNT);
-        level.getCamera().position.y = MathUtils.lerp(level.getCamera().position.y, level.getPlayer().getY(), Constants.CAMERA_LERP_AMOUNT);
+        currentLevel.getCamera().position.x = MathUtils.lerp(currentLevel.getCamera().position.x, currentLevel.getPlayer().getX(), Constants.CAMERA_LERP_AMOUNT);
+        currentLevel.getCamera().position.y = MathUtils.lerp(currentLevel.getCamera().position.y, currentLevel.getPlayer().getY(), Constants.CAMERA_LERP_AMOUNT);
 
         starsEffect.update(delta);
-        starsEffect.setPosition(level.getCamera().position.x, level.getCamera().position.y);
-        level.getBatch().begin();
-        starsEffect.draw(level.getBatch());
-        level.getBatch().end();
+        starsEffect.setPosition(currentLevel.getCamera().position.x, currentLevel.getCamera().position.y);
+        currentLevel.getBatch().begin();
+        starsEffect.draw(currentLevel.getBatch());
+        currentLevel.getBatch().end();
 
-        level.act();
-        level.draw();
+        currentLevel.act();
+        currentLevel.draw();
 
         if (Constants.DEBUG_MODE) {
-            debugGrid.render(level.getBatch().getProjectionMatrix(), 25, 25);
-            debugRenderer.render(level.getWorld(), level.getBatch().getProjectionMatrix());
+            debugGrid.render(currentLevel.getBatch().getProjectionMatrix(), 25, 25);
+            debugRenderer.render(currentLevel.getWorld(), currentLevel.getBatch().getProjectionMatrix());
         }
+    }
+
+    public void nextLevel() {
+        switchLevel(levelPack.loadNextLevel());
+    }
+
+    public void switchLevel(Level level) {
+        if (currentLevel != null)
+            currentLevel.dispose();
+
+        currentLevel = level;
+        hud = new InGameHud(currentLevel);
+        currentLevel.addActor(hud);
+        Gdx.input.setInputProcessor(currentLevel);
+        currentLevel.getCamera().position.x = 0;
+        currentLevel.getCamera().position.y = 0;
     }
 
     @Override
@@ -92,6 +111,6 @@ public class MainGame implements Screen {
 
     @Override
     public void dispose() {
-        level.dispose();
+        currentLevel.dispose();
     }
 }

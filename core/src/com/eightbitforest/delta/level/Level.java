@@ -83,4 +83,10 @@ public class Level extends Stage {
         addActor(object);
         objects.add(object);
     }
+
+    @Override
+    public void dispose() {
+        world.dispose();
+        super.dispose();
+    }
 }

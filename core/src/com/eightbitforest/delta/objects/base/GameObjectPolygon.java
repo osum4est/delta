@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.JsonValue;
 import com.eightbitforest.delta.level.Level;
+import com.eightbitforest.delta.views.MainGame;
 
 /**
  * Only uses Actor for updating and color
@@ -20,6 +21,7 @@ public abstract class GameObjectPolygon extends Actor {
 
     protected Body body;
     private Level level;
+    private MainGame game;
 
     private int id;
 
@@ -31,6 +33,7 @@ public abstract class GameObjectPolygon extends Actor {
         polygonSpriteBatch = new PolygonSpriteBatch();
         this.id = id;
         this.level = level;
+        this.game = MainGame.getInstance();
 
         if (createBody)
             setBody(new BodyBuilder());
@@ -149,6 +152,10 @@ public abstract class GameObjectPolygon extends Actor {
 
     protected Level getLevel() {
         return level;
+    }
+
+    protected MainGame getGame() {
+        return game;
     }
 
     public void onCollideEnter(GameObjectPolygon other) {

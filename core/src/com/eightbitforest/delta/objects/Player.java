@@ -122,6 +122,7 @@ public class Player extends GameObjectPolygon {
             die();
         } else if (other.getId() == Ids.EXIT && !dead) {
             System.out.println("Next level!");
+            getGame().nextLevel();
             disable();
         }
     }

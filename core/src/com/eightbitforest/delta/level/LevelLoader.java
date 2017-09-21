@@ -10,8 +10,8 @@ import com.eightbitforest.delta.utils.Constants;
 import java.util.ArrayList;
 
 public class LevelLoader {
-    public static Level loadLocalLevel(String filename) {
-        FileHandle handle = Gdx.files.internal("levels/pack_001/" + filename);
+    public static Level loadLocalLevel(String packname, String filename) {
+        FileHandle handle = Gdx.files.internal("levels/" + packname + "/" + filename);
         String file = handle.readString();
         return loadFromString(file);
     }
@@ -26,13 +26,13 @@ public class LevelLoader {
         for (int y = 0; y < lines.length; y++) {
             lines[y] = lines[y].replace("\r", "");
             lines[y] = lines[y].replace("\n", "");
-            if (!lines[y].isEmpty()) {
+//            if (!lines[y].isEmpty()) {
                 if (lines[y].contains("{")) {
                     propLines.add(lines[y]);
                 } else {
                     levelLines.add(lines[y]);
                 }
-            }
+//            }
         }
 
         for (int y = 0; y < levelLines.size(); y++) {

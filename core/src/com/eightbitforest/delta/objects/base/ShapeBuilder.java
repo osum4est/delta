@@ -1,12 +1,15 @@
 package com.eightbitforest.delta.objects.base;
 
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.eightbitforest.delta.utils.Constants;
 import com.eightbitforest.delta.utils.Utils;
 
 public class ShapeBuilder {
+    private Type type = Type.POLYGON;
     private float[][] vertices;
+    private float radius;
 
     public ShapeBuilder setAsRect(float width, float height) {
         vertices = new float[][]{new float[]{
@@ -86,14 +89,29 @@ public class ShapeBuilder {
         return this;
     }
 
+    public ShapeBuilder setAsCircle(float radius) {
+        type = Type.CIRCLE;
+        this.radius = radius;
+        return this;
+    }
+
     public Shape[] createShapes() {
-        if (vertices == null)
+        if (vertices == null && type == Type.POLYGON)
             setAsTriangle();
 
-        PolygonShape[] shapes = new PolygonShape[vertices.length];
-        for (int i = 0; i < shapes.length; i++) {
-            shapes[i] = new PolygonShape();
-            shapes[i].set(vertices[i]);
+        Shape[] shapes = null;
+
+        if (type == Type.POLYGON) {
+            shapes = new PolygonShape[vertices.length];
+            for (int i = 0; i < shapes.length; i++) {
+                shapes[i] = new PolygonShape();
+                ((PolygonShape) shapes[i]).set(vertices[i]);
+            }
+        } else if (type == Type.CIRCLE) {
+            shapes = new CircleShape[1];
+            CircleShape circle = new CircleShape();
+            circle.setRadius(radius);
+            shapes[0] = circle;
         }
 
         return shapes;
@@ -101,5 +119,18 @@ public class ShapeBuilder {
 
     public float[][] getVertices() {
         return vertices;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public float getRadius() {
+        return radius;
+    }
+
+    enum Type {
+        POLYGON,
+        CIRCLE
     }
 }

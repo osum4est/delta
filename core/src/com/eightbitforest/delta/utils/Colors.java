@@ -14,6 +14,7 @@ public class Colors {
     public static final Color WALL = WHITE;
     public static final Color EXIT = ORANGE;
     public static final Color PLAYER = BLUE;
+    public static final Color FUEL = MAGENTA;
 
     public static Color fromHex(String hex) {
         hex = hex.replace("#", "");

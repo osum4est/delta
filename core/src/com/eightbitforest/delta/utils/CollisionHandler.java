@@ -4,17 +4,17 @@ import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.eightbitforest.delta.objects.base.GameObjectPolygon;
+import com.eightbitforest.delta.objects.base.GameObject;
 
 import java.util.ArrayList;
 
 public class CollisionHandler implements ContactListener {
-    private ArrayList<GameObjectPolygon> beginCollisions;
-    private ArrayList<GameObjectPolygon> endCollisions;
+    private ArrayList<GameObject> beginCollisions;
+    private ArrayList<GameObject> endCollisions;
 
     public CollisionHandler() {
-        beginCollisions = new ArrayList<GameObjectPolygon>();
-        endCollisions = new ArrayList<GameObjectPolygon>();
+        beginCollisions = new ArrayList<GameObject>();
+        endCollisions = new ArrayList<GameObject>();
     }
 
     @Override

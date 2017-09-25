@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.eightbitforest.delta.objects.Player;
-import com.eightbitforest.delta.objects.base.GameObjectPolygon;
+import com.eightbitforest.delta.objects.base.GameObject;
 import com.eightbitforest.delta.utils.CollisionHandler;
 import com.eightbitforest.delta.utils.Constants;
 
@@ -19,7 +19,7 @@ public class Level extends Stage {
     private CollisionHandler collisionHandler;
 
     private Player player;
-    private ArrayList<GameObjectPolygon> objects;
+    private ArrayList<GameObject> objects;
 
     public Level() {
         super(new ExtendViewport(Constants.VIEWPORT_WIDTH / Constants.PPM, Constants.VIEWPORT_HEIGHT / Constants.PPM));
@@ -31,7 +31,7 @@ public class Level extends Stage {
         collisionHandler = new CollisionHandler();
         world.setContactListener(collisionHandler);
 
-        this.objects = new ArrayList<GameObjectPolygon>();
+        this.objects = new ArrayList<GameObject>();
 
         addListener(new InputListener() {
             float prevX = 0;
@@ -79,7 +79,7 @@ public class Level extends Stage {
         addObject(player);
     }
 
-    public void addObject(GameObjectPolygon object) {
+    public void addObject(GameObject object) {
         addActor(object);
         objects.add(object);
     }

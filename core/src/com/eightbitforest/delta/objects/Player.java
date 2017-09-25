@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.eightbitforest.delta.level.Level;
 import com.eightbitforest.delta.objects.base.BodyBuilder;
+import com.eightbitforest.delta.objects.base.GameObject;
 import com.eightbitforest.delta.objects.base.GameObjectPolygon;
 import com.eightbitforest.delta.objects.base.ShapeBuilder;
 import com.eightbitforest.delta.utils.Colors;
@@ -117,13 +118,15 @@ public class Player extends GameObjectPolygon {
     }
 
     @Override
-    public void onCollideEnter(GameObjectPolygon other) {
+    public void onCollideEnter(GameObject other) {
         if (other.getId() == Ids.WALL && !dead) {
             die();
         } else if (other.getId() == Ids.EXIT && !dead) {
-            System.out.println("Next level!");
             getGame().nextLevel();
             disable();
+        } else if (other.getId() == Ids.FUEL && !dead) {
+            dV = Constants.PLAYER_MAX_DV;
+            other.remove();
         }
     }
 

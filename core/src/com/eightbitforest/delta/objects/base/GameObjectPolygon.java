@@ -6,99 +6,41 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.utils.JsonValue;
 import com.eightbitforest.delta.level.Level;
-import com.eightbitforest.delta.views.MainGame;
 
-/**
- * Only uses Actor for updating and color
- */
-public abstract class GameObjectPolygon extends Actor {
+public abstract class GameObjectPolygon extends GameObject {
     private PolygonSpriteBatch polygonSpriteBatch;
     private PolygonSprite[] polygonSprites;
 
-    protected Body body;
-    private Level level;
-    private MainGame game;
-
-    private int id;
-
     public GameObjectPolygon(Level level, int id) {
-        this(level, id, true);
+        super(level, id);
     }
 
     public GameObjectPolygon(Level level, int id, boolean createBody) {
-        polygonSpriteBatch = new PolygonSpriteBatch();
-        this.id = id;
-        this.level = level;
-        this.game = MainGame.getInstance();
-
-        if (createBody)
-            setBody(new BodyBuilder());
+        super(level, id, createBody);
     }
 
     public GameObjectPolygon(Level level, int id, Color color) {
-        this(level, id);
-        setColor(color);
+        super(level, id, color);
     }
 
     public GameObjectPolygon(Level level, int id, float x, float y) {
-        this(level, id);
-        setPosition(x, y);
+        super(level, id, x, y);
     }
 
     public GameObjectPolygon(Level level, int id, float x, float y, Color color) {
-        this(level, id, x, y, color, true);
+        super(level, id, x, y, color);
     }
 
     public GameObjectPolygon(Level level, int id, float x, float y, Color color, boolean createBody) {
-        this(level, id, createBody);
-        setColor(color);
-        setPosition(x, y);
+        super(level, id, x, y, color, createBody);
     }
 
     public GameObjectPolygon(Level level, int id, float x, float y, Color color, float triangleSize) {
-        this(level, id, false);
+        super(level, id, false);
         setBody(new BodyBuilder().setShape(new ShapeBuilder().setAsTriangle(triangleSize)));
         body.setTransform(x, y, 0);
         setColor(color);
-    }
-
-    @Override
-    public float getX() {
-        return body.getPosition().x;
-    }
-
-    @Override
-    public void setX(float x) {
-        if (body != null)
-            body.setTransform(x, body.getPosition().y, body.getAngle());
-        super.setX(x);
-    }
-
-    @Override
-    public float getY() {
-        return body.getPosition().y;
-    }
-
-    @Override
-    public void setY(float y) {
-        if (body != null)
-            body.setTransform(body.getPosition().x, y, body.getAngle());
-        super.setY(y);
-    }
-
-    @Override
-    public void setPosition(float x, float y) {
-        setX(x);
-        setY(y);
-    }
-
-    @Override
-    public void setRotation(float degrees) {
-        body.setTransform(getX(), getY(), degrees * MathUtils.radiansToDegrees);
     }
 
     @Override
@@ -120,23 +62,11 @@ public abstract class GameObjectPolygon extends Actor {
         batch.begin();
     }
 
-    public int getId() {
-        return id;
-    }
+    @Override
+    protected void setupShape(ShapeBuilder shape) {
+        float[][] vertices = shape.getVertices();
 
-    public void setProperties(JsonValue json) {
-        if (json.has("x")) {
-            setX(json.getFloat("x"));
-        }
-        if (json.has("y")) {
-            setY(json.getFloat("y"));
-        }
-    }
-
-    protected void setBody(BodyBuilder body) {
-        this.body = body.createBody(level, this, id);
-        this.body.setTransform(super.getX(), super.getY(), 0);
-        float[][] vertices = body.getShapeVertices();
+        polygonSpriteBatch = new PolygonSpriteBatch();
 
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
         pixmap.setColor(getColor());
@@ -148,23 +78,5 @@ public abstract class GameObjectPolygon extends Actor {
                     vertices[i], new EarClippingTriangulator().computeTriangles(vertices[i]).toArray()));
             polygonSprites[i].setOrigin(0, 0);
         }
-    }
-
-    protected Level getLevel() {
-        return level;
-    }
-
-    protected MainGame getGame() {
-        return game;
-    }
-
-    public void onCollideEnter(GameObjectPolygon other) {
-    }
-
-    public void onCollideExit(GameObjectPolygon other) {
-    }
-
-    public Body getBody() {
-        return body;
     }
 }

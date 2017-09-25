@@ -95,7 +95,7 @@ public class BodyBuilder {
     }
 
 
-    public Body createBody(Level level, GameObjectPolygon go, int id) {
+    public Body createBody(Level level, GameObject go, int id) {
         Body b;
         if (shape == null)
             shape = new ShapeBuilder();
@@ -130,7 +130,7 @@ public class BodyBuilder {
         return b;
     }
 
-    public float[][] getShapeVertices() {
-        return shape.getVertices();
+    public ShapeBuilder getShapeBuilder() {
+        return shape;
     }
 }

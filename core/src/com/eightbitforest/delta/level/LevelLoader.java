@@ -2,9 +2,12 @@ package com.eightbitforest.delta.level;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 import com.eightbitforest.delta.objects.Exit;
 import com.eightbitforest.delta.objects.Fuel;
 import com.eightbitforest.delta.objects.Player;
+import com.eightbitforest.delta.objects.base.GameObject;
 import com.eightbitforest.delta.objects.walls.*;
 import com.eightbitforest.delta.utils.Constants;
 
@@ -24,28 +27,29 @@ public class LevelLoader {
         ArrayList<String> levelLines = new ArrayList<String>();
         ArrayList<String> propLines = new ArrayList<String>();
 
+        boolean readingProperties = false;
+
+
+        // As soon as we hit an empty line or {, switch to properties
         for (int y = 0; y < lines.length; y++) {
             lines[y] = lines[y].replace("\r", "");
             lines[y] = lines[y].replace("\n", "");
-//            if (!lines[y].isEmpty()) {
-                if (lines[y].contains("{")) {
+            if (readingProperties) {
+                if (!lines[y].isEmpty() && !lines[y].startsWith("#"))
                     propLines.add(lines[y]);
-                } else {
+            } else {
+                if (lines[y].isEmpty() || lines[y].startsWith("{"))
+                    readingProperties = true;
+                else
                     levelLines.add(lines[y]);
-                }
-//            }
-        }
-
-        for (int y = 0; y < levelLines.size(); y++) {
-            for (int x = 0; x < levelLines.get(y).length(); x++) {
-                char c = levelLines.get(y).charAt(x);
-                addGameObject(level, c, x, levelLines.size() - 1 - y);
             }
         }
 
+        JsonValue[][] properties = new JsonValue[levelLines.get(0).length()][levelLines.size()];
         for (int i = 0; i < propLines.size(); i++) {
-//            JsonValue json = new JsonReader().parse(propLines.get(i));
-//            if (json.has("x") && json.has("y")) {
+            JsonValue json = new JsonReader().parse(propLines.get(i));
+            if (json.has("x") && json.has("y")) {
+                properties[json.getInt("x") - 1][json.getInt("y") - 1] = json;
 //                ArrayList<GameObjectPolygon> objects = level.getObjectsAt(
 //                        json.getInt("x") - 1,
 //                        levelLines.size() - json.getInt("y"));
@@ -66,58 +70,76 @@ public class LevelLoader {
 //                    object.setZIndex(object.getZ());
 //                }
 //            }
-//        }
+        }
+
+        for (int y = 0; y < levelLines.size(); y++) {
+            for (int x = 0; x < levelLines.get(y).length(); x++) {
+                char c = levelLines.get(y).charAt(x);
+                GameObject object = addGameObject(level, c, x, levelLines.size() - 1 - y);
+                if (properties[x][y] != null && object != null) {
+                    object.setProperties(properties[x][y]);
+                }
+            }
+        }
 
         return level;
     }
 
-    private static void addGameObject(Level level, char c, int x, int y) {
+    private static GameObject addGameObject(Level level, char c, int x, int y) {
+        GameObject gameObject = null;
         switch (c) {
             case '▲':
-                level.addObject(new WallTriangleUp(level, x, y * Constants.TRIANGLE_HEIGHT));
+                gameObject = new WallTriangleUp(level, x, y * Constants.TRIANGLE_HEIGHT);
                 break;
             case '▼':
-                level.addObject(new WallTriangleDown(level, x, y * Constants.TRIANGLE_HEIGHT));
+                gameObject = new WallTriangleDown(level, x, y * Constants.TRIANGLE_HEIGHT);
                 break;
             case '◢':
-                level.addObject(new WallTriangleHalfTopLeft(level, x, y * Constants.TRIANGLE_HEIGHT));
+                gameObject = new WallTriangleHalfTopLeft(level, x, y * Constants.TRIANGLE_HEIGHT);
                 break;
             case '◤':
-                level.addObject(new WallTriangleHalfBottomRight(level, x, y * Constants.TRIANGLE_HEIGHT));
+                gameObject = new WallTriangleHalfBottomRight(level, x, y * Constants.TRIANGLE_HEIGHT);
                 break;
             case '◥':
-                level.addObject(new WallTriangleHalfBottomLeft(level, x, y * Constants.TRIANGLE_HEIGHT));
+                gameObject = new WallTriangleHalfBottomLeft(level, x, y * Constants.TRIANGLE_HEIGHT);
                 break;
             case '◣':
-                level.addObject(new WallTriangleHalfTopRight(level, x, y * Constants.TRIANGLE_HEIGHT));
+                gameObject = new WallTriangleHalfTopRight(level, x, y * Constants.TRIANGLE_HEIGHT);
                 break;
             case '◿':
-                level.addObject(new WallTriangleHalfTopLeftLong(level, x, y * Constants.TRIANGLE_HEIGHT));
+                gameObject = new WallTriangleHalfTopLeftLong(level, x, y * Constants.TRIANGLE_HEIGHT);
                 break;
             case '◸':
-                level.addObject(new WallTriangleHalfBottomRightLong(level, x, y * Constants.TRIANGLE_HEIGHT));
+                gameObject = new WallTriangleHalfBottomRightLong(level, x, y * Constants.TRIANGLE_HEIGHT);
                 break;
             case '◹':
-                level.addObject(new WallTriangleHalfBottomLeftLong(level, x, y * Constants.TRIANGLE_HEIGHT));
+                gameObject = new WallTriangleHalfBottomLeftLong(level, x, y * Constants.TRIANGLE_HEIGHT);
                 break;
             case '◺':
-                level.addObject(new WallTriangleHalfTopRightLong(level, x, y * Constants.TRIANGLE_HEIGHT));
+                gameObject = new WallTriangleHalfTopRightLong(level, x, y * Constants.TRIANGLE_HEIGHT);
                 break;
             case '^':
-                level.addObject(new WallTriangleInvertedUp(level, x, y * Constants.TRIANGLE_HEIGHT));
+                gameObject = new WallTriangleInvertedUp(level, x, y * Constants.TRIANGLE_HEIGHT);
                 break;
             case '■':
-                level.addObject(new WallBox(level, x, y * Constants.TRIANGLE_HEIGHT));
+                gameObject = new WallBox(level, x, y * Constants.TRIANGLE_HEIGHT);
                 break;
             case 'E':
-                level.addObject(new Exit(level, x, y * Constants.TRIANGLE_HEIGHT));
+                gameObject = new Exit(level, x, y * Constants.TRIANGLE_HEIGHT);
                 break;
             case 'F':
-                level.addObject(new Fuel(level, x, y * Constants.TRIANGLE_HEIGHT));
+                gameObject = new Fuel(level, x, y * Constants.TRIANGLE_HEIGHT);
                 break;
             case 'P':
-                level.setPlayer(new Player(level, x, y * Constants.TRIANGLE_HEIGHT));
-                break;
+                gameObject = new Player(level, x, y * Constants.TRIANGLE_HEIGHT);
+                level.setPlayer((Player) gameObject);
+                return gameObject;
+            default:
+                if (c != ' ')
+                    Gdx.app.error(Constants.TAG, "Cannot find gameobject with symbol " + c);
+                return null;
         }
+        level.addObject(gameObject);
+        return gameObject;
     }
 }

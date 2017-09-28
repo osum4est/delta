@@ -43,6 +43,6 @@ public class Fuel extends GameObject {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.draw(texture, getX(), getY(), radius * 2, radius * 2);
+        batch.draw(texture, getX() - radius, getY() - radius, radius * 2, radius * 2);
     }
 }

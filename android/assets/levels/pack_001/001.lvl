@@ -5,20 +5,20 @@
 ■                   ■
 ■         E         ■
 ■                   ■
+■               ■   ■
+■               F■  ■
 ■                   ■
 ■                   ■
 ■                   ■
 ■                   ■
-■                   ■
-■               F   ■
-■                   ■
-■                   ■
-■                   ■
+■                 ■ ■
+■    ■■■■■■■■■■■■■■ ■
+■          ■      ■ ■
 ■                   ■
 ■                   ■
 ■                   ■
 ■                   ■
-■                   ■
+■               ■   ■
 ■                   ■
 ■                   ■
 ■                   ■
@@ -26,3 +26,20 @@
 ■                   ■
 ■                   ■
 ■■■■■■■■■■■■■■■■■■■■■
+
+# Pointy thing
+{ "x": 7, "y": 15, "width": 1, "height": .25, "dX": 5, "speed": 1 }
+{ "x": 8, "y": 15, "width": 1, "height": .5, "dX": 5, "speed": 1 }
+{ "x": 9, "y": 15, "width": 1, "height": .75, "dX": 5, "speed": 1 }
+{ "x": 10, "y": 15, "width": 1, "height": 1, "dX": 5, "speed": 1 }
+{ "x": 11, "y": 15, "width": 1, "height": 1.25, "dX": 5, "speed": 1 }
+{ "x": 12, "y": 15, "width": 1, "height": 1.5, "dX": 5, "speed": 1 }
+{ "x": 13, "y": 15, "width": 1, "height": 1.75, "dX": 5, "speed": 1 }
+{ "x": 14, "y": 15, "width": 1, "height": 2, "dX": 5, "speed": 1 }
+{ "x": 15, "y": 15, "width": 1, "height": 2.25, "dX": 5, "speed": 1 }
+{ "x": 16, "y": 15, "width": 1, "height": 2.5, "dX": 5, "speed": 1 }
+{ "x": 17, "y": 15, "width": 1, "height": 2.75, "dX": 5, "speed": 1 }
+{ "x": 18, "y": 15, "width": 1, "height": 3, "dX": 5, "speed": 1 }
+
+# Spinny thing
+{ "x": 17, "y": 21, "width": .2, "height": 3, "angle": 45, "angularSpeed": .5 }

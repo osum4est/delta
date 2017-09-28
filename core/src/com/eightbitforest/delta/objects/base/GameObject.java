@@ -53,7 +53,9 @@ public abstract class GameObject extends Actor {
 
     @Override
     public float getX() {
-        return body.getPosition().x;
+        if (body != null)
+            return body.getPosition().x;
+        return super.getX();
     }
 
     @Override
@@ -65,7 +67,9 @@ public abstract class GameObject extends Actor {
 
     @Override
     public float getY() {
-        return body.getPosition().y;
+        if (body != null)
+            return body.getPosition().y;
+        return super.getY();
     }
 
     @Override
@@ -83,7 +87,14 @@ public abstract class GameObject extends Actor {
 
     @Override
     public void setRotation(float degrees) {
-        body.setTransform(getX(), getY(), degrees * MathUtils.radiansToDegrees);
+        if (body != null)
+            body.setTransform(getX(), getY(), degrees * MathUtils.degreesToRadians);
+        super.setRotation(degrees);
+    }
+
+    @Override
+    public float getRotation() {
+        return body.getAngle() * MathUtils.radiansToDegrees;
     }
 
     public int getId() {
@@ -91,17 +102,11 @@ public abstract class GameObject extends Actor {
     }
 
     public void setProperties(JsonValue json) {
-        if (json.has("x")) {
-            setX(json.getFloat("x"));
-        }
-        if (json.has("y")) {
-            setY(json.getFloat("y"));
-        }
     }
 
     protected void setBody(BodyBuilder body) {
         this.body = body.createBody(level, this, id);
-        this.body.setTransform(super.getX(), super.getY(), 0);
+        this.body.setTransform(super.getX(), super.getY(), super.getRotation() * MathUtils.degreesToRadians);
         setupShape(body.getShapeBuilder());
     }
 

@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.EarClippingTriangulator;
-import com.badlogic.gdx.math.MathUtils;
 import com.eightbitforest.delta.level.Level;
 
 public abstract class GameObjectPolygon extends GameObject {
@@ -54,7 +53,7 @@ public abstract class GameObjectPolygon extends GameObject {
         for (PolygonSprite polygonSprite : polygonSprites) {
             polygonSprite.setPosition(getX(), getY());
             polygonSprite.setColor(getColor());
-            polygonSprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
+            polygonSprite.setRotation(getRotation());
             polygonSprite.draw(polygonSpriteBatch);
         }
 

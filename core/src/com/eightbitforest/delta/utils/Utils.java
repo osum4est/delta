@@ -35,6 +35,10 @@ public class Utils {
         return matches == values.length;
     }
 
+    public static float getTriangleHeight(float triangleSide) {
+        return triangleSide / (2 / (float) Math.sqrt(3));
+    }
+
     public static String getJsonStringOrDefault(JsonValue json, String key, String def) {
         if (json.has(key))
             return json.getString(key);
@@ -45,9 +49,5 @@ public class Utils {
         if (json.has(key))
             return json.getFloat(key);
         return def;
-    }
-
-    public static float getTriangleHeight(float triangleSide) {
-        return triangleSide / (2 / (float) Math.sqrt(3));
     }
 }

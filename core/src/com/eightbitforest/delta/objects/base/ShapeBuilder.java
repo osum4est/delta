@@ -13,10 +13,10 @@ public class ShapeBuilder {
 
     public ShapeBuilder setAsRect(float width, float height) {
         vertices = new float[][]{new float[]{
-                -width / 2, -height / 3,
-                -width / 2, height / 3 * 2,
-                width / 2, height / 3 * 2,
-                width / 2, -height / 3
+                -width / 2, -height / 2,
+                -width / 2, height / 2,
+                width / 2, height / 2,
+                width / 2, -height / 2
         }};
 
         return this;

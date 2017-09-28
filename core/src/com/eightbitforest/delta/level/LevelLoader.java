@@ -28,9 +28,10 @@ public class LevelLoader {
         ArrayList<String> propLines = new ArrayList<String>();
 
         boolean readingProperties = false;
+        int levelWidth = 0;
+        int levelHeight = 0;
 
-
-        // As soon as we hit an empty line or {, switch to properties
+        // As soon as we hit a {, switch to properties
         for (int y = 0; y < lines.length; y++) {
             lines[y] = lines[y].replace("\r", "");
             lines[y] = lines[y].replace("\n", "");
@@ -38,38 +39,24 @@ public class LevelLoader {
                 if (!lines[y].isEmpty() && !lines[y].startsWith("#"))
                     propLines.add(lines[y]);
             } else {
-                if (lines[y].isEmpty() || lines[y].startsWith("{"))
+                if (lines[y].startsWith("{") || lines[y].startsWith("#")) {
                     readingProperties = true;
-                else
+                    y--; // Decrement y so that we can add the property that starts with {
+                } else {
                     levelLines.add(lines[y]);
+                    if (lines[y].length() > levelWidth)
+                        levelWidth = lines[y].length();
+                }
             }
         }
+        levelHeight = levelLines.size();
 
-        JsonValue[][] properties = new JsonValue[levelLines.get(0).length()][levelLines.size()];
+        JsonValue[][] properties = new JsonValue[levelWidth][levelHeight];
         for (int i = 0; i < propLines.size(); i++) {
             JsonValue json = new JsonReader().parse(propLines.get(i));
-            if (json.has("x") && json.has("y")) {
-                properties[json.getInt("x") - 1][json.getInt("y") - 1] = json;
-//                ArrayList<GameObjectPolygon> objects = level.getObjectsAt(
-//                        json.getInt("x") - 1,
-//                        levelLines.size() - json.getInt("y"));
-//                if (objects.size() == 1) {
-//                    objects.get(0).setProperties(json);
-//                } else {
-//                    System.out.println("No object at property position");
-//                }
-//            } else {
-//                System.out.println("Level property missing x and y");
-//            }
-        }
 
-//        for (ArrayList<ArrayList<GameObjectPolygon>> col : level) {
-//            for (ArrayList<GameObjectPolygon> objects : col) {
-//                for (GameObjectPolygon object : objects) {
-//                    object.onUpdate();
-//                    object.setZIndex(object.getZ());
-//                }
-//            }
+            if (json.has("x") && json.has("y"))
+                properties[json.getInt("x") - 1][json.getInt("y") - 1] = json;
         }
 
         for (int y = 0; y < levelLines.size(); y++) {

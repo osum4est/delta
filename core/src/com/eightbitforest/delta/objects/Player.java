@@ -119,7 +119,7 @@ public class Player extends GameObjectPolygon {
 
     @Override
     public void onCollideEnter(GameObject other) {
-        if (other.getId() == Ids.WALL && !dead) {
+        if ((other.getId() == Ids.WALL || other.getId() == Ids.ENEMY) && !dead) {
             die();
         } else if (other.getId() == Ids.EXIT && !dead) {
             getGame().nextLevel();

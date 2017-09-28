@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.eightbitforest.delta.objects.Enemy;
 import com.eightbitforest.delta.objects.Exit;
 import com.eightbitforest.delta.objects.Fuel;
 import com.eightbitforest.delta.objects.Player;
@@ -11,9 +12,32 @@ import com.eightbitforest.delta.objects.base.GameObject;
 import com.eightbitforest.delta.objects.walls.*;
 import com.eightbitforest.delta.utils.Constants;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class LevelLoader {
+    private static HashMap<Character, Class<? extends GameObject>> objectCharMap =
+            new HashMap<Character, Class<? extends GameObject>>() {{
+                put('P', Player.class);
+                put('E', Exit.class);
+                put('F', Fuel.class);
+                put('B', Enemy.class);
+
+                put('▲', WallTriangleUp.class);
+                put('▼', WallTriangleDown.class);
+                put('◢', WallTriangleHalfTopLeft.class);
+                put('◥', WallTriangleHalfBottomLeft.class);
+                put('◣', WallTriangleHalfTopRight.class);
+                put('◤', WallTriangleHalfBottomRight.class);
+                put('◿', WallTriangleHalfTopLeftLong.class);
+                put('◹', WallTriangleHalfBottomLeftLong.class);
+                put('◺', WallTriangleHalfTopRightLong.class);
+                put('◸', WallTriangleHalfBottomRightLong.class);
+                put('^', WallTriangleInvertedUp.class);
+                put('■', WallBox.class);
+            }};
+
     public static Level loadLocalLevel(String packname, String filename) {
         FileHandle handle = Gdx.files.internal("levels/" + packname + "/" + filename);
         String file = handle.readString();
@@ -73,59 +97,25 @@ public class LevelLoader {
     }
 
     private static GameObject addGameObject(Level level, char c, int x, int y) {
-        GameObject gameObject = null;
-        switch (c) {
-            case '▲':
-                gameObject = new WallTriangleUp(level, x, y * Constants.TRIANGLE_HEIGHT);
-                break;
-            case '▼':
-                gameObject = new WallTriangleDown(level, x, y * Constants.TRIANGLE_HEIGHT);
-                break;
-            case '◢':
-                gameObject = new WallTriangleHalfTopLeft(level, x, y * Constants.TRIANGLE_HEIGHT);
-                break;
-            case '◤':
-                gameObject = new WallTriangleHalfBottomRight(level, x, y * Constants.TRIANGLE_HEIGHT);
-                break;
-            case '◥':
-                gameObject = new WallTriangleHalfBottomLeft(level, x, y * Constants.TRIANGLE_HEIGHT);
-                break;
-            case '◣':
-                gameObject = new WallTriangleHalfTopRight(level, x, y * Constants.TRIANGLE_HEIGHT);
-                break;
-            case '◿':
-                gameObject = new WallTriangleHalfTopLeftLong(level, x, y * Constants.TRIANGLE_HEIGHT);
-                break;
-            case '◸':
-                gameObject = new WallTriangleHalfBottomRightLong(level, x, y * Constants.TRIANGLE_HEIGHT);
-                break;
-            case '◹':
-                gameObject = new WallTriangleHalfBottomLeftLong(level, x, y * Constants.TRIANGLE_HEIGHT);
-                break;
-            case '◺':
-                gameObject = new WallTriangleHalfTopRightLong(level, x, y * Constants.TRIANGLE_HEIGHT);
-                break;
-            case '^':
-                gameObject = new WallTriangleInvertedUp(level, x, y * Constants.TRIANGLE_HEIGHT);
-                break;
-            case '■':
-                gameObject = new WallBox(level, x, y * Constants.TRIANGLE_HEIGHT);
-                break;
-            case 'E':
-                gameObject = new Exit(level, x, y * Constants.TRIANGLE_HEIGHT);
-                break;
-            case 'F':
-                gameObject = new Fuel(level, x, y * Constants.TRIANGLE_HEIGHT);
-                break;
-            case 'P':
-                gameObject = new Player(level, x, y * Constants.TRIANGLE_HEIGHT);
-                level.setPlayer((Player) gameObject);
-                return gameObject;
-            default:
-                if (c != ' ')
-                    Gdx.app.error(Constants.TAG, "Cannot find gameobject with symbol " + c);
-                return null;
+        GameObject gameObject;
+
+        if (c == ' ')
+            return null;
+
+        if (!objectCharMap.containsKey(c)) {
+            Gdx.app.error(Constants.TAG, "Cannot find gameobject with char " + c);
+            return null;
         }
+
+        Constructor<? extends GameObject> constructor;
+        try {
+            constructor = objectCharMap.get(c).getConstructor(Level.class, float.class, float.class);
+            gameObject = constructor.newInstance(level, x, y * Constants.TRIANGLE_HEIGHT);
+        } catch (Exception e) {
+            Gdx.app.error(Constants.TAG, "Unable to invoke constructor for " + c);
+            return null;
+        }
+
         level.addObject(gameObject);
         return gameObject;
     }

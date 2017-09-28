@@ -74,12 +74,14 @@ public class Level extends Stage {
         return player;
     }
 
-    public void setPlayer(Player player) {
+    private void setPlayer(Player player) {
         this.player = player;
-        addObject(player);
     }
 
     public void addObject(GameObject object) {
+        if (object instanceof Player)
+            setPlayer((Player) object);
+
         addActor(object);
         objects.add(object);
     }

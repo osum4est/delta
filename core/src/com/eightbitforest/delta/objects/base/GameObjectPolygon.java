@@ -54,6 +54,7 @@ public abstract class GameObjectPolygon extends GameObject {
             polygonSprite.setPosition(getX(), getY());
             polygonSprite.setColor(getColor());
             polygonSprite.setRotation(getRotation());
+            polygonSprite.setScale(getScaleX());
             polygonSprite.draw(polygonSpriteBatch);
         }
 

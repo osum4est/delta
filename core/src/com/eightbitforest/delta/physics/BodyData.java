@@ -1,4 +1,4 @@
-package com.eightbitforest.delta.utils;
+package com.eightbitforest.delta.physics;
 
 import com.eightbitforest.delta.objects.base.GameObject;
 

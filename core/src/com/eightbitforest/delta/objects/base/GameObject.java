@@ -110,7 +110,8 @@ public abstract class GameObject extends Actor {
         setupShape(body.getShapeBuilder());
     }
 
-    protected abstract void setupShape(ShapeBuilder shape);
+    protected void setupShape(ShapeBuilder shape) {
+    }
 
     protected Level getLevel() {
         return level;

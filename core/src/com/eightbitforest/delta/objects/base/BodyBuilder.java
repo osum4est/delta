@@ -6,7 +6,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.eightbitforest.delta.level.Level;
-import com.eightbitforest.delta.utils.BodyData;
+import com.eightbitforest.delta.physics.BodyData;
 import com.eightbitforest.delta.utils.Constants;
 
 /**

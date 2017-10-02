@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.eightbitforest.delta.objects.Player;
 import com.eightbitforest.delta.objects.base.GameObject;
-import com.eightbitforest.delta.utils.CollisionHandler;
+import com.eightbitforest.delta.physics.CollisionHandler;
 import com.eightbitforest.delta.utils.Constants;
 
 import java.util.ArrayList;

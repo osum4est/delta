@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
-import com.eightbitforest.delta.objects.Enemy;
-import com.eightbitforest.delta.objects.Exit;
-import com.eightbitforest.delta.objects.Fuel;
-import com.eightbitforest.delta.objects.Player;
+import com.eightbitforest.delta.objects.*;
 import com.eightbitforest.delta.objects.base.GameObject;
 import com.eightbitforest.delta.objects.walls.*;
 import com.eightbitforest.delta.utils.Constants;
@@ -23,6 +20,7 @@ public class LevelLoader {
                 put('E', Exit.class);
                 put('F', Fuel.class);
                 put('B', Enemy.class);
+                put('H', BlackHole.class);
 
                 put('▲', WallTriangleUp.class);
                 put('▼', WallTriangleDown.class);

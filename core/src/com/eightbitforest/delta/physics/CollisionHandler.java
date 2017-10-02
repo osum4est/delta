@@ -1,4 +1,4 @@
-package com.eightbitforest.delta.utils;
+package com.eightbitforest.delta.physics;
 
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;

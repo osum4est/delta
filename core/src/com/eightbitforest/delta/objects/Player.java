@@ -125,7 +125,7 @@ public class Player extends GameObjectPolygon {
             }
             getColor().a = 0;
         } else if (style == PlayerDeathStyle.SHRINK_FADE) {
-            animator.fade(.75f).scale(-1.5f);
+            animator.fade(.75f).scale(-2f);
         }
     }
 
@@ -143,7 +143,7 @@ public class Player extends GameObjectPolygon {
                 public void run() {
                     getGame().nextLevel();
                 }
-            }, .25f);
+            }, .5f);
         } else if (other.getId() == Ids.BLACK_HOLE) {
             animator.lerp(.1f, other.getX(), other.getY());
             die(PlayerDeathStyle.SHRINK_FADE);

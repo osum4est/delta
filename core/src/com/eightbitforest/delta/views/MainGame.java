@@ -85,8 +85,8 @@ public class MainGame implements Screen {
         hud = new InGameHud(currentLevel);
         currentLevel.addActor(hud);
         Gdx.input.setInputProcessor(currentLevel);
-        currentLevel.getCamera().position.x = 0;
-        currentLevel.getCamera().position.y = 0;
+        currentLevel.getCamera().position.x = currentLevel.getPlayer().getX();
+        currentLevel.getCamera().position.y = currentLevel.getPlayer().getY();
     }
 
     @Override

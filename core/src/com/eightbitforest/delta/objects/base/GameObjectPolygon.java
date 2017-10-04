@@ -71,8 +71,4 @@ public abstract class GameObjectPolygon extends GameObject {
             polygonSprites[i].setOrigin(0, 0);
         }
     }
-
-    // 1000
-    // 1000
-    // 1000
 }

@@ -23,7 +23,7 @@ public class Player extends GameObjectPolygon {
 
     private float dV = Constants.PLAYER_MAX_DV;
 
-    private boolean emitting = true;
+    private boolean emitting;
     private ParticleEmitter thrusterEmitter;
     private ParticleEffect thrusterEffect;
 
@@ -37,10 +37,13 @@ public class Player extends GameObjectPolygon {
         thrusterEffect = new ParticleEffect();
         thrusterEffect.load(Gdx.files.internal("effects/thruster.p"), Gdx.files.internal("images"));
         thrusterEffect.setPosition(0, 0);
-        thrusterEffect.start();
+        thrusterEffect.allowCompletion();
         thrusterEmitter = thrusterEffect.findEmitter("thruster");
 
         animator = new Animator(this);
+
+        setScale(0);
+        animator.scaleTo(5f, 1);
     }
 
     @Override
@@ -127,6 +130,13 @@ public class Player extends GameObjectPolygon {
         } else if (style == PlayerDeathStyle.SHRINK_FADE) {
             animator.fade(.75f).scale(-2f);
         }
+
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                getGame().restartLevel();
+            }
+        }, Constants.RESTART_DELAY);
     }
 
     @Override
@@ -160,6 +170,7 @@ public class Player extends GameObjectPolygon {
     }
 
     private static class PlayerDeathPart extends GameObjectPolygon {
+        private Animator animator;
 
         public PlayerDeathPart(Level level, int id, float x, float y) {
             super(level, id, x, y, Colors.PLAYER, false);
@@ -167,6 +178,16 @@ public class Player extends GameObjectPolygon {
                     .setShape(new ShapeBuilder().setAsTriangle(Constants.TRIANGLE_SIDE / 2))
                     .setRestitution(.5f)
             );
+
+            animator = new Animator(this);
+            animator.fade(.75f);
+        }
+
+        @Override
+        public void act(float delta) {
+            super.act(delta);
+
+            animator.update(delta);
         }
     }
 }

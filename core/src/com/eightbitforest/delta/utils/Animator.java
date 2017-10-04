@@ -9,6 +9,8 @@ public class Animator {
     private boolean enabled;
 
     private float scaleSpeed;
+    private float scaleTo;
+
     private float fadeSpeed;
     private float moveSpeed;
     private float moveX;
@@ -20,7 +22,12 @@ public class Animator {
     }
 
     public Animator scale(float scaleSpeed) {
+        return scaleTo(scaleSpeed, 0);
+    }
+
+    public Animator scaleTo(float scaleSpeed, float scaleTo) {
         this.scaleSpeed = scaleSpeed;
+        this.scaleTo = scaleTo;
         return this;
     }
 
@@ -43,8 +50,11 @@ public class Animator {
         // Scale
         if (scaleSpeed != 0) {
             float newScale = gameObject.getScaleX() + delta * scaleSpeed;
-            if (newScale < 0)
-                newScale = 0;
+            if ((scaleSpeed > 0 && newScale > scaleTo) ||
+                    (scaleSpeed < 0 && newScale < scaleTo)) {
+                newScale = scaleTo;
+                scaleSpeed = 0;
+            }
             gameObject.setScale(newScale);
         }
 

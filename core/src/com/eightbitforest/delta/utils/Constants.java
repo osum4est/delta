@@ -6,10 +6,11 @@ public class Constants {
     public static final boolean DEBUG_MODE = false;
     public static final String TAG = "delta";
 
-
     public static final int PPM = 15;
     public static final float TRIANGLE_SIDE = 1f; // GRID WIDTH
     public static final float TRIANGLE_HEIGHT = Utils.getTriangleHeight(TRIANGLE_SIDE); // GRID HEIGHT
+
+    public static final float RESTART_DELAY = 1f;
 
     public static final short CATEGORY_NONE = 0x1;
     public static final short CATEGORY_ALL = 0x2;

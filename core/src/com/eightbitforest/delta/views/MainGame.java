@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.eightbitforest.delta.debug.DebugGrid;
 import com.eightbitforest.delta.level.Level;
@@ -31,7 +32,7 @@ public class MainGame implements Screen {
         this.game = game;
 
         levelPack = new LevelPack("pack_001");
-        switchLevel(levelPack.loadNextLevel());
+        nextLevel();
 
         starsEffect = new ParticleEffect();
         starsEffect.load(Gdx.files.internal("effects/stars.p"), Gdx.files.internal("images"));
@@ -73,11 +74,19 @@ public class MainGame implements Screen {
         }
     }
 
-    public void nextLevel() {
-        switchLevel(levelPack.loadNextLevel());
+    public void restartLevel() {
+        switchLevel(levelPack.reloadCurrentLevel(), false);
     }
 
-    public void switchLevel(Level level) {
+    public void nextLevel() {
+        switchLevel(levelPack.loadNextLevel(), true);
+    }
+
+    public void switchLevel(Level level, boolean resetCamera) {
+        Vector3 oldCamPos = null;
+        if (!resetCamera)
+            oldCamPos = currentLevel.getCamera().position;
+
         if (currentLevel != null)
             currentLevel.dispose();
 
@@ -85,8 +94,13 @@ public class MainGame implements Screen {
         hud = new InGameHud(currentLevel);
         currentLevel.addActor(hud);
         Gdx.input.setInputProcessor(currentLevel);
-        currentLevel.getCamera().position.x = currentLevel.getPlayer().getX();
-        currentLevel.getCamera().position.y = currentLevel.getPlayer().getY();
+
+        if (resetCamera) {
+            currentLevel.getCamera().position.x = currentLevel.getPlayer().getX();
+            currentLevel.getCamera().position.y = currentLevel.getPlayer().getY();
+        } else {
+            currentLevel.getCamera().position.set(oldCamPos);
+        }
     }
 
     @Override

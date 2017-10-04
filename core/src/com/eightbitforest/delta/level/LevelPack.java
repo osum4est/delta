@@ -25,6 +25,10 @@ public class LevelPack {
         currentLevel = -1;
     }
 
+    public Level reloadCurrentLevel() {
+        return LevelLoader.loadLocalLevel(name, levels.get(currentLevel));
+    }
+
     public Level loadNextLevel() {
         currentLevel++;
         return LevelLoader.loadLocalLevel(name, levels.get(currentLevel));

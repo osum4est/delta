@@ -116,7 +116,7 @@ public class Player extends GameObjectPolygon {
             for (int i = 0; i < deathParts.length; i++) {
                 //
                 deathParts[i] = new PlayerDeathPart(getLevel(), Ids.PLAYER, getX(), getY());
-                getLevel().addActor(deathParts[i]);
+                getLevel().addObject(deathParts[i]);
 
                 Vector2 force = new Vector2(0, 250);
                 force.rotate(angle + i * 120);

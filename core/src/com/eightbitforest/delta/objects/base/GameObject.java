@@ -1,6 +1,7 @@
 package com.eightbitforest.delta.objects.base;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -49,6 +50,10 @@ public abstract class GameObject extends Actor {
         this(level, id, createBody);
         setColor(color);
         setPosition(x, y);
+    }
+
+    public void drawShape(PolygonSpriteBatch batch) {
+
     }
 
     @Override

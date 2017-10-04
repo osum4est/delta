@@ -3,12 +3,15 @@ package com.eightbitforest.delta.objects.base;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.PolygonRegion;
+import com.badlogic.gdx.graphics.g2d.PolygonSprite;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.eightbitforest.delta.level.Level;
 
 public abstract class GameObjectPolygon extends GameObject {
-    private PolygonSpriteBatch polygonSpriteBatch;
+    private static boolean drawing = false;
     private PolygonSprite[] polygonSprites;
 
     public GameObjectPolygon(Level level, int id) {
@@ -43,33 +46,22 @@ public abstract class GameObjectPolygon extends GameObject {
     }
 
     @Override
-    public void draw(Batch batch, float parentAlpha) {
-        batch.end();
-
-        polygonSpriteBatch.setProjectionMatrix(batch.getProjectionMatrix());
-        polygonSpriteBatch.setTransformMatrix(batch.getTransformMatrix());
-        polygonSpriteBatch.begin();
-
+    public void drawShape(PolygonSpriteBatch batch) {
         for (PolygonSprite polygonSprite : polygonSprites) {
             polygonSprite.setPosition(getX(), getY());
             polygonSprite.setColor(getColor());
             polygonSprite.setRotation(getRotation());
             polygonSprite.setScale(getScaleX());
-            polygonSprite.draw(polygonSpriteBatch);
+            polygonSprite.draw(batch);
         }
-
-        polygonSpriteBatch.end();
-        batch.begin();
     }
 
     @Override
     protected void setupShape(ShapeBuilder shape) {
         float[][] vertices = shape.getVertices();
 
-        polygonSpriteBatch = new PolygonSpriteBatch();
-
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        pixmap.setColor(getColor());
+        pixmap.setColor(1, 1, 1, 1);
         pixmap.fill();
 
         polygonSprites = new PolygonSprite[vertices.length];
@@ -79,4 +71,8 @@ public abstract class GameObjectPolygon extends GameObject {
             polygonSprites[i].setOrigin(0, 0);
         }
     }
+
+    // 1000
+    // 1000
+    // 1000
 }

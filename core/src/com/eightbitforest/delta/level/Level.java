@@ -1,6 +1,7 @@
 package com.eightbitforest.delta.level;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -21,6 +22,8 @@ public class Level extends Stage {
     private Player player;
     private ArrayList<GameObject> objects;
 
+    private PolygonSpriteBatch polygonSpriteBatch;
+
     public Level() {
         super(new ExtendViewport(Constants.VIEWPORT_WIDTH / Constants.PPM, Constants.VIEWPORT_HEIGHT / Constants.PPM));
 
@@ -32,6 +35,7 @@ public class Level extends Stage {
         world.setContactListener(collisionHandler);
 
         this.objects = new ArrayList<GameObject>();
+        polygonSpriteBatch = new PolygonSpriteBatch();
 
         addListener(new InputListener() {
             float prevX = 0;
@@ -57,6 +61,20 @@ public class Level extends Stage {
                 player.stopMoving();
             }
         });
+    }
+
+
+    @Override
+    public void draw() {
+        super.draw();
+
+        polygonSpriteBatch.setProjectionMatrix(getBatch().getProjectionMatrix());
+        polygonSpriteBatch.setTransformMatrix(getBatch().getTransformMatrix());
+        polygonSpriteBatch.begin();
+        for (GameObject gameObject : objects) {
+            gameObject.drawShape(polygonSpriteBatch);
+        }
+        polygonSpriteBatch.end();
     }
 
     @Override

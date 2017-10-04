@@ -21,6 +21,7 @@ public class LevelLoader {
                 put('F', Fuel.class);
                 put('B', Enemy.class);
                 put('H', BlackHole.class);
+                put('A', Asteroid.class);
 
                 put('▲', WallTriangleUp.class);
                 put('▼', WallTriangleDown.class);

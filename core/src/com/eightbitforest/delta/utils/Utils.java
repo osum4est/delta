@@ -1,14 +1,16 @@
 package com.eightbitforest.delta.utils;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.JsonValue;
 
 import java.util.Random;
 
 
 public class Utils {
-    public static int randomRange(float min, float max)
+    public static float randomRange(float min, float max)
     {
-        return randomRange((int)min, (int)max);
+        return MathUtils.random(min, max);
+//        return randomRange((int)min, (int)max);
     }
     public static int randomRange(int min, int max)
     {

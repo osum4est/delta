@@ -117,7 +117,6 @@ public class Player extends GameObjectPolygon {
             PlayerDeathPart[] deathParts = new PlayerDeathPart[3];
             float angle = (float) Math.random() * 180;
             for (int i = 0; i < deathParts.length; i++) {
-                //
                 deathParts[i] = new PlayerDeathPart(getLevel(), Ids.PLAYER, getX(), getY());
                 getLevel().addObject(deathParts[i]);
 

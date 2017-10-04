@@ -72,6 +72,11 @@ public class ShapeBuilder {
         return this;
     }
 
+    public ShapeBuilder setAsPolygon(float[] vertices) {
+        this.vertices = new float[][]{vertices};
+        return this;
+    }
+
     public ShapeBuilder flip(boolean x, boolean y) {
         if (vertices != null) {
             for (int s = 0; s < vertices.length; s += 2) {

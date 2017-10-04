@@ -33,6 +33,8 @@ public class Constants {
     public static final float PLAYER_TURN_SPEED = 50f;
     public static final float PLAYER_MAX_DV = 5f;
 
+    public static final float ASTEROID_VARIATION = .05f;
+
     public static final float HUD_DV_HEIGHT = 5f;
 }
 

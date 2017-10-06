@@ -10,7 +10,6 @@ public class Utils {
     public static float randomRange(float min, float max)
     {
         return MathUtils.random(min, max);
-//        return randomRange((int)min, (int)max);
     }
     public static int randomRange(int min, int max)
     {

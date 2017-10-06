@@ -8,5 +8,6 @@ public class Ids {
     public static final int FUEL = 3;
     public static final int ENEMY = 4;
     public static final int BLACK_HOLE = 5;
-    public static final int ASTEROID = 6;
+    public static final int WHITE_HOLE = 6;
+    public static final int ASTEROID = 7;
 }

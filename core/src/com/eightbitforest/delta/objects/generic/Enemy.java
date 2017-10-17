@@ -1,4 +1,4 @@
-package com.eightbitforest.delta.objects;
+package com.eightbitforest.delta.objects.generic;
 
 import com.badlogic.gdx.math.Vector2;
 import com.eightbitforest.delta.level.Level;

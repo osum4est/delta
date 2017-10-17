@@ -1,4 +1,4 @@
-package com.eightbitforest.delta.objects;
+package com.eightbitforest.delta.objects.generic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -12,41 +12,40 @@ import com.eightbitforest.delta.objects.base.GameObject;
 import com.eightbitforest.delta.objects.base.ShapeBuilder;
 import com.eightbitforest.delta.utils.Ids;
 
-public class BlackHole extends GameObject {
+public class WhiteHole extends GameObject {
     private static float effectRadius = 5f;
     private static float pullForce = 2f;
 
     // TODO: Make effect start generated
-    private ParticleEffect blackHoleEffect;
+    private ParticleEffect whiteHoleEffect;
 
-    public BlackHole(Level level, float x, float y) {
-        super(level, Ids.BLACK_HOLE, x, y, Color.BLACK, false);
+    public WhiteHole(Level level, float x, float y) {
+        super(level, Ids.WHITE_HOLE, x, y, Color.BLACK, false);
         setBody(new BodyBuilder().setBodyType(BodyDef.BodyType.StaticBody).setSensor(true)
                 .setShape(new ShapeBuilder().setAsCircle(.4f)));
 
-        blackHoleEffect = new ParticleEffect();
-        blackHoleEffect.load(Gdx.files.internal("effects/black_hole.p"), Gdx.files.internal("images"));
-        blackHoleEffect.setPosition(getX(), getY());
-        blackHoleEffect.start();
+        whiteHoleEffect = new ParticleEffect();
+        whiteHoleEffect.load(Gdx.files.internal("effects/white_hole.p"), Gdx.files.internal("images"));
+        whiteHoleEffect.setPosition(getX(), getY());
+        whiteHoleEffect.start();
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
 
-        // Drag player towards center
         Vector2 diff = getLevel().getPlayer().getBody().getTransform().getPosition().sub(body.getTransform().getPosition());
         if (diff.len() < effectRadius) {
             diff.nor();
-            diff.scl(-5f);
+            diff.scl(5f);
             getLevel().getPlayer().getBody().applyForceToCenter(diff, true);
         }
 
-        blackHoleEffect.update(delta);
+        whiteHoleEffect.update(delta);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        blackHoleEffect.draw(batch);
+        whiteHoleEffect.draw(batch);
     }
 }

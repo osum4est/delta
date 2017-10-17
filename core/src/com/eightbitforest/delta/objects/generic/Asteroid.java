@@ -1,4 +1,4 @@
-package com.eightbitforest.delta.objects;
+package com.eightbitforest.delta.objects.generic;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.physics.box2d.BodyDef;

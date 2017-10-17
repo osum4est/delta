@@ -1,4 +1,4 @@
-package com.eightbitforest.delta.objects;
+package com.eightbitforest.delta.objects.generic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -12,6 +12,7 @@ import com.eightbitforest.delta.objects.base.BodyBuilder;
 import com.eightbitforest.delta.objects.base.GameObject;
 import com.eightbitforest.delta.objects.base.GameObjectPolygon;
 import com.eightbitforest.delta.objects.base.ShapeBuilder;
+import com.eightbitforest.delta.objects.powerups.Powerup;
 import com.eightbitforest.delta.utils.Animator;
 import com.eightbitforest.delta.utils.Colors;
 import com.eightbitforest.delta.utils.Constants;
@@ -27,6 +28,7 @@ public class Player extends GameObjectPolygon {
     private ParticleEmitter thrusterEmitter;
     private ParticleEffect thrusterEffect;
 
+    private boolean invincible = false;
     private boolean dead = false;
 
     private Animator animator;
@@ -105,6 +107,10 @@ public class Player extends GameObjectPolygon {
         this.torque = deltaX * -Constants.PLAYER_TURN_SPEED;
     }
 
+    public void setdV(float dV) {
+        this.dV = dV;
+    }
+
     public float getCurrentDV() {
         return dV;
     }
@@ -156,10 +162,14 @@ public class Player extends GameObjectPolygon {
         } else if (other.getId() == Ids.BLACK_HOLE) {
             animator.lerp(.1f, other.getX(), other.getY());
             die(PlayerDeathStyle.SHRINK_FADE);
-        } else if (other.getId() == Ids.FUEL) {
-            dV = Constants.PLAYER_MAX_DV;
+        } else if (other instanceof Powerup) {
+            ((Powerup) other).activate(this);
             other.remove();
         }
+    }
+
+    public void setInvincible(boolean invincible) {
+        this.invincible = invincible;
     }
 
     public enum PlayerDeathStyle {

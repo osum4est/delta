@@ -36,5 +36,6 @@ public class Constants {
     public static final float ASTEROID_VARIATION = .05f;
 
     public static final float HUD_DV_HEIGHT = 5f;
+    public static final float TEXTURE_RESOLUTION = 1000;
 }
 

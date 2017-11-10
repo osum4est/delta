@@ -600,11 +600,15 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
+    Build: 0
+    Collab: 0
+    ErrorHub: 0
+    Hub: 0
     UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: 0d9cc85f-ed2e-4607-9b1e-4f217d79fd35
-  projectName: Delta (1)
+  cloudProjectId: c26f1487-5dff-4fd7-9c1e-9e9481c3fb8f
+  projectName: Delta
   organizationId: forrest-jones
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
